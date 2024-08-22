@@ -17,7 +17,7 @@ public class JobPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long jobpost_id;
+    private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -34,17 +34,17 @@ public class JobPost {
     @Column(name = "experience")
     private String experience;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employer_id", nullable = false)
-    private Employer employer;
+  //  @ManyToOne(fetch = FetchType.LAZY)
+  //  @JoinColumn(name = "employer_id", nullable = false)
+  //  private Employer employer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_category_id", nullable = false)
+    @JoinColumn(name = "jobcategory_id", nullable = false)
     private JobCategory jobCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_subcategory_id", nullable = false)
-    private JobSubcategory jobSubcategory;
+    @JoinColumn(name = "jobsubcategory_id", nullable = false)
+    private JobSubCategory jobSubcategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
