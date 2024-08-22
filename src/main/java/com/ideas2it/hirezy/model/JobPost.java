@@ -19,17 +19,35 @@ public class JobPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobpost_id;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(length = 1000)
-    private String description;
-
-    @Column(nullable = false)
+    @Column(name = "posted_date", nullable = false)
     private LocalDate postedDate;
 
-//    @ManyToOne
-//    @JoinColumn(name = "company_id", nullable = false)
-//    private Company company;
+    @Column(name = "job_description", nullable = false)
+    private String jobDescription;
+
+    @Column(name = "salary_range")
+    private String salaryRange;
+
+    @Column(name = "experience")
+    private String experience;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employer_id", nullable = false)
+    private Employer employer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_category_id", nullable = false)
+    private JobCategory jobCategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_subcategory_id", nullable = false)
+    private JobSubcategory jobSubcategory;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 
 }
