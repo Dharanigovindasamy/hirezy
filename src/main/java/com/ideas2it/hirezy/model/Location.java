@@ -6,27 +6,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "companies")
+@Table(name = "locations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Company {
+/*
+ *<p>This class is the model for accessing the location
+ *</p>
+@Author Audhithiyah
+* @Version v1
+ */
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long company_id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String state;
 
-    @Column(length = 500)
-    private String description;
+    @Column(nullable = false,unique = true)
+    private String city;
 
-    @Column(nullable = false)
-    private String location;
+    @ManyToOne
+    @JoinColumn(name = "job_post_Id")
+    private JobPost jobPost;
 
-    @Column(unique = true)
-    private String website;
 
 //    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<JobPosting> jobPostings = new HashSet<>();

@@ -17,7 +17,7 @@ public class JobPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long jobpost_id;
 
     @Column(nullable = false)
     private String title;
