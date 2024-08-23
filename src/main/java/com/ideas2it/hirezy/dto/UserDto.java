@@ -1,11 +1,16 @@
 package com.ideas2it.hirezy.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-
+/**
+ * This is the User Dto class which contains Username, Password,PhoneNumber.
+ * @author paari
+ */
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
@@ -14,5 +19,4 @@ public class UserDto {
     private String emailId;
     private String password;
     private String phoneNumber;
-    private String address;
 }
