@@ -1,0 +1,4 @@
+DB_URL=jdbc:mysql://localhost:3306/hirezy
+DB_USERNAME=root
+DB_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver

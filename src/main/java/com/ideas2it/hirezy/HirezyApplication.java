@@ -11,6 +11,7 @@ public class HirezyApplication {
 	private static final Logger logger = LogManager.getLogger(JobCategoryController.class);
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(HirezyApplication.class, args);
 		logger.info("Application Started");
 	}
