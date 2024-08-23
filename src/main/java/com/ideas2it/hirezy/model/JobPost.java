@@ -28,23 +28,16 @@ public class JobPost {
     @Column(name = "job_description", nullable = false)
     private String jobDescription;
 
-    @Column(name = "salary_range")
-    private String salaryRange;
-
     @Column(name = "experience")
     private String experience;
 
-  //  @ManyToOne(fetch = FetchType.LAZY)
-  //  @JoinColumn(name = "employer_id", nullable = false)
-  //  private Employer employer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jobcategory_id", nullable = false)
     private JobCategory jobCategory;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "jobsubcategory_id", nullable = false)
-    private JobSubCategory jobSubcategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

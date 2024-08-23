@@ -15,7 +15,6 @@ import java.util.List;
  * </p>
  * @author paari
  */
-
 @Builder
 @Getter
 @Entity
