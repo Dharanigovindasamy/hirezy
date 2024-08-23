@@ -2,8 +2,6 @@ package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.CompanyDto;
 import com.ideas2it.hirezy.model.Company;
-import com.ideas2it.hirezy.model.User;
-import org.modelmapper.ModelMapper;
 
 public class CompanyMapper {
     Company company = new Company();
