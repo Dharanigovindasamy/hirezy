@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
