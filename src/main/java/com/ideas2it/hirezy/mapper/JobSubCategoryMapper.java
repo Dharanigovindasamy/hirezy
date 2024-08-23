@@ -7,7 +7,7 @@ import com.ideas2it.hirezy.model.JobSubCategory;
  * Mapper for converting between JobSubcategory entity and JobSubcategoryDTO using builder pattern.
  */
 public class JobSubCategoryMapper {
-    public JobSubCategoryDto toDto(JobSubCategory jobSubCategory) {
+    public JobSubCategoryDto maptoJobSubCategoryDto(JobSubCategory jobSubCategory) {
         if (jobSubCategory == null) {
             return null;
         }

@@ -32,10 +32,10 @@ public class JobCategoryController {
     private static final Logger logger = LogManager.getLogger(JobCategoryController.class);
 
     /**
-     * Creates a new employee.
+     * Creates a new JobCategory.
      *
-     * @param jobCategoryDto {@link JobCategoryDto} The DTO containing employee data.
-     * @return The created employee DTO with HTTP status 201 Created.
+     * @param jobCategoryDto {@link JobCategoryDto} The DTO containing JobCategory data.
+     * @return The created JobCategory DTO with HTTP status 201 Created.
      */
     @PostMapping
     public ResponseEntity<JobCategoryDto> addJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
@@ -52,7 +52,7 @@ public class JobCategoryController {
      * @return HTTP status 204 No Content.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDepartment(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteJobCategory(@PathVariable Long id) {
         logger.info("Deleting JobCategory with ID: {}", id);
         jobCategoryService.deleteJobCategory(id);
         logger.info("JobCategory with ID {} deleted successfully", id);
@@ -60,15 +60,15 @@ public class JobCategoryController {
     }
 
     /**
-     * Retrieves a list of all active department.
+     * Retrieves a list of JobCategory.
      *
-     * @return A list of department DTOs with HTTP status 200 OK.
+     * @return A list of JobCategory DTOs with HTTP status 200 OK.
      */
     @GetMapping
     public ResponseEntity<List<JobCategoryDto>> getAllJobCategories() {
         logger.info("Retrieving list of all JobCategory");
         List<JobCategoryDto> jobCategoryDtos = jobCategoryService.getAllJobCategories();
-        logger.info("Retrieved {} departments", jobCategoryDtos.size());
+        logger.info("Retrieved {} JobCategory", jobCategoryDtos.size());
         return new ResponseEntity<>(jobCategoryDtos, HttpStatus.OK);
     }
 
@@ -80,21 +80,21 @@ public class JobCategoryController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<JobCategoryDto> getJobCategoryById(@PathVariable Long id) {
-        logger.info("Retrieving department with ID: {}", id);
+        logger.info("Retrieving JobCategory with ID: {}", id);
         JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(id);
-        logger.info("Retrieved department with ID: {}", id);
+        logger.info("Retrieved JobCategory with ID: {}", id);
         return new ResponseEntity<>(jobCategoryDto, HttpStatus.OK);
     }
 
     /**
-     * Updates an department employee.
+     * Updates an JobCategory.
      *
      * @param id The ID of the jobCategory to be updated.
      * @param jobCategoryDto {@link JobCategoryDto} The DTO containing updated jobCategory data.
      * @return The updated jobCategory DTO with HTTP status 200 OK.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<JobCategoryDto> updateDepartment(@PathVariable Long id, @RequestBody JobCategoryDto jobCategoryDto) {
+    public ResponseEntity<JobCategoryDto> updateJobCategory(@PathVariable Long id, @RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Updating jobCategory with ID: {}", id);
         JobCategoryDto updatedjobCategoryDto = jobCategoryService.updateJobCategory(id, jobCategoryDto);
         logger.info("Updated jobCategory with ID: {}", id);
