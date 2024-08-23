@@ -41,5 +41,5 @@ public class JobPost {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+    private Employer employer;
 }

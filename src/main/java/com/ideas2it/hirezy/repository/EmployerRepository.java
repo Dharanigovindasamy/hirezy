@@ -1,7 +1,6 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.mapper.CompanyMapper;
-import com.ideas2it.hirezy.model.Company;
+import com.ideas2it.hirezy.model.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,19 +14,19 @@ import java.util.List;
 * @Version v1
  */
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Long> {
+public interface EmployerRepository extends JpaRepository<Employer, Long> {
     /**
      * <p>
      *This method is used to display departments that are found to be soft deleted
      * </p>
      */
-    List<Company> findByIsDeletedFalse();
+    List<Employer> findByIsDeletedFalse();
     /**
      * <p>
      *This method is returns a single department that is soft deleted
      * </p>
      */
-    Company findByIsDeletedFalseAndId(int companyId);
+    Employer findByIsDeletedFalseAndId(int companyId);
 
     /**
      * <p>
