@@ -16,7 +16,6 @@ public class JobCategoryMapper {
         return JobCategoryDto.builder()
                 .id(jobCategory.getId())
                 .name(jobCategory.getName())
-
                 .build();
     }
 

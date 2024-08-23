@@ -30,6 +30,4 @@ public class Employer {
 
     private boolean isDeleted = false;
 
-//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<JobPosting> jobPostings = new HashSet<>();
 }

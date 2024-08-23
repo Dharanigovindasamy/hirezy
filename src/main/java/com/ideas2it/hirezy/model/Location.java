@@ -2,20 +2,21 @@ package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+ *<p>This class is the model for accessing the location
+ *</p>
+ *@Author Audhithiyah
+ */
 @Entity
 @Table(name = "locations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-/*
- *<p>This class is the model for accessing the location
- *</p>
-@Author Audhithiyah
-* @Version v1
- */
+@Builder
 public class Location {
 
     @Id
@@ -28,11 +29,4 @@ public class Location {
     @Column(nullable = false,unique = true)
     private String city;
 
-//    @ManyToOne
-//    @JoinColumn(name = "job_post_Id")
-//    private JobPost jobPost;
-
-
-//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<JobPosting> jobPostings = new HashSet<>();
 }
