@@ -17,6 +17,7 @@ import lombok.Setter;
 
 import java.util.Set;
 
+
 /**
  * This entity is used to categorize jobs under broad categories like IT jobs, Sales Jobs,etc.
  * Each JobCategory can have multiple JobSubcategories associated with it.

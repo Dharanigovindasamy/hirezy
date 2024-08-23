@@ -35,6 +35,7 @@ public class JobApplication {
     @Column(name = "applied_date")
     private LocalDateTime AppliedDate;
 
+
   //  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    // @JoinColumn(name = "employee_id")
   //  private Employee employee;
