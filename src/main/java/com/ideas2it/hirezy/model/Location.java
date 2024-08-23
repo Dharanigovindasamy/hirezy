@@ -28,9 +28,9 @@ public class Location {
     @Column(nullable = false,unique = true)
     private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "job_post_Id")
-    private JobPost jobPost;
+//    @ManyToOne
+//    @JoinColumn(name = "job_post_Id")
+//    private JobPost jobPost;
 
 
 //    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)

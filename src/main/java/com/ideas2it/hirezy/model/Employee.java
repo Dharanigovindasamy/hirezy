@@ -1,5 +1,7 @@
 package com.ideas2it.hirezy.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,15 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
-@Entity
-@Table(name = "employee_profiles")
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 
 /**
  * <p>
@@ -29,14 +22,22 @@ import java.time.LocalDate;
  * </p>
  *
  * @author Dharani Govindhasamy
+ * @version 1
  */
-public class EmployeeProfiles {
+@Entity
+@Table(name = "employees")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long employeeId;
 
-    @Column(name = "date_of_birth", nullable = false, unique = true)
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @Column(name = "resume", nullable = false)
@@ -45,7 +46,7 @@ public class EmployeeProfiles {
     @Column(name = "photo",  nullable = false)
     private String photo;
 
-    @Column(name = "city",  nullable = false, unique = true)
+    @Column(name = "city",  nullable = false)
     private String city;
 
     @Column(name = "qualification", nullable = false)
@@ -57,6 +58,9 @@ public class EmployeeProfiles {
     @Column(name = "year_of_pass_out", nullable = false)
     private int yearOfPassOut;
 
+    @Column(name = "work_mode", nullable = false)
+    private String workMode;
+
     @Column(name = "year_of_experience", nullable = false)
     private int yearOfExperience;
 
@@ -67,13 +71,10 @@ public class EmployeeProfiles {
     private String designation;
 
     @Column(name = "company_city", nullable = false)
-    private String CompanyCity;
-
-    @Column(name = "work_mode", nullable = false)
-    private String workMode;
+    private String companyCity;
 
     @Column(name = "notice_period", nullable = false)
-    private String noticePeriod;
+    private int noticePeriod;
 
     @Column(name = "is_removed")
     private boolean isRemoved;
