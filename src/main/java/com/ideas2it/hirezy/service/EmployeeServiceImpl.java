@@ -59,7 +59,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto retrieveEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId);
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
+
         if(null == employee) {
             logger.warn("No employee under this employee id {}", employeeId);
             return null;
@@ -69,7 +71,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(Long employeeId, EmployeeDto employeeDto) {
-        Employee employee = employeeRepository.findById(employeeId);
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
         if(null == employee) {
             logger.warn("No employee under in employee id {}", employeeId);
             return null;
@@ -96,8 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow() -> new ResourceNotFoundException("Employee not found" + employeeId);
-
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
         if (null == employee) {
             logger.warn("No employee found in employee id {}", employeeId);
         }

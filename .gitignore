@@ -3,11 +3,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-<<<<<<< HEAD
-/src/main/resources/.env
-=======
-!/src/main/resources/env
->>>>>>> 0ea1c63 (Fixed: completed CRUD for companies)
 
 ### STS ###
 .apt_generated
