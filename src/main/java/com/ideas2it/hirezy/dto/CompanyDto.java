@@ -17,7 +17,7 @@ public class CompanyDto {
 
     private String description;
 
-    private String location;
+    private String industryType;
 
-    private String website;
+    private String companyType;
 }

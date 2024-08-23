@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Builder
 @Getter
 @Entity
-@Table(name = "companies")
+@Table(name = "employer_details")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +23,11 @@ public class Company {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "company_type")
+    private String companyType;
 
-    @Column(name = "website")
-    private String website;
+    @Column(name = "industry_type")
+    private String industryType;
 
     private boolean isDeleted = false;
 
