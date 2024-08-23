@@ -1,10 +1,11 @@
 package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Builder
+@Getter
 @Entity
 @Table(name = "companies")
 @Data
@@ -14,19 +15,23 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long company_id;
+    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(name = "name")
+    private String companyName;
 
-    @Column(length = 500)
+    @Column(name = "description")
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "location")
     private String location;
 
-    @Column(unique = true)
+    @Column(name = "website")
     private String website;
+
+    private boolean isDeleted = false;
+
+
 
 //    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<JobPosting> jobPostings = new HashSet<>();

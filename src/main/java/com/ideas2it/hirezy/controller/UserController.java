@@ -9,8 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/users")
 public class UserController {
 
+<<<<<<< HEAD
    // @PostMapping
     //public ResponseEntity<Void> createUser(){
 
   //  }
+=======
+  //  @PostMapping
+  //  public ResponseEntity<Void> createUser(){
+
+   // }
+>>>>>>> 0ea1c63 (Fixed: completed CRUD for companies)
 }
