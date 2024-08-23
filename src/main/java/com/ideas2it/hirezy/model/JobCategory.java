@@ -22,8 +22,8 @@ public class JobCategory {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<JobSubcategory> subcategories;
+//    @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<JobSubcategory> subcategories;
 
 
 }

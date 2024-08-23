@@ -20,8 +20,8 @@ public class JobSubcategory {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_category_id", nullable = false)
-    private JobCategory jobCategory;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "job_category_id", nullable = false)
+//    private JobCategory jobCategory;
 
 }
