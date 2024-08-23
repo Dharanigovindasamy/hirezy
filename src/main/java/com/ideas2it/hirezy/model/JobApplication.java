@@ -10,24 +10,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * <p>
+ *    This class used for after filling the job applications by employee,
+ *    can access the applications by employer by editing the status and viewed by employee
+ *    along with applied date and status
+ *
+ * </p>
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Entity
-@Table(name = "job_application")
+@Table(name = "job_applications")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "status")
     private String status;
@@ -35,6 +43,8 @@ public class JobApplication {
     @Column(name = "applied_date")
     private LocalDateTime AppliedDate;
 
+    @Column
+    private boolean isActive;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
@@ -43,5 +53,4 @@ public class JobApplication {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "job_id")
     private JobPost jobPost;
-
 }

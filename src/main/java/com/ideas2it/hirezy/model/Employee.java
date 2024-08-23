@@ -2,12 +2,7 @@ package com.ideas2it.hirezy.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,16 +32,19 @@ public class Employee {
     @Column(name = "id")
     private long employeeId;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @Column(name = "resume", nullable = false)
     private String resume;
 
-    @Column(name = "photo",  nullable = false)
-    private String photo;
+    @Column(name = "contact_mail", nullable = false)
+    private String contactMail;
 
-    @Column(name = "city",  nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
 
     @Column(name = "qualification", nullable = false)
@@ -79,4 +77,10 @@ public class Employee {
     @Column(name = "is_removed")
     private boolean isRemoved;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @OneToMany(mappedBy = "job_application", fetch = FetchType.EAGER)
+    private JobApplication jobApplication;
 }

@@ -15,11 +15,18 @@ import com.ideas2it.hirezy.model.Employee;
 
 public class EmployeeMapper {
 
+    /**
+     * <p>
+     *     This method used to convert EmployeeDto profile into employee entity and set the values
+     * @param employeeDto - employeeDto given from user
+     * @return Employee - employee entity
+     * </p.
+     */
     public static Employee mapDtoToEntity (EmployeeDto employeeDto) {
         Employee employee = new Employee();
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setResume(employeeDto.getResume());
-        employee.setPhoto(employeeDto.getPhoto());
+        employee.setName(employeeDto.getName());
         employee.setCity(employeeDto.getCompanyCity());
         employee.setQualification(employeeDto.getQualification());
         employee.setPercentage(employeeDto.getPercentage());
@@ -33,11 +40,19 @@ public class EmployeeMapper {
         return employee;
     }
 
+    /**
+     * <p>
+     *     This method used for converting entity into Dto to the user
+     * </p>
+     *
+     * @param employee
+     * @return
+     */
     public static EmployeeDto mapEntityToDto (Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
         employeeDto.setResume(employee.getResume());
-        employeeDto.setPhoto(employee.getPhoto());
+        employeeDto.setName(employee.getName());
         employeeDto.setCity(employee.getCompanyCity());
         employeeDto.setQualification(employee.getQualification());
         employeeDto.setPercentage(employee.getPercentage());

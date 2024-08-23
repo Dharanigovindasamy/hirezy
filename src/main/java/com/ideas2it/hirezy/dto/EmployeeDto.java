@@ -16,10 +16,11 @@ import java.time.LocalDate;
 
 /**
  * <p>
- *
+ *  This class used for adding employee profile detials into the database table by giving the data from user as Http json format
  * </p>
  *
  * @author dharani.govindhasamy
+ * @version 1
  */
 @Builder
 @Getter
@@ -28,15 +29,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmployeeDto {
     private long id;
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z\\s]+$")
+    private String name;
+
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    //@NotNull
+    @NotNull
     private LocalDate dateOfBirth;
-  //  private int age;
+    private int age;
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String resume;
 
-    private String photo;
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid city")
     private String city;
@@ -51,8 +55,7 @@ public class EmployeeDto {
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter work mode")
     private String workMode;
     @NotNull
-    //@Size(min = 1, max = 30,
-     //       message= "Experience should be 0 to 30 years")
+    @Size(min = 1, max = 30, message= "Experience should be 0 to 30 years")
     private int yearOfExperience;
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter current company")

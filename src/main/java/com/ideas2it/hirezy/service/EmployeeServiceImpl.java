@@ -17,7 +17,7 @@ import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapEntityToDto;
 
 /**
  * <p>
- *     This class used for business logic of employee applicants profile
+ *     This class used for business logic of job applicants profile like CRUD operations in employee ,etc..
  *   and convert the json data into http data
  * </p>
  *
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         } else {
             employee.setDateOfBirth(employeeDto.getDateOfBirth());
             employee.setResume(employeeDto.getResume());
-            employee.setPhoto(employeeDto.getPhoto());
+            employee.setName(employeeDto.getName());
             employee.setCity(employeeDto.getCompanyCity());
             employee.setQualification(employeeDto.getQualification());
             employee.setPercentage(employeeDto.getPercentage());
