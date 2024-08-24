@@ -29,7 +29,10 @@ public class Employer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name="name")
+    private String name;
+
+    @Column(name = "comapny_name")
     private String companyName;
 
     @Column(name = "description")

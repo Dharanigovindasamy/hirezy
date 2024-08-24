@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.ideas2it.hirezy.mapper.JobApplicationMapper.mapToJobApplication;
 import static com.ideas2it.hirezy.mapper.JobApplicationMapper.mapToJobApplicationDto;
@@ -94,4 +95,15 @@ public class JobApplicationServiceImpl implements JobApplicationService{
             jobApplicationRepository.save(jobApplication);
             logger.info("Employee id deleted successfully {} ", id);
         }
+
+    public JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus) {
+        Optional<JobApplication> optionalJobApplication = jobApplicationRepository.findById(jobApplicationId);
+        if (optionalJobApplication.isPresent()) {
+            JobApplication jobApplication = optionalJobApplication.get();
+            jobApplication.setStatus(newStatus);
+            return jobApplicationRepository.save(jobApplication);
+        } else {
+            throw new RuntimeException("Job Application not found with id: " + jobApplicationId);
+        }
+    }
 }

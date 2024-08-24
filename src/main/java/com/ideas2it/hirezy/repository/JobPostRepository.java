@@ -18,5 +18,5 @@ import java.util.List;
  */
 @Repository
 public interface JobPostRepository extends JpaRepository<JobPost, Long> {
-
+    List<JobPost> findByEmployerId(Long employerId);
 }

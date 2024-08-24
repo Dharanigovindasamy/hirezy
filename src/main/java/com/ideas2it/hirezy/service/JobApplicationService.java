@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.service;
 import java.util.List;
 
 import com.ideas2it.hirezy.dto.JobApplicationDto;
+import com.ideas2it.hirezy.model.JobApplication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -52,4 +53,6 @@ public interface JobApplicationService {
       *
       */
       JobApplicationDto getJobApplicationById(Long id);
+
+    JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus);
 }

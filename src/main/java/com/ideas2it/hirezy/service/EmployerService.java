@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.service;
 
 import com.ideas2it.hirezy.dto.EmployerDto;
+import com.ideas2it.hirezy.dto.JobPostDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,18 +12,18 @@ public interface EmployerService {
       * This method will create a company in the portal
       * @param employerDto
       */
-     EmployerDto createCompany(EmployerDto employerDto);
+     EmployerDto createEmployer(EmployerDto employerDto);
 
      /**
       *This method gets all the companies that are present
       */
-     public List<EmployerDto> getAllCompanies();
+     public List<EmployerDto> getAllEmployer();
 
      /**
       * This method is used to delete an company from the portal
       * @param id
       */
-     public void removeCompany(int id);
+     public void removeEmployer(int id);
 
      /**
       * This method is used to alter the company details in the portal
@@ -30,12 +31,19 @@ public interface EmployerService {
       * @param employerDto
       * @return
       */
-     public EmployerDto updateCompany(int id, EmployerDto employerDto);
+     public EmployerDto updateEmployer(int id, EmployerDto employerDto);
 
      /**
       * This method is used to get the company based on the id
       * @param id
       * @return
       */
-     public EmployerDto getCompanyById(int id);
+     public EmployerDto getEmployerById(int id);
+
+     JobPostDto createJobPost(long employerId, JobPostDto jobPostDto);
+
+     JobPostDto updateJobPost(Long jobId, JobPostDto jobPostDto);
+
+     void deleteJobPost(Long jobId);
+     List<JobPostDto> getAllJobPostsByEmployer(Long employerId);
 }

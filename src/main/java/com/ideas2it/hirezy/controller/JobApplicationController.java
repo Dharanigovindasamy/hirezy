@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.controller;
 
 import com.ideas2it.hirezy.dto.JobApplicationDto;
+import com.ideas2it.hirezy.model.JobApplication;
 import com.ideas2it.hirezy.service.JobApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +91,15 @@ public class JobApplicationController {
     public ResponseEntity<Void> removeJobApplication(@PathVariable("id") Long id) {
         jobApplicationService.removeJobApplication(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{employerId}/job-applications/{jobApplicationId}/status")
+    public ResponseEntity<JobApplication> updateJobApplicationStatus(
+            @PathVariable Long employerId,
+            @PathVariable Long jobApplicationId,
+            @RequestParam String newStatus) {
+        // Call the service to update the status
+        JobApplication updatedJobApplication = jobApplicationService.updateJobApplicationStatus(jobApplicationId, newStatus);
+        return ResponseEntity.ok(updatedJobApplication);
     }
 }

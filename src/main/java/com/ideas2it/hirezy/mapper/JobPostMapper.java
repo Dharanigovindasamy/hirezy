@@ -3,8 +3,7 @@ package com.ideas2it.hirezy.mapper;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.model.JobPost;
 
-import static com.ideas2it.hirezy.mapper.EmployerMapper.ConvertDtoToEntity;
-import static com.ideas2it.hirezy.mapper.EmployerMapper.ConvertEntityToDto;
+import static com.ideas2it.hirezy.mapper.EmployerMapper.*;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapToJobCategory;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapTojobCategoryDto;
 import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocation;
@@ -26,7 +25,7 @@ public class JobPostMapper {
                 .experience(jobPost.getExperience())
                 .location(mapToLocationDto(jobPost.getLocation()))
                 .jobCategory(jobPost.getJobCategory() != null ? mapTojobCategoryDto(jobPost.getJobCategory()) : null)
-                .employer(jobPost.getEmployer() != null ? ConvertEntityToDto(jobPost.getEmployer()) : null)
+                .employer(jobPost.getEmployer() != null ? convertEntityToDto(jobPost.getEmployer()) : null)
                 .build();
     }
 
@@ -43,7 +42,7 @@ public class JobPostMapper {
                 .experience(jobPostDto.getExperience())
                 .location(mapToLocation(jobPostDto.getLocation()))
                 .jobCategory(jobPostDto.getJobCategory() != null ? mapToJobCategory(jobPostDto.getJobCategory()) : null)
-                .employer(jobPostDto.getEmployer() != null ? ConvertDtoToEntity(jobPostDto.getEmployer()) : null)
+                .employer(jobPostDto.getEmployer() != null ? convertDtoToEntity(jobPostDto.getEmployer()) : null)
                 .build();
     }
 }

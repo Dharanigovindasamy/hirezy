@@ -6,8 +6,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class EmployerDto {
     private Long Id;
+
+    private String name;
 
     private String companyName;
 
