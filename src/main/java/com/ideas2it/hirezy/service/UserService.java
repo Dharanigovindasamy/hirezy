@@ -1,15 +1,19 @@
 package com.ideas2it.hirezy.service;
 
 import com.ideas2it.hirezy.dto.UserDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
 
 
-    void saveUser(UserDto userDto);
+    String saveUser(UserDto userDto);
 
-    UserDto retrieveUser();
+    String generateUserToken(UserDto userDto);
 
-    void updateUSer();
-
-    void deleteUSer();
+//    UserDto retrieveUser();
+//
+//    void updateUSer();
+//
+//    void deleteUSer();
 }

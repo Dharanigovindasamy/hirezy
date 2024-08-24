@@ -6,12 +6,13 @@ import lombok.Getter;
 /**
  * This is the Dto class for Role.
  * It contains the roleId and roleName.
+ * @author paari
  */
 @Builder
 @Getter
 public class RoleDto {
 
-    private Long id;
-    private  String roleName;
+    private long id;
+    private String roleName;
 
 }

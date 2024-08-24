@@ -1,8 +1,7 @@
 package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,15 +14,19 @@ import java.util.List;
  * </p>
  * @author paari
  */
+
 @Builder
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private long ID;
 
     @Column(name = "name")
     private String userName;
