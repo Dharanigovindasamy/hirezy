@@ -70,14 +70,13 @@ public class JobApplicationController {
      * <p>
      *     Update Job Application Dto by checking with JobApplication id
      *
-     * @param id - Id of the job application
      * @param jobApplicationDto - {@link JobApplicationDto}
      * @return JobApplicationDto - job application dto of the respective id
      * </p>
      */
     @PutMapping("/{id}")
-    public ResponseEntity<JobApplicationDto> updateJobApplication(@PathVariable("id") Long id, @RequestBody JobApplicationDto jobApplicationDto) {
-        jobApplicationDto = jobApplicationService.updateJobApplication(id, jobApplicationDto);
+    public ResponseEntity<JobApplicationDto> updateJobApplication(@RequestBody JobApplicationDto jobApplicationDto) {
+        jobApplicationDto = jobApplicationService.updateJobApplication(jobApplicationDto);
         return new ResponseEntity<>(jobApplicationDto, HttpStatus.OK);
     }
 

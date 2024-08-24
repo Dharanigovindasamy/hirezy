@@ -3,6 +3,19 @@ package com.ideas2it.hirezy.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
+/**
+ * <p>
+ *     This class used for entity of employer details contains company details
+ * that has to be used for job post
+ *
+ * </p>
+ *
+ *
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Builder
 @Getter
 @Entity
@@ -29,5 +42,8 @@ public class Employer {
     private String industryType;
 
     private boolean isDeleted = false;
+
+    @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER)
+    private List<JobPost> jobPost;
 
 }

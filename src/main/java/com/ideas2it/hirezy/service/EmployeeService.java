@@ -50,12 +50,11 @@ public interface EmployeeService {
       * <p>
       *     Updating employee profile by giving employeeId
       *
-      * @param employeeId - employee Id of the employee user
       * @param employeeDto - {@link EmployeeDto} employeeDto data which to be updated
       * @return employeeDto - updated Employee profiles sent to the user
       * </p>
       */
-     EmployeeDto updateEmployee(Long employeeId, EmployeeDto employeeDto);
+     EmployeeDto updateEmployee(EmployeeDto employeeDto);
 
      /**
       * <p>

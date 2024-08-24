@@ -67,17 +67,18 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         }
 
         @Override
-        public JobApplicationDto updateJobApplication(Long id, JobApplicationDto jobApplicationDto) {
-            JobApplication jobApplication = jobApplicationRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Job application not found" + id));
+        public JobApplicationDto updateJobApplication(JobApplicationDto jobApplicationDto) {
+            JobApplicationDto finalJobApplicationDto = jobApplicationDto;
+            JobApplication jobApplication = jobApplicationRepository.findById(jobApplicationDto.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Job application not found" + finalJobApplicationDto.getId()));
             if(null == jobApplication) {
-                logger.warn("No job application under in this id {}", id);
+                logger.warn("No job application under in this id {}", jobApplicationDto.getId());
                 return null;
             } else {
                 jobApplication.setStatus(jobApplicationDto.getStatus());
                 jobApplication.setAppliedDate(jobApplicationDto.getAppliedDate());
                 jobApplicationDto = mapToJobApplicationDto(jobApplicationRepository.save(jobApplication));
-                logger.info("Job application details updated successfully {}", id);
+                logger.info("Job application details updated successfully {}", jobApplicationDto.getId());
             }
             return jobApplicationDto;
         }

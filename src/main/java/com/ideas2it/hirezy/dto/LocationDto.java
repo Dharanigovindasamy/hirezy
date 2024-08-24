@@ -6,6 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * <p>
+ *     This class used as location entity details
+ *
+ * </p>
+ *
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

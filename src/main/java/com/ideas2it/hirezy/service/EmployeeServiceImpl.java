@@ -71,11 +71,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto updateEmployee(Long employeeId, EmployeeDto employeeDto) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
+    public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
+        EmployeeDto finalEmployeeDto = employeeDto;
+        Employee employee = employeeRepository.findById(employeeDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + finalEmployeeDto.getId()));
         if(null == employee) {
-            logger.warn("No employee under in employee id {}", employeeId);
+            logger.warn("No employee under in employee id {}", employeeDto.getId());
             return null;
         } else {
             employee.setDateOfBirth(employeeDto.getDateOfBirth());
@@ -92,7 +93,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setCompanyCity(employeeDto.getCompanyCity());
             employee.setNoticePeriod(employeeDto.getNoticePeriod());
             employeeDto = mapEntityToDto(employeeRepository.save(employee));
-            logger.info("Employee details updated successfully {}", employeeId);
+            logger.info("Employee details updated successfully {}", employeeDto.getId());
         }
         return employeeDto;
     }

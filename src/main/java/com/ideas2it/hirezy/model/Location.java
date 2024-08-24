@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /*
  *<p>This class is the model for accessing the location
  *</p>
@@ -28,5 +30,11 @@ public class Location {
 
     @Column(nullable = false,unique = true)
     private String city;
+
+    @Column(nullable = false)
+    private boolean isActive;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
+    private List<JobPost> jobPost;
 
 }

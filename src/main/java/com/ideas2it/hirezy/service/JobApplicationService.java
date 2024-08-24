@@ -37,12 +37,11 @@ public interface JobApplicationService {
      /**
       * <p>
       *     This method is used to update the job application status
-      * @param id - job application id of the application
       * @param jobApplicationDto - the application data want to be updated
       * @return JobApplicationDto - the updated job application data
       * </p>
       */
-      JobApplicationDto updateJobApplication(Long id, JobApplicationDto jobApplicationDto);
+      JobApplicationDto updateJobApplication(JobApplicationDto jobApplicationDto);
 
      /**
       * <p>

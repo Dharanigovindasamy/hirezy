@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -82,5 +83,5 @@ public class Employee {
     private User user;
 
     @OneToMany(mappedBy = "job_application", fetch = FetchType.EAGER)
-    private JobApplication jobApplication;
+    private List<JobApplication> jobApplication;
 }
