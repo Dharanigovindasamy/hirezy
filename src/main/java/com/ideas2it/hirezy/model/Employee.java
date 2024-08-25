@@ -82,11 +82,6 @@ public class Employee {
     @JoinColumn(name = "userId")
     private User user;
 
-<<<<<<< HEAD
-    @OneToMany(mappedBy = "job_application", fetch = FetchType.EAGER)
-    private List<JobApplication> jobApplication;
-=======
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobApplication> jobApplications;
->>>>>>> 2776b21 (Fix :employer modules and jobpost)
 }

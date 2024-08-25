@@ -1,25 +1,31 @@
 package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 /**
  * This is the Role class which will define the user role.
+ * It contains the roleId and the role name.
  * @author paari
  */
-@Entity
-@Table(name = "Role")
 @Builder
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "Roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    private long Id;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum roleName;
+    @Column(name = "role_name")
+    private String roleName;
+
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
 }

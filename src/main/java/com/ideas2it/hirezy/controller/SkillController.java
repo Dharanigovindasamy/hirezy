@@ -54,7 +54,7 @@ public class SkillController {
      *     It contains the Single skill.
      */
     @GetMapping("/{skillId}")
-    public ResponseEntity<SkillDto> getSkillById(@PathVariable int skillId) {
+    public ResponseEntity<SkillDto> getSkillById(@PathVariable long skillId) {
 
         return new ResponseEntity<>(skillService.retrieveSkillById(skillId),HttpStatus.OK);
     }
@@ -79,7 +79,7 @@ public class SkillController {
      *     It will return success if deleted else return error.
      */
     @DeleteMapping("/{skillId}")
-    public ResponseEntity<String> deleteSkillById(@PathVariable int skillId){
+    public ResponseEntity<String> deleteSkillById(@PathVariable long skillId){
         if (skillService.deleteSkill(skillId)) {
             return new ResponseEntity<>("Skill Id - " + skillId + " deleted successfully", HttpStatus.OK);
         }

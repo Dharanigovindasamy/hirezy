@@ -1,8 +1,7 @@
 package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +20,10 @@ import java.util.List;
  */
 @Builder
 @Getter
+@Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -42,20 +44,15 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @Column(name = "is_active")
-    private boolean isActive = false;
+    private boolean isActive = true;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRoleName().toString()));
+        return List.of(new SimpleGrantedAuthority(role.getRoleName()));
     }
 
     @Override
@@ -68,23 +65,4 @@ public class User implements UserDetails {
         return emailId;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
