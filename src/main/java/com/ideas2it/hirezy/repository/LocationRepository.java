@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -18,4 +19,5 @@ import java.util.List;
 public interface LocationRepository extends CrudRepository<Location ,Long> {
     List<Location> findByIsActiveFalse();
     Location findByIdAndIsActiveFalse(Long id);
+    Optional<Location> findByStateAndCity(String state, String city);
 }
