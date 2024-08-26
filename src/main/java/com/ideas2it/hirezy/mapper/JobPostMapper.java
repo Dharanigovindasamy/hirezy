@@ -20,6 +20,7 @@ public class JobPostMapper {
         jobPostDto.setTitle(jobPost.getTitle());
         jobPostDto.setJobDescription(jobPost.getJobDescription());
         jobPostDto.setPostedDate(jobPost.getPostedDate());
+        jobPostDto.setEmployerId(jobPostDto.getEmployerId());
 
         if (jobPost.getLocation() != null) {
             jobPostDto.setState(jobPost.getLocation().getState());

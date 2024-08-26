@@ -12,11 +12,6 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public Role retrieveRoleByName(String roleName) {
-        for (Role role : roleRepository.findAll()) {
-            if(role.getRoleName().matches(roleName.toUpperCase())) {
-                return role;
-            }
-        }
-        return null;
+        return roleRepository.findRoleByRoleName("ROLE_"+roleName.toUpperCase());
     }
 }
