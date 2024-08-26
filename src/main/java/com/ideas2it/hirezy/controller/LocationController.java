@@ -96,7 +96,7 @@ public class LocationController {
      *
      * @param id - locationId of the location
      */
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable("id")Long id) {
         locationService.deleteLocation(id);
         logger.info("Location can be deleted successfully {}", id);

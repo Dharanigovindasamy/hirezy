@@ -1,6 +1,5 @@
 package com.ideas2it.hirezy.dto;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 
 /**
  * <p>
- *  This class used for adding employee profile detials into the database table by giving the data from user as Http json format
+ *  This class used for adding employee profile details into the database table by giving the data from user as Http json format
  * </p>
  *
  * @author dharani.govindhasamy
@@ -40,6 +39,10 @@ public class EmployeeDto {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String resume;
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z\\s]+$")
+    private String contactMail;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid city")

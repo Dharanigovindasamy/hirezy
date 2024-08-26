@@ -81,14 +81,12 @@ public class EmployeeController {
      * <p>
      *     Update employee by checking with employee id
      *
-     * @param employeeId - employeeId of the employee
      * @param employeeDto - {@link EmployeeDto}
-     * @return EmployeeDto -
-     * if employee id not contains shows warning, otherwise it updates
-     * If error occurs while updating, shows exception otherwise, it updates</p>
+     * @return EmployeeDto - employeeDto to the user
+     * /p>
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id") Long employeeId, @RequestBody EmployeeDto employeeDto) {
+    @PutMapping
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         employeeDto = employeeService.updateEmployee(employeeDto);
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }

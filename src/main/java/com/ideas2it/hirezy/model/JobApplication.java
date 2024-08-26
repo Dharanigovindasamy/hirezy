@@ -44,7 +44,7 @@ public class JobApplication {
     private LocalDateTime AppliedDate;
 
     @Column
-    private boolean isActive;
+    private boolean isActive = false;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")

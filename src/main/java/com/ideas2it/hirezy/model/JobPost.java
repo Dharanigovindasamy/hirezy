@@ -1,6 +1,5 @@
 package com.ideas2it.hirezy.model;
 
-
 import java.time.LocalDate;
 import java.util.List;
 

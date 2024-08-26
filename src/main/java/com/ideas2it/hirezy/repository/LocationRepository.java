@@ -4,7 +4,7 @@ import com.ideas2it.hirezy.model.Location;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * <p>
@@ -15,6 +15,7 @@ import java.util.Optional;
  * @version 1
  */
 @Repository
-public interface LocationRepository extends CrudRepository<Location , Long> {
-    Optional<Location> findByStateAndCity(String state, String city);
+public interface LocationRepository extends CrudRepository<Location ,Long> {
+    List<Location> findByIsActiveFalse();
+    Location findByIdAndIsActiveFalse(Long id);
 }

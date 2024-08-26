@@ -41,6 +41,6 @@ public class JobSubCategory {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "jobcategory_id", nullable = false)
+    @JoinColumn(name = "jobcategory_id")
     private JobCategory jobCategory;
 }

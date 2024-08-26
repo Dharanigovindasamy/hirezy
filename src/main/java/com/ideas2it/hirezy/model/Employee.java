@@ -69,7 +69,7 @@ public class Employee {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-    @Column(name = "company_city", nullable = false)
+        @Column(name = "company_city", nullable = false)
     private String companyCity;
 
     @Column(name = "notice_period", nullable = false)

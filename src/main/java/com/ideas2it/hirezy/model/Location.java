@@ -32,7 +32,7 @@ public class Location {
     private String city;
 
     @Column(nullable = false)
-    private boolean isActive;
+    private boolean isActive = false;
 
     @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
     private List<JobPost> jobPost;

@@ -11,8 +11,6 @@ import java.util.List;
  * that has to be used for job post
  *
  * </p>
- *
- *
  * @author dharani.govindhasamy
  * @version 1
  */

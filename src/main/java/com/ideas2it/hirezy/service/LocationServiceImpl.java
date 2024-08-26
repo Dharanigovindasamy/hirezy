@@ -33,6 +33,10 @@ public class LocationServiceImpl implements LocationService {
 
     private static final Logger logger = LogManager.getLogger();
 
+    public LocationServiceImpl(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
+    }
+
     @Override
     public LocationDto addLocation(LocationDto locationDto) {
         Location location = mapToLocation(locationDto);
@@ -43,7 +47,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<LocationDto> displayLocation() {
         List<LocationDto> locationDtos = new ArrayList<>();
-        List<Location> locations = (List<Location>) locationRepository.findAll();
+        List<Location> locations = locationRepository.findByIsActiveFalse();
         for(Location location : locations) {
             LocationDto locationDto = mapToLocationDto(location);
             locationDtos.add(locationDto);
