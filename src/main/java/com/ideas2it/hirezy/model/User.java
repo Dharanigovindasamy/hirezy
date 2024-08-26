@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long Id;
 
     @Column(name = "name")
     private String userName;
@@ -46,7 +46,7 @@ public class User implements UserDetails {
     @Column(name = "is_active")
     private boolean isActive = true;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 

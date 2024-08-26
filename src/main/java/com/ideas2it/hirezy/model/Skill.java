@@ -28,4 +28,5 @@ public class Skill {
 
     @Column(name = "is_active")
     private boolean isActive = true;
+
 }
