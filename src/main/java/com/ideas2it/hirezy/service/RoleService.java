@@ -11,6 +11,14 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+    public void addRoles(){
+        if(roleRepository.findById(1L).isEmpty()) {
+            roleRepository.save(Role.builder().roleName("ADMIN").build());
+            roleRepository.save(Role.builder().roleName("EMPLOYER").build());
+            roleRepository.save(Role.builder().roleName("EMPLOYEE").build());
+        }
+    }
+
     public Role retrieveRoleByName(String roleName) {
         return roleRepository.findRoleByRoleName("ROLE_"+roleName.toUpperCase());
     }

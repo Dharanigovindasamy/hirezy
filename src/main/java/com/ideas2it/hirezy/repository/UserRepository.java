@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
     String getUserWithRole = "FROM User u LEFT JOIN FETCH u.role";
 
-
+ String getUserWIthRole = "FROM User u LEFT JOIN FETCH u.role";
     Optional<User> findByEmailId(String email);
 }
