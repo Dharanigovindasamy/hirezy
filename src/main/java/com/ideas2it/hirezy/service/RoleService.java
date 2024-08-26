@@ -13,9 +13,9 @@ public class RoleService {
 
     public void addRoles(){
         if(roleRepository.findById(1L).isEmpty()) {
-            roleRepository.save(Role.builder().roleName("ADMIN").build());
-            roleRepository.save(Role.builder().roleName("EMPLOYER").build());
-            roleRepository.save(Role.builder().roleName("EMPLOYEE").build());
+            roleRepository.save(Role.builder().roleName("ROLE_ADMIN").build());
+            roleRepository.save(Role.builder().roleName("ROLE_EMPLOYER").build());
+            roleRepository.save(Role.builder().roleName("ROLE_EMPLOYEE").build());
         }
     }
 
