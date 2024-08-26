@@ -32,7 +32,7 @@ public class Employer {
     @Column(name="name")
     private String name;
 
-    @Column(name = "comapny_name")
+    @Column(name = "company_name")
     private String companyName;
 
     @Column(name = "description")

@@ -98,7 +98,6 @@ public class JobApplicationController {
             @PathVariable Long employerId,
             @PathVariable Long jobApplicationId,
             @RequestParam String newStatus) {
-        // Call the service to update the status
         JobApplication updatedJobApplication = jobApplicationService.updateJobApplicationStatus(jobApplicationId, newStatus);
         return ResponseEntity.ok(updatedJobApplication);
     }

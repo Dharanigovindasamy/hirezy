@@ -22,12 +22,9 @@ import java.util.Set;
  * This entity is used to categorize jobs under broad categories like IT jobs, Sales Jobs,etc.
  * Each JobCategory can have multiple JobSubcategories associated with it.
  * Example :
- *  A jobCategory with the nae "IT" jobs might have subcategories like "Software developer","System Analyst",etc.
- *  Attributes:
- *  - id: Primary key, auto-generated.
- *  - name: Name of the job category (e.g., "IT Jobs").
- *  - description: A brief description of the job category.
- *  - subcategories: A set of JobSubcategory entities that belong to this category.
+ * A jobCategory with the nae "IT" jobs might have subcategories like "Software developer","System Analyst",etc.
+ * Attributes:
+ *
  * @Author kishore
  */
 @Entity

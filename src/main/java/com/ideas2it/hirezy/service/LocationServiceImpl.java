@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocation;
@@ -80,5 +81,22 @@ public class LocationServiceImpl implements LocationService {
         location.setActive(true);
         locationRepository.save(location);
         logger.info("Employee id deleted successfully {} ", id);
+    }
+
+    @Override
+    public Location findOrCreateLocation(String state, String city) {
+        // Try to find the location by state and city
+        Optional<Location> locationOptional = locationRepository.findByStateAndCity(state, city);
+
+        if (locationOptional.isPresent()) {
+            // Return the existing location
+            return locationOptional.get();
+        } else {
+            // If not found, create a new location
+            Location newLocation = new Location();
+            newLocation.setState(state);
+            newLocation.setCity(city);
+            return locationRepository.save(newLocation);
+        }
     }
 }

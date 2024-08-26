@@ -5,6 +5,7 @@ import com.ideas2it.hirezy.model.JobCategory;
 
 /**
  * Mapper for converting between JobCategory entity and JobCategoryDTO.
+ * @Author kishore
  */
 public class JobCategoryMapper {
 

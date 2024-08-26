@@ -11,7 +11,7 @@ public interface JobApplicationService {
      /**
       * <p>
       *
-      *    This method will add job application when employee apply for the job
+      *  This method will add job application when employee apply for the job
       * @param jobApplicationDto - jobApplicationDto from the user
       * @return JobApplicationDto - JobApplicationDto after storing into the entity table
       * </p>>
@@ -54,5 +54,5 @@ public interface JobApplicationService {
       */
       JobApplicationDto getJobApplicationById(Long id);
 
-    JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus);
+      JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus);
 }

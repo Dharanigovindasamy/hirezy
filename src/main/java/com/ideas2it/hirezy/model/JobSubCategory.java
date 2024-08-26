@@ -23,12 +23,6 @@ import lombok.Setter;
  *
  * Example:
  * - A JobSubcategory with the name "Software Developer" might belong to the JobCategory "IT Jobs".
- *
- * Attributes:
- * - id: Primary key, auto-generated.
- * - name: Name of the job subcategory (e.g., "Software Developer").
- * - description: A brief description of the job subcategory.
- * - jobCategory: The JobCategory to which this subcategory belongs.
  * @Author kishore
  */
 @Entity

@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.service;
 
 import java.util.List;
 import com.ideas2it.hirezy.dto.LocationDto;
+import com.ideas2it.hirezy.model.Location;
 import org.springframework.stereotype.Service;
 
 /**
@@ -63,4 +64,15 @@ public interface LocationService {
      * @param id - location id of the location
      */
     void deleteLocation(Long id);
+
+    /**
+     * <p>
+     * Finds an existing location based on the provided state and city, or creates a new location if none exists.
+     * </p>
+     *
+     * @param state The state where the location is situated.
+     * @param city The city where the location is situated.
+     * @return The Location object, either retrieved from or newly created in the database.
+     */
+    Location findOrCreateLocation(String state, String city);
 }

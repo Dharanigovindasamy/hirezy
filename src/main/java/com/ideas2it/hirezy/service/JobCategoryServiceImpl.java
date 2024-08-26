@@ -58,7 +58,7 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
     @Override
     public JobCategoryDto updateJobCategory(Long id, JobCategoryDto jobCategoryDto) {
         JobCategory existingJobCategory = jobCategoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("JobCategory not found with ID: " + id));
         existingJobCategory.setName(jobCategoryDto.getName());
         JobCategory updatedJobCategory = jobCategoryRepository.save(existingJobCategory);
         logger.info("Updated jobCategory with name {}",jobCategoryDto.getName());

@@ -3,6 +3,10 @@ package com.ideas2it.hirezy.mapper;
 import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.model.Employer;
 
+/**
+ * Mapper for converting between Employer entity and EmployerDTO.
+ * @Author kishore
+ */
 public class EmployerMapper {
     public static Employer convertDtoToEntity(EmployerDto employerDto) {
         return Employer.builder()

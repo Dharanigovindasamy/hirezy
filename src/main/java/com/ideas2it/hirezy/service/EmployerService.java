@@ -6,6 +6,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ * <p>
+ *     The `EmployerService` interface provides an abstraction for employer-related
+ *     operations in the application. It defines methods to manage employers, including
+ *     creating, updating, retrieving, and deleting employer records. Additionally, this
+ *     service handles operations related to job posts associated with employers, such as
+ *     updating, deleting, and retrieving all job posts by a specific employer.
+ * </p>
+ **/
 @Service
 public interface EmployerService {
      /**
@@ -38,12 +48,39 @@ public interface EmployerService {
       * @param id
       * @return
       */
-     public EmployerDto getEmployerById(int id);
+     EmployerDto getEmployerById(long id);
 
-     JobPostDto createJobPost(long employerId, JobPostDto jobPostDto);
+     /**
+      * <p>
+      *     Updates a job post associated with a specific employer. This method updates the
+      *     job post details based on the provided employer ID, job ID, and `JobPostDto`.
+      * </p>
+      *
+      * @param employerId The unique identifier of the employer.
+      * @param jobId The unique identifier of the job post to be updated.
+      * @param jobPostDto The data transfer object containing the updated job post details.
+      * @return The updated `JobPostDto` reflecting the changes made.
+      */
+     JobPostDto updateJobPost(long employerId, long jobId, JobPostDto jobPostDto);
 
-     JobPostDto updateJobPost(Long jobId, JobPostDto jobPostDto);
-
+     /**
+      * <p>
+      *     Deletes a job post associated with a specific employer based on the provided
+      *     job ID. This method removes the job post record from the job post repository.
+      * </p>
+      *
+      * @param jobId The unique identifier of the job post to be deleted.
+      */
      void deleteJobPost(Long jobId);
+
+     /**
+      * <p>
+      *     Retrieves a list of all job posts associated with a specific employer.
+      *     This method returns all job posts linked to the given employer ID.
+      * </p>
+      *
+      * @param employerId The unique identifier of the employer.
+      * @return A list of `JobPostDto` representing all job posts for the specified employer.
+      */
      List<JobPostDto> getAllJobPostsByEmployer(Long employerId);
 }

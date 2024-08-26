@@ -28,11 +28,5 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
      */
     Employer findByIsDeletedFalseAndId(int companyId);
 
-    /**
-     * <p>
-     *This method is used to check the repository if the name already exist
-     * </p>
-     */
-    public boolean existsByCompanyName(String departmentName) ;
 
 }

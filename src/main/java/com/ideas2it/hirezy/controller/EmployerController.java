@@ -11,12 +11,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
+/**
+ * REST controller for managing Employer entities.
+ * Provides endpoints to create, retrieve, update, delete Employer.
+ */
 @RestController
 @RequestMapping("api/v1/employer")
 public class EmployerController {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(EmployerController.class);
 
     @Autowired
     private EmployerService employerService;
@@ -30,8 +35,10 @@ public class EmployerController {
      * </p>
      */
     @PostMapping()
-    public ResponseEntity<EmployerDto> addEmployer(@RequestBody EmployerDto employerDto){
+    public ResponseEntity<EmployerDto> addEmployer(@RequestBody EmployerDto employerDto) {
+        logger.info("Request received to add a new employer: {}", employerDto.getName());
         EmployerDto savedEmployer = employerService.createEmployer(employerDto);
+        logger.info("Employer created with ID: {}", savedEmployer.getId());
         return new ResponseEntity<>((savedEmployer), HttpStatus.CREATED);
     }
     
@@ -41,9 +48,11 @@ public class EmployerController {
      * </p>
      */
     @GetMapping()
-    public ResponseEntity<List<EmployerDto>>  DisplayAllCompanies() {
-        List<EmployerDto> companies  = employerService.getAllEmployer();
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+    public ResponseEntity<List<EmployerDto>>  DisplayAllEmployer() {
+        logger.info("Request received to get all employers");
+        List<EmployerDto> employers  = employerService.getAllEmployer();
+        logger.info("Returning {} employers", employers.size());
+        return new ResponseEntity<>(employers, HttpStatus.OK);
 
     }
     
@@ -54,9 +63,16 @@ public class EmployerController {
      * </p>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<EmployerDto> displayEmployer(@PathVariable("id") int employerId) {
-        EmployerDto showemployerDto = employerService.getEmployerById(employerId);
-        return new ResponseEntity<>((showemployerDto),HttpStatus.OK);
+    public ResponseEntity<EmployerDto> displayEmployer(@PathVariable("id") long employerId) {
+        logger.info("Request received to get employer with ID: {}", employerId);
+        EmployerDto showEmployerDto = employerService.getEmployerById(employerId);
+        if (showEmployerDto != null) {
+            logger.info("Employer found with ID: {}", employerId);
+            return new ResponseEntity<>(showEmployerDto, HttpStatus.OK);
+        } else {
+            logger.warn("Employer not found with ID: {}", employerId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     
     /**
@@ -67,8 +83,9 @@ public class EmployerController {
      */
     @PutMapping("{id}")
     public ResponseEntity<EmployerDto> updateEmployer(@PathVariable("id") int employerId, @RequestBody EmployerDto employerDto) {
+        logger.info("Request received to update employer with ID: {}", employerId);
         EmployerDto updateEmployerDto =  employerService.updateEmployer(employerId, employerDto);
-        logger.info("the details of the company have been updated of id..{}",employerId);
+        logger.info("Employer with ID {} has been updated", employerId);
         return new ResponseEntity<>((updateEmployerDto),HttpStatus.OK);
     }
     
@@ -80,8 +97,9 @@ public class EmployerController {
      */
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteEmployer(@PathVariable("id") int employerId) {
+        logger.info("Request received to delete employer with ID: {}", employerId);
         employerService.removeEmployer(employerId);
-        logger.info("employer of this id  has been deleted..{}",employerId);
+        logger.info("Employer with ID {} has been deleted", employerId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     /**
@@ -92,12 +110,13 @@ public class EmployerController {
      * </p>
      */
     @PostMapping("/{employerId}/job-posts")
-    public ResponseEntity<JobPostDto> createJobPost(@PathVariable Long employerId, @RequestBody JobPostDto jobPostDto) {
-        EmployerDto employerDto = new EmployerDto();
-        employerDto.setId(employerId);
-        jobPostDto.setEmployer(employerDto);
-        JobPostDto createdJobPost = jobPostService.createJobPost(jobPostDto);
-        return new ResponseEntity<>(createdJobPost, HttpStatus.CREATED);
+    public ResponseEntity<JobPostDto> createJobPost(
+            @PathVariable Long employerId,
+            @RequestBody JobPostDto jobPostDto) {
+        logger.info("Request received to create a job post for employer ID: {}", employerId);
+        JobPostDto createdJobPost = jobPostService.createJobPost(employerId, jobPostDto);
+        logger.info("Job post created with ID: {}", createdJobPost.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdJobPost);
     }
 
     /**
@@ -109,8 +128,13 @@ public class EmployerController {
      * </p>
      */
     @PutMapping("/{employerId}/job-posts/{jobId}")
-    public ResponseEntity<JobPostDto> updateJobPost(@PathVariable Long employerId, @PathVariable Long jobId, @RequestBody JobPostDto jobPostDto) {
-        JobPostDto updatedJobPost = employerService.updateJobPost(jobId, jobPostDto);
+    public ResponseEntity<JobPostDto> updateJobPost(
+            @PathVariable Long employerId,
+            @PathVariable Long jobId,
+            @RequestBody JobPostDto jobPostDto) {
+        logger.info("Request received to update job post with ID: {} for employer ID: {}", jobId, employerId);
+        JobPostDto updatedJobPost = employerService.updateJobPost(employerId, jobId, jobPostDto);
+        logger.info("Job post with ID {} has been updated", jobId);
         return new ResponseEntity<>(updatedJobPost, HttpStatus.OK);
     }
 
@@ -123,7 +147,9 @@ public class EmployerController {
      */
     @DeleteMapping("/{employerId}/job-posts/{jobId}")
     public ResponseEntity<Void> deleteJobPost(@PathVariable Long employerId, @PathVariable Long jobId) {
+        logger.info("Request received to delete job post with ID: {} for employer ID: {}", jobId, employerId);
         employerService.deleteJobPost(jobId);
+        logger.info("Job post with ID {} has been deleted", jobId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -135,7 +161,9 @@ public class EmployerController {
      */
     @GetMapping("/{employerId}/job-posts")
     public ResponseEntity<List<JobPostDto>> getAllJobPostsByEmployer(@PathVariable Long employerId) {
+        logger.info("Request received to get all job posts for employer ID: {}", employerId);
         List<JobPostDto> jobPosts = employerService.getAllJobPostsByEmployer(employerId);
+        logger.info("Returning {} job posts for employer ID: {}", jobPosts.size(), employerId);
         return new ResponseEntity<>(jobPosts, HttpStatus.OK);
     }
 }

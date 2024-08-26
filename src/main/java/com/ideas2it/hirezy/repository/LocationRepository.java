@@ -4,6 +4,8 @@ import com.ideas2it.hirezy.model.Location;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * <p>
  *     This class used for storing the location entity data into the table and perform CRUD operations
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LocationRepository extends CrudRepository<Location , Long> {
+    Optional<Location> findByStateAndCity(String state, String city);
 }
