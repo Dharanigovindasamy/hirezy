@@ -2,9 +2,12 @@ package com.ideas2it.hirezy.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.ideas2it.hirezy.mapper.JobApplicationMapper;
 import com.ideas2it.hirezy.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,12 +47,6 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     private JobPostService jobPostService;
 
     private static final Logger logger = LogManager.getLogger();
-    @Override
-    public JobApplicationDto addJobApplication(JobApplicationDto jobApplicationDto) {
-        JobApplication jobApplication = mapToJobApplication(jobApplicationDto);
-            jobApplicationDto = mapToJobApplicationDto(jobApplicationRepository.save(jobApplication));
-            return jobApplicationDto;
-    }
 
     @Override
     public List<JobApplicationDto> getAllJobApplications() {
@@ -77,22 +74,6 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         return mapToJobApplicationDto(jobApplication);
     }
 
-    @Override
-    public JobApplicationDto updateJobApplication(JobApplicationDto jobApplicationDto) {
-        JobApplicationDto finalJobApplicationDto = jobApplicationDto;
-        JobApplication jobApplication = jobApplicationRepository.findById(jobApplicationDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Job application not found" + finalJobApplicationDto.getId()));
-        if(null == jobApplication) {
-            logger.warn("No job application under in this id {}", jobApplicationDto.getId());
-            return null;
-        } else {
-            jobApplication.setStatus(jobApplicationDto.getStatus());
-            jobApplication.setAppliedDate(jobApplicationDto.getAppliedDate());
-            jobApplicationDto = mapToJobApplicationDto(jobApplicationRepository.save(jobApplication));
-            logger.info("Job application details updated successfully {}", jobApplicationDto.getId());
-        }
-        return jobApplicationDto;
-    }
 
     @Override
     public void removeJobApplication(Long id) {
@@ -106,17 +87,6 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         logger.info("Employee id deleted successfully {} ", id);
     }
 
-    @Override
-    public JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus) {
-        Optional<JobApplication> optionalJobApplication = jobApplicationRepository.findById(jobApplicationId);
-        if (optionalJobApplication.isPresent()) {
-            JobApplication jobApplication = optionalJobApplication.get();
-            jobApplication.setStatus(newStatus);
-            return jobApplicationRepository.save(jobApplication);
-        } else {
-            throw new RuntimeException("Job Application not found with id: " + jobApplicationId);
-        }
-    }
 
     @Override
     public JobApplication applyJobByEmployee(Long employeeId, Long jobPostId) {
@@ -145,5 +115,27 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         }
         return jobApplicationRepository.save(jobApplication);
     }
+
+    @Override
+    public JobApplicationDto updateApplicationStatus(Long applicationId, String status) {
+        Optional<JobApplication> jobApplicationOptional = jobApplicationRepository.findById(applicationId);
+        if (jobApplicationOptional.isPresent()) {
+            JobApplication jobApplication = jobApplicationOptional.get();
+            jobApplication.setStatus(status);
+            jobApplicationRepository.save(jobApplication);
+            return mapToJobApplicationDto(jobApplication);
+        } else {
+            throw new ResourceNotFoundException("Job application not found");
+        }
+    }
+
+    @Override
+    public List<JobApplicationDto> getJobApplicationByjobPostId(Long jobpostId) {
+        return jobApplicationRepository.findByJobPostId(jobpostId)
+                .stream()
+                .map(JobApplicationMapper::mapToJobApplicationDto)
+                .collect(Collectors.toList());
+    }
 }
+
 

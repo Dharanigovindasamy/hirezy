@@ -24,24 +24,12 @@ import java.util.List;
  * @version 1
  */
 @RestController
-@RequestMapping("api/v1/job-applications")
+@RequestMapping("api/v1/employers/job-applications")
 public class JobApplicationController {
 
     @Autowired
     private JobApplicationService jobApplicationService;
 
-    /**
-     * <p>
-     * Adding job application profile details into the table as HTTP json data format
-     *
-     * @param jobApplicationDto - {@link JobApplicationDto} Job Application Dto receive from user as json format
-     * @return JobApplicationDto - Job Application Dto after adding into the table
-     * </p>
-     */
-    @PostMapping
-    public ResponseEntity<JobApplicationDto> addJobApplication(@Valid @RequestBody JobApplicationDto jobApplicationDto) {
-        return new ResponseEntity<>(jobApplicationService.addJobApplication(jobApplicationDto), HttpStatus.CREATED);
-    }
 
     /**
      * <p>
@@ -69,19 +57,6 @@ public class JobApplicationController {
         return new ResponseEntity<>(jobApplicationDto, HttpStatus.OK);
     }
 
-    /**
-     * <p>
-     *     Update Job Application Dto by checking with JobApplication id
-     *
-     * @param jobApplicationDto - {@link JobApplicationDto}
-     * @return JobApplicationDto - job application dto of the respective id
-     * </p>
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<JobApplicationDto> updateJobApplication(@RequestBody JobApplicationDto jobApplicationDto) {
-        jobApplicationDto = jobApplicationService.updateJobApplication(jobApplicationDto);
-        return new ResponseEntity<>(jobApplicationDto, HttpStatus.OK);
-    }
 
     /**
      * <p>Delete job Application by giving job Application id
@@ -95,28 +70,24 @@ public class JobApplicationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     *
-     * <p>
-     *     Job Application status updation
-     * </p>
-     * @param employerId - employee who post the job post , can update the status also
-     * @param jobApplicationId - job post application form id
-     * @param newStatus - editing the status of the job applications
-     * @return JobApplication - job application entity detail after updating
-     */
-    @PutMapping("/{employerId}/job-applications/{jobApplicationId}/status")
-    public ResponseEntity<JobApplication> updateJobApplicationStatus(
-            @PathVariable Long employerId,
-            @PathVariable Long jobApplicationId,
-            @RequestParam String newStatus) {
-        JobApplication updatedJobApplication = jobApplicationService.updateJobApplicationStatus(jobApplicationId, newStatus);
-        return ResponseEntity.ok(updatedJobApplication);
-    }
-
     @PostMapping("/employee/{employeeId}/job-post/{jobPostId}")
     public ResponseEntity<JobApplication> applyForJobPostByEmployee(@PathVariable Long employeeId, @PathVariable Long jobPostId) {
        JobApplication jobApplication = jobApplicationService.applyJobByEmployee(employeeId, jobPostId);
         return  new ResponseEntity<>(jobApplication, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
+        JobApplicationDto updatedJobApplication = jobApplicationService.updateApplicationStatus(id, status);
+        return new ResponseEntity<>(updatedJobApplication,HttpStatus.OK);
+    }
+
+    @GetMapping("/jobpost/{jobPostId}")
+    public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
+        List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
+        if(jobApplications.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(jobApplications,HttpStatus.OK);
     }
 }

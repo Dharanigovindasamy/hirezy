@@ -6,6 +6,7 @@ import com.ideas2it.hirezy.model.JobPost;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,5 @@ import java.util.Optional;
 @Repository
 public interface JobApplicationRepository extends CrudRepository<JobApplication, Long> {
     JobApplication findByEmployeeAndJobPost(Employee employee, JobPost jobPost);
+    List<JobApplication> findByJobPostId(Long jobPostId);
 }

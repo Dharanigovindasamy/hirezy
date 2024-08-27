@@ -1,7 +1,10 @@
 package com.ideas2it.hirezy.mapper;
 
+import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobApplicationDto;
+import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobApplication;
+import com.ideas2it.hirezy.model.JobPost;
 
 /**
  * <p>
@@ -22,8 +25,11 @@ public class JobApplicationMapper {
      * @param jobApplicationDto - job Application Dto given from user
      * @return JobApplication - dto user data into entity form
      */
-    public static JobApplication mapToJobApplication(JobApplicationDto jobApplicationDto) {
+    public static JobApplication mapToJobApplication(JobApplicationDto jobApplicationDto, JobPost jobPost, Employee employee) {
         return JobApplication.builder()
+                .id(jobApplicationDto.getId())
+                .jobPost(jobPost)
+                .employee(employee)
                 .status(jobApplicationDto.getStatus())
                 .appliedDate(jobApplicationDto.getAppliedDate()).build();
     }
@@ -38,7 +44,11 @@ public class JobApplicationMapper {
      */
     public static  JobApplicationDto mapToJobApplicationDto(JobApplication jobApplication) {
         return JobApplicationDto.builder()
-                .status(jobApplication.getStatus()).
-                AppliedDate(jobApplication.getAppliedDate()).build();
+                .id(jobApplication.getId())
+                .jobPostId(jobApplication.getJobPost().getId())
+                .employeeId(jobApplication.getEmployee().getEmployeeId())
+                .employee(EmployeeMapper.mapEntityToDto(jobApplication.getEmployee()))
+                .status(jobApplication.getStatus())
+                .AppliedDate(jobApplication.getAppliedDate()).build();
     }
 }
