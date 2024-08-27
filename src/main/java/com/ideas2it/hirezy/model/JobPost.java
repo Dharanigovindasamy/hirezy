@@ -56,5 +56,4 @@ public class JobPost {
 
     @Column(name = "posted_date")
     private LocalDate postedDate;
-
 }
