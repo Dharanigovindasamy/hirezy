@@ -1,11 +1,17 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.model.Skill;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.ideas2it.hirezy.model.Skill;
 
+/**
+ * This class is the repository class for Skill.
+ * This is used by both Employee and Employer.
+ * @author paari
+ */
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
 
