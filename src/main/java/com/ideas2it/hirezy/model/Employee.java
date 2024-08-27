@@ -1,8 +1,5 @@
 package com.ideas2it.hirezy.model;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.time.LocalDate;
+import java.util.List;
 /**
  * <p>
  *     This class used for entering employee profile details into the entity table.

@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Builder
 @Getter
+@Setter
 @Entity
 @Table(name = "employer_details")
 @Data

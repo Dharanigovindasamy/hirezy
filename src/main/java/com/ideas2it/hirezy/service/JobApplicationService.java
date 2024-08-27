@@ -55,4 +55,6 @@ public interface JobApplicationService {
       JobApplicationDto getJobApplicationById(Long id);
 
       JobApplication updateJobApplicationStatus(Long jobApplicationId, String newStatus);
+
+      JobApplication applyJobByEmployee(Long employeeId, Long jobPostId);
 }

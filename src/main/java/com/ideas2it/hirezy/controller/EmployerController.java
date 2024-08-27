@@ -109,7 +109,7 @@ public class EmployerController {
      * @param jobPostDto - job post details
      * </p>
      */
-    @PostMapping("/{employerId}/job-posts")
+    @PostMapping("/{employerId}/jobposts")
     public ResponseEntity<JobPostDto> createJobPost(
             @PathVariable Long employerId,
             @RequestBody JobPostDto jobPostDto) {

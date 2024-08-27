@@ -24,10 +24,11 @@ public class EmployeeMapper {
      */
     public static Employee mapDtoToEntity (EmployeeDto employeeDto) {
         Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setResume(employeeDto.getResume());
-        employee.setName(employeeDto.getName());
-        employee.setCity(employeeDto.getCompanyCity());
+        employee.setContactMail(employeeDto.getContactMail());
+        employee.setCity(employeeDto.getCity());
         employee.setQualification(employeeDto.getQualification());
         employee.setPercentage(employeeDto.getPercentage());
         employee.setYearOfPassOut(employeeDto.getYearOfPassOut());
@@ -45,15 +46,16 @@ public class EmployeeMapper {
      *     This method used for converting entity into Dto to the user
      * </p>
      *
-     * @param employee
-     * @return
+     * @param employee - employee entity to the user
+     * @return EmployeeDto - EmployeeDto object to the user
      */
     public static EmployeeDto mapEntityToDto (Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setName(employee.getName());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
         employeeDto.setResume(employee.getResume());
-        employeeDto.setName(employee.getName());
-        employeeDto.setCity(employee.getCompanyCity());
+        employeeDto.setContactMail(employee.getContactMail());
+        employeeDto.setCity(employee.getCity());
         employeeDto.setQualification(employee.getQualification());
         employeeDto.setPercentage(employee.getPercentage());
         employeeDto.setYearOfPassOut(employee.getYearOfPassOut());

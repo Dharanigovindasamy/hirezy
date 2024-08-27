@@ -35,7 +35,6 @@ public class EmployeeDto {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     @NotNull
     private LocalDate dateOfBirth;
-    private int age;
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String resume;

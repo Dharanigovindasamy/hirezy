@@ -25,7 +25,7 @@ public class JobApplicationMapper {
     public static JobApplication mapToJobApplication(JobApplicationDto jobApplicationDto) {
         return JobApplication.builder()
                 .status(jobApplicationDto.getStatus())
-                .AppliedDate(jobApplicationDto.getAppliedDate()).build();
+                .appliedDate(jobApplicationDto.getAppliedDate()).build();
     }
 
     /**

@@ -3,7 +3,6 @@ package com.ideas2it.hirezy.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.model.Employee;
+import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.repository.EmployeeRepository;
 import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapDtoToEntity;
 import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapEntityToDto;
@@ -79,10 +79,11 @@ public class EmployeeServiceImpl implements EmployeeService {
             logger.warn("No employee under in employee id {}", employeeDto.getId());
             return null;
         } else {
+            employee.setName(employeeDto.getName());
             employee.setDateOfBirth(employeeDto.getDateOfBirth());
             employee.setResume(employeeDto.getResume());
-            employee.setName(employeeDto.getName());
-            employee.setCity(employeeDto.getCompanyCity());
+            employee.setContactMail(employeeDto.getContactMail());
+            employee.setCity(employeeDto.getCity());
             employee.setQualification(employeeDto.getQualification());
             employee.setPercentage(employeeDto.getPercentage());
             employee.setYearOfPassOut(employeeDto.getYearOfPassOut());

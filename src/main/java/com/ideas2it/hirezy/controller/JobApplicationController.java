@@ -1,7 +1,10 @@
 package com.ideas2it.hirezy.controller;
 
+import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobApplicationDto;
+import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobApplication;
+import com.ideas2it.hirezy.service.EmployeeService;
 import com.ideas2it.hirezy.service.JobApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,11 @@ import java.util.List;
  * @version 1
  */
 @RestController
-@RequestMapping("api/v1/jobApplications")
+@RequestMapping("api/v1/job-applications")
 public class JobApplicationController {
 
     @Autowired
     private JobApplicationService jobApplicationService;
-
 
     /**
      * <p>
@@ -93,6 +95,16 @@ public class JobApplicationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     *
+     * <p>
+     *     Job Application status updation
+     * </p>
+     * @param employerId - employee who post the job post , can update the status also
+     * @param jobApplicationId - job post application form id
+     * @param newStatus - editing the status of the job applications
+     * @return JobApplication - job application entity detail after updating
+     */
     @PutMapping("/{employerId}/job-applications/{jobApplicationId}/status")
     public ResponseEntity<JobApplication> updateJobApplicationStatus(
             @PathVariable Long employerId,
@@ -100,5 +112,11 @@ public class JobApplicationController {
             @RequestParam String newStatus) {
         JobApplication updatedJobApplication = jobApplicationService.updateJobApplicationStatus(jobApplicationId, newStatus);
         return ResponseEntity.ok(updatedJobApplication);
+    }
+
+    @PostMapping("/employee/{employeeId}/job-post/{jobPostId}")
+    public ResponseEntity<JobApplication> applyForJobPostByEmployee(@PathVariable Long employeeId, @PathVariable Long jobPostId) {
+       JobApplication jobApplication = jobApplicationService.applyJobByEmployee(employeeId, jobPostId);
+        return  new ResponseEntity<>(jobApplication, HttpStatus.OK);
     }
 }

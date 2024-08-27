@@ -41,10 +41,10 @@ public class JobApplication {
     private String status;
 
     @Column(name = "applied_date")
-    private LocalDateTime AppliedDate;
+    private LocalDateTime appliedDate;
 
     @Column
-    private boolean isActive = false;
+    private boolean isActive;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
