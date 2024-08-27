@@ -17,7 +17,6 @@ import java.util.Optional;
  */
 @Repository
 public interface LocationRepository extends CrudRepository<Location ,Long> {
-    List<Location> findByIsActiveFalse();
-    Location findByIdAndIsActiveFalse(Long id);
+    List<Location> findByIsDeletedFalse();
     Optional<Location> findByStateAndCity(String state, String city);
 }

@@ -14,7 +14,7 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
      * @return List<Skill>
      *     It contains all the skill details.
      */
-    List<Skill> findByIsActiveTrue();
+    List<Skill> findByIsDeletedFalse();
 
     /**
      * This Method will return single skill based on the skillId.
@@ -23,6 +23,6 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
      * @return Skill
      *     It Contains the Single Skill Details.
      */
-    Skill findBySkillIdAndIsActiveTrue(long skillId);
+    Skill findBySkillIdAndIsDeletedFalse(long skillId);
 
 }

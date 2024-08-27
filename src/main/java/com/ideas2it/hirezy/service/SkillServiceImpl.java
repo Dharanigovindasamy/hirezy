@@ -43,7 +43,7 @@ public class SkillServiceImpl implements SkillService{
 
     @Override
     public SkillDto retrieveSkillById(long skillId) {
-        Skill skill = skillRepository.findBySkillIdAndIsActiveTrue(skillId);
+        Skill skill = skillRepository.findBySkillIdAndIsDeletedFalse(skillId);
         if(null == skill) {
             throw new ResourceNotFoundException("Skill Id"+ skillId + " not found");
         }
@@ -53,7 +53,7 @@ public class SkillServiceImpl implements SkillService{
     @Override
     public List<SkillDto> retrieveAllSkills() {
         List<SkillDto> skillDtos = new ArrayList<>();
-        for (Skill skill : skillRepository.findByIsActiveTrue()) {
+        for (Skill skill : skillRepository.findByIsDeletedFalse()) {
             if(skill == null) {
                 throw new ResourceNotFoundException("There is no skills please add the Skills");
             }
@@ -64,11 +64,11 @@ public class SkillServiceImpl implements SkillService{
 
     @Override
     public boolean deleteSkill(long skillId) {
-        Skill skill = skillRepository.findBySkillIdAndIsActiveTrue(skillId);
+        Skill skill = skillRepository.findBySkillIdAndIsDeletedFalse(skillId);
         if(null == skill) {
             throw new ResourceNotFoundException("Skill Id"+ skillId + " not found");
         }
-        skill.setActive(false);
+        skill.setDeleted(false);
         skillRepository.save(skill);
         return true;
     }

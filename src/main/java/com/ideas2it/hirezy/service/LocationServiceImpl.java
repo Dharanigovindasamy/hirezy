@@ -47,7 +47,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<LocationDto> displayLocation() {
         List<LocationDto> locationDtos = new ArrayList<>();
-        List<Location> locations = locationRepository.findByIsActiveFalse();
+        List<Location> locations = locationRepository.findByIsDeletedFalse();
         for(Location location : locations) {
             LocationDto locationDto = mapToLocationDto(location);
             locationDtos.add(locationDto);
@@ -82,7 +82,7 @@ public class LocationServiceImpl implements LocationService {
         if (null == location) {
             logger.warn("No location found {}", id);
         }
-        location.setActive(true);
+        location.setDeleted(true);
         locationRepository.save(location);
         logger.info("Employee id deleted successfully {} ", id);
     }

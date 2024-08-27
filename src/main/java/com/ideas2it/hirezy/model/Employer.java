@@ -43,7 +43,7 @@ public class Employer {
     @Column(name = "industry_type")
     private String industryType;
 
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER)
     private List<JobPost> jobPost;
