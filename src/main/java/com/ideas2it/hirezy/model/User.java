@@ -43,8 +43,8 @@ public class User implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column
-    private boolean isDeleted;
+    @Column(name = "is_active")
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

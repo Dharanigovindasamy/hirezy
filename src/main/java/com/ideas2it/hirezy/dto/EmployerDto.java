@@ -23,7 +23,7 @@ import lombok.*;
 @Setter
 public class EmployerDto {
     @NotNull(message = "Employer ID cannot be null")
-    private Long id;
+    private Long Id;
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 20, message = "Name cannot exceed 100 characters")
     private String name;

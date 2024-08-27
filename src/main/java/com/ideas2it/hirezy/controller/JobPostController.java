@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,8 +18,7 @@ import java.util.List;
 /**
  * <p>
  * This class handles the operations related to job posts, including adding, retrieving,
- * updating, and deleting job posts. It communicates with the JobPostService
- * to perform the necessary business logic.
+ * updating, and deleting job posts.
  * </p>
  * @author kishorekumar.n
  */
@@ -78,9 +78,10 @@ public class JobPostController {
      * @param companyName - name of the company offering the job (optional).
      * @param companyType - type of the company offering the job (optional).
      * @param industryType - type of industry (optional).
+     * @param experience - year of experience required (optional);
      * @return ResponseEntity containing the list of job posts that match the search criteria.
      */
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<JobPostDto>> searchJobs(
             @RequestParam(required = false) String state,
             @RequestParam(required = false) String city,
@@ -88,11 +89,13 @@ public class JobPostController {
             @RequestParam(required = false) String jobSubcategoryName,
             @RequestParam(required = false) String companyName,
             @RequestParam(required = false) String companyType,
-            @RequestParam(required = false) String industryType) {
+            @RequestParam(required = false) String industryType,
+            @RequestParam(required = false) Integer experience,
+            @RequestParam(required = false) List<String> keySkills) {
 
         List<JobPostDto> jobs = jobPostService.searchJobsByFilters(state, city, jobCategoryName,
                 jobSubcategoryName, companyName,
-                companyType, industryType);
+                companyType, industryType, experience, keySkills);
         logger.info("Total job posts found: {}", jobs.size());
         return ResponseEntity.ok(jobs);
     }

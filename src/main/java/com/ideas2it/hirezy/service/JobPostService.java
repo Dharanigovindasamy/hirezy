@@ -75,6 +75,6 @@ public interface JobPostService {
      * @return A list of JobPostDto objects that match the specified filters.
      */
     List<JobPostDto> searchJobsByFilters(String state, String city, String jobCategoryName,
-                                          String jobSubcategoryName, String companyName,
-                                         String companyType, String industryType);
+                                         String jobSubcategoryName, String companyName,
+                                         String companyType, String industryType,Integer experience,List<String> keySkills);
 }

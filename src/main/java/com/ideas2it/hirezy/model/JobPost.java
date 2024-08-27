@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.model;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class JobPost {
 
     @Column(name = "job_description")
     private String jobDescription;
+
+    @Column(name = "experience")
+    private int experience;
 
     @ElementCollection
     @CollectionTable(name = "job_key_skills", joinColumns = @JoinColumn(name = "job_post_id"))

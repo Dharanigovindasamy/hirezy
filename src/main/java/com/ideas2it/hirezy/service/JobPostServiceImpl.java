@@ -75,23 +75,23 @@ public class JobPostServiceImpl implements JobPostService {
     }
     @Override
     public List<JobPostDto> searchJobsByFilters(String state, String city, String jobCategoryName,
-                                        String jobSubcategoryName, String companyName,
-                                       String companyType, String industryType) {
-
-        Specification<Object> specification = Specification.where(null)
-                .and(JobPostSpecifications.hasState(state))
+                                                String jobSubcategoryName, String companyName,
+                                                String companyType, String industryType,Integer experience,List<String> keySkills) {
+        Specification<JobPost> specification = Specification.where(JobPostSpecifications.hasState(state))
                 .and(JobPostSpecifications.hasCity(city))
                 .and(JobPostSpecifications.hasJobCategoryName(jobCategoryName))
                 .and(JobPostSpecifications.hasJobSubcategoryName(jobSubcategoryName))
                 .and(JobPostSpecifications.hasCompanyName(companyName))
                 .and(JobPostSpecifications.hasCompanyType(companyType))
-                .and(JobPostSpecifications.hasIndustryType(industryType));
+                .and(JobPostSpecifications.hasIndustryType(industryType))
+                .and(JobPostSpecifications.hasExperience(experience))
+                .and(JobPostSpecifications.hasKeySkills(keySkills));
 
-        List<JobPost> jobs = jobPostRepository.findAll((Sort) specification);
-        List<JobPostDto> jobPostDtos = new ArrayList<>();
-        for (JobPost jobPost : jobs) {
-            jobPostDtos.add(mapToJobPostDto(jobPost));
-        }
+        List<JobPost> jobs = jobPostRepository.findAll(specification);
+        List<JobPostDto> jobPostDtos = jobs.stream()
+                .map(JobPostMapper::mapToJobPostDto)
+                .collect(Collectors.toList());
+
         logger.info("Total job posts found: {}", jobPostDtos.size());
         return jobPostDtos;
     }

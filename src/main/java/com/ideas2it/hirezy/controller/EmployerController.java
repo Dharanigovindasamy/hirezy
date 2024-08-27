@@ -16,10 +16,10 @@ import java.util.List;
 
 /**
  * REST controller for managing Employer entities.
- * Provides endpoints to create, retrieve, update, delete Employer.
+ * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobposts.
  */
 @RestController
-@RequestMapping("api/v1/employer")
+@RequestMapping("api/v1/employers")
 public class EmployerController {
     private static final Logger logger = LogManager.getLogger(EmployerController.class);
 
@@ -41,7 +41,7 @@ public class EmployerController {
         logger.info("Employer created with ID: {}", savedEmployer.getId());
         return new ResponseEntity<>((savedEmployer), HttpStatus.CREATED);
     }
-    
+
     /**
      * <p>
      *This method is used to show all the employer in the repository
@@ -55,7 +55,7 @@ public class EmployerController {
         return new ResponseEntity<>(employers, HttpStatus.OK);
 
     }
-    
+
     /**
      * <p>
      *This method is used to show a specific employer in the repository
@@ -74,7 +74,7 @@ public class EmployerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
+
     /**
      * <p>
      *This method is used to create a employer into the repository
@@ -88,7 +88,7 @@ public class EmployerController {
         logger.info("Employer with ID {} has been updated", employerId);
         return new ResponseEntity<>((updateEmployerDto),HttpStatus.OK);
     }
-    
+
     /**
      * <p>
      *This method is used to delete a employer from the repository
@@ -109,7 +109,7 @@ public class EmployerController {
      * @param jobPostDto - job post details
      * </p>
      */
-    @PostMapping("/{employerId}/jobposts")
+    @PostMapping("/{employerId}/job-posts")
     public ResponseEntity<JobPostDto> createJobPost(
             @PathVariable Long employerId,
             @RequestBody JobPostDto jobPostDto) {

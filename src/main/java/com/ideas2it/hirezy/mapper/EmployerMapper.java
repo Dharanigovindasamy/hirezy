@@ -19,6 +19,7 @@ public class EmployerMapper {
     }
     public static EmployerDto convertEntityToDto(Employer employer) {
         return EmployerDto.builder()
+                .Id(employer.getId())
                 .name(employer.getName())
                 .companyName(employer.getCompanyName())
                 .description(employer.getDescription())

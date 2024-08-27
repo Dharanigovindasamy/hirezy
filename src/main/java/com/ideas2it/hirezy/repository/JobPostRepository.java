@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.repository;
 
 import com.ideas2it.hirezy.model.JobPost;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,6 @@ import java.util.List;
 * @Version v1
  */
 @Repository
-public interface JobPostRepository extends JpaRepository<JobPost, Long> {
+public interface JobPostRepository extends JpaRepository<JobPost, Long>, JpaSpecificationExecutor<JobPost> {
     List<JobPost> findByEmployerId(Long employerId);
 }

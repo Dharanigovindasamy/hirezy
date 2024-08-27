@@ -15,25 +15,25 @@ public class JobPostMapper {
             return null;
         }
 
-        JobPostDto jobPostDto = new JobPostDto();
-        jobPostDto.setId(jobPost.getId());
-        jobPostDto.setTitle(jobPost.getTitle());
-        jobPostDto.setJobDescription(jobPost.getJobDescription());
-        jobPostDto.setPostedDate(jobPost.getPostedDate());
-        jobPostDto.setEmployerId(jobPostDto.getEmployerId());
+        JobPostDto.JobPostDtoBuilder jobPostDtoBuilder = JobPostDto.builder()
+                .id(jobPost.getId())
+                .title(jobPost.getTitle())
+                .jobDescription(jobPost.getJobDescription())
+                .experience(jobPost.getExperience())
+                .postedDate(jobPost.getPostedDate())
+                .keySkills(jobPost.getKeySkills())
+                .employerId(jobPost.getEmployer() != null ? jobPost.getEmployer().getId() : null);
 
         if (jobPost.getLocation() != null) {
-            jobPostDto.setState(jobPost.getLocation().getState());
-            jobPostDto.setCity(jobPost.getLocation().getCity());
+            jobPostDtoBuilder.state(jobPost.getLocation().getState())
+                    .city(jobPost.getLocation().getCity());
         }
-
-        jobPostDto.setKeySkills(jobPost.getKeySkills());
 
         if (jobPost.getJobCategory() != null) {
-            jobPostDto.setJobCategoryId(jobPost.getJobCategory().getId());
+            jobPostDtoBuilder.jobCategoryId(jobPost.getJobCategory().getId());
         }
 
-        return jobPostDto;
+        return jobPostDtoBuilder.build();
     }
 
     public static JobPost mapToJobPost(JobPostDto jobPostDto, Employer employer) {
@@ -41,28 +41,30 @@ public class JobPostMapper {
             return null;
         }
 
-        JobPost jobPost = new JobPost();
-        jobPost.setId(jobPostDto.getId());
-        jobPost.setTitle(jobPostDto.getTitle());
-        jobPost.setJobDescription(jobPostDto.getJobDescription());
-        jobPost.setPostedDate(jobPostDto.getPostedDate());
+        JobPost.JobPostBuilder jobPostBuilder = JobPost.builder()
+                .id(jobPostDto.getId())
+                .title(jobPostDto.getTitle())
+                .jobDescription(jobPostDto.getJobDescription())
+                .experience(jobPostDto.getExperience())
+                .postedDate(jobPostDto.getPostedDate())
+                .keySkills(jobPostDto.getKeySkills())
+                .employer(employer);
 
         if (jobPostDto.getState() != null || jobPostDto.getCity() != null) {
-            Location location = new Location();
-            location.setState(jobPostDto.getState());
-            location.setCity(jobPostDto.getCity());
-            jobPost.setLocation(location);
+            Location location = Location.builder()
+                    .state(jobPostDto.getState())
+                    .city(jobPostDto.getCity())
+                    .build();
+            jobPostBuilder.location(location);
         }
-
-        jobPost.setKeySkills(jobPostDto.getKeySkills());
 
         if (jobPostDto.getJobCategoryId() != null) {
-            JobCategory jobCategory = new JobCategory();
-            jobCategory.setId(jobPostDto.getJobCategoryId());
-            jobPost.setJobCategory(jobCategory);
+            JobCategory jobCategory = JobCategory.builder()
+                    .id(jobPostDto.getJobCategoryId())
+                    .build();
+            jobPostBuilder.jobCategory(jobCategory);
         }
-        jobPost.setEmployer(employer);
 
-        return jobPost;
+        return jobPostBuilder.build();
     }
 }

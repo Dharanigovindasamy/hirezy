@@ -19,6 +19,7 @@ public class JobPostDto {
     private Long id;
     private String title;
     private String jobDescription;
+    private int experience;
     private List<String> keySkills;
     private String state;
     private String city;
