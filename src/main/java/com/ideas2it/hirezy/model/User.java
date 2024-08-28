@@ -44,7 +44,7 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private boolean isDeleted;
 
     @OneToOne(mappedBy = "user")
     private Employee employee;
@@ -55,12 +55,6 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-
-    @OneToOne (mappedBy = "user")
-    private Employee employee;
-
-    @OneToOne (mappedBy = "user")
-    private Employer employer;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

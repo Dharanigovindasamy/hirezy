@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * REST controller for managing Employer entities.
- * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobposts.
+ * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobPosts.
  */
 @RestController
 @RequestMapping("api/v1/employers")
@@ -50,7 +50,7 @@ public class EmployerController {
     @GetMapping()
     public ResponseEntity<List<EmployerDto>>  DisplayAllEmployer() {
         logger.info("Request received to get all employers");
-        List<EmployerDto> employers  = employerService.getAllEmployer();
+        List<EmployerDto> employers  = employerService.getAllEmployers();
         logger.info("Returning {} employers", employers.size());
         return new ResponseEntity<>(employers, HttpStatus.OK);
 
@@ -78,14 +78,12 @@ public class EmployerController {
     /**
      * <p>
      *This method is used to create a employer into the repository
-     * @param employerId -unique identifier of employer
      * </p>
      */
-    @PutMapping("{id}")
-    public ResponseEntity<EmployerDto> updateEmployer(@PathVariable("id") int employerId, @RequestBody EmployerDto employerDto) {
-        logger.info("Request received to update employer with ID: {}", employerId);
-        EmployerDto updateEmployerDto =  employerService.updateEmployer(employerId, employerDto);
-        logger.info("Employer with ID {} has been updated", employerId);
+    @PutMapping
+    public ResponseEntity<EmployerDto> updateEmployer(@RequestBody EmployerDto employerDto) {
+        logger.info("Request received to update employer with ID: {}",employerDto.getId());
+        EmployerDto updateEmployerDto =  employerService.updateEmployer(employerDto);
         return new ResponseEntity<>((updateEmployerDto),HttpStatus.OK);
     }
 
@@ -95,8 +93,8 @@ public class EmployerController {
      * @param employerId
      * </p>
      */
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteEmployer(@PathVariable("id") int employerId) {
+    @DeleteMapping("{employerId}")
+    public ResponseEntity<Void> deleteEmployer(@PathVariable int employerId) {
         logger.info("Request received to delete employer with ID: {}", employerId);
         employerService.removeEmployer(employerId);
         logger.info("Employer with ID {} has been deleted", employerId);
@@ -109,7 +107,7 @@ public class EmployerController {
      * @param jobPostDto - job post details
      * </p>
      */
-    @PostMapping("/{employerId}/job-posts")
+    @PostMapping("/{employerId}/jobPosts")
     public ResponseEntity<JobPostDto> createJobPost(
             @PathVariable Long employerId,
             @RequestBody JobPostDto jobPostDto) {
@@ -127,7 +125,7 @@ public class EmployerController {
      * @param jobPostDto - updated job post details
      * </p>
      */
-    @PutMapping("/{employerId}/job-posts/{jobId}")
+    @PutMapping("/{employerId}/jobPosts/{jobId}")
     public ResponseEntity<JobPostDto> updateJobPost(
             @PathVariable Long employerId,
             @PathVariable Long jobId,
@@ -145,7 +143,7 @@ public class EmployerController {
      * @param jobId - unique identifier of the job post
      * </p>
      */
-    @DeleteMapping("/{employerId}/job-posts/{jobId}")
+    @DeleteMapping("/{employerId}/jobPosts/{jobId}")
     public ResponseEntity<Void> deleteJobPost(@PathVariable Long employerId, @PathVariable Long jobId) {
         logger.info("Request received to delete job post with ID: {} for employer ID: {}", jobId, employerId);
         employerService.deleteJobPost(jobId);
@@ -159,7 +157,7 @@ public class EmployerController {
      * @param employerId - unique identifier of the employer
      * </p>
      */
-    @GetMapping("/{employerId}/job-posts")
+    @GetMapping("/{employerId}/jobPosts")
     public ResponseEntity<List<JobPostDto>> getAllJobPostsByEmployer(@PathVariable Long employerId) {
         logger.info("Request received to get all job posts for employer ID: {}", employerId);
         List<JobPostDto> jobPosts = employerService.getAllJobPostsByEmployer(employerId);

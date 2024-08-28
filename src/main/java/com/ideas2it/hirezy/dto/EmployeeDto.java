@@ -28,6 +28,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmployeeDto {
     private long id;
+
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String name;
@@ -35,41 +36,34 @@ public class EmployeeDto {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     @NotNull
     private LocalDate dateOfBirth;
+
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String resume;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$")
-    private String contactMail;
-
-    @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid city")
     private String city;
+
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid qualification")
     private String qualification;
-    @NotNull
-    private float percentage;
-    @NotNull
-    private int yearOfPassOut;
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter work mode")
-    private String workMode;
+
     @NotNull
     @Size(min = 1, max = 30, message= "Experience should be 0 to 30 years")
     private int yearOfExperience;
+
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter current company")
     private String currentCompany;
+
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter designation")
     private String designation;
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter company city")
-    private String companyCity;
+
     @NotNull
     private int noticePeriod;
+
     @NotNull(message = "User ID cannot be null")
     private Long userId;
 }

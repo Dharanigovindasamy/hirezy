@@ -7,7 +7,7 @@ import com.ideas2it.hirezy.model.User;
 
 /**
  * Mapper for converting between Employer entity and EmployerDTO.
- * @Author kishore
+ * @author kishore
  */
 public class EmployerMapper {
     public static Employer convertDtoToEntity(EmployerDto employerDto, User user) {

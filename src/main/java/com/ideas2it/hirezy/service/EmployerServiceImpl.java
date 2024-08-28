@@ -6,7 +6,6 @@ import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.EmployerRepository;
-import com.ideas2it.hirezy.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
@@ -25,7 +23,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
  * the business logic related to employer operations, including creating,
  * updating, retrieving, and deleting employer records. Additionally,
  * it manages job posts associated with employers.
- * @Author kishore
+ * @author kishore
  */
 @Service
  public class EmployerServiceImpl implements EmployerService {
@@ -48,7 +46,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Employer created successfully with ID: {}", savedEmployer.getId());
         return convertEntityToDto(employerRepository.save(employer));
     }
-    public List<EmployerDto> getAllEmployer() {
+    public List<EmployerDto> getAllEmployers() {
         logger.info("Fetching all employers");
         List<EmployerDto> result = new ArrayList<>();
         List<Employer> employers = employerRepository.findByIsDeletedFalse();
@@ -63,42 +61,36 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         return result;
     }
 
-    public void removeEmployer(int id) {
-        logger.info("Removing employer with ID: {}", id);
-        Employer employer = employerRepository.findByIsDeletedFalseAndId(id);
+    public void removeEmployer(long employerId) {
+        logger.info("Removing employer with ID: {}", employerId);
+        Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
-            logger.error("Employer not found with ID: {}", id);
-            throw new ResourceNotFoundException("Employer not found with ID: " + id);
+            logger.error("Employer not found with ID: {}", employerId);
+            throw new ResourceNotFoundException("Employer not found with ID: " + employerId);
         }
         employer.setDeleted(true);
         employerRepository.save(employer);
-        logger.info("Employer with ID: {} has been marked as deleted", id);
+        logger.info("Employer with ID: {} has been marked as deleted", employerId);
 
     }
 
-    public EmployerDto updateEmployer(int id, EmployerDto employerDto)  {
-        logger.info("Updating employer with ID: {}", id);
-        Employer convertEmployer = convertDtoToEntity(employerDto);
-        Employer existingEmployer =  employerRepository.findByIsDeletedFalseAndId(id);
+    public EmployerDto updateEmployer(EmployerDto employerDto)  {
+        Employer existingEmployer =  employerRepository.findByIsDeletedFalseAndId(employerDto.getId());
         if (existingEmployer == null) {
-            logger.error("Employer not found with ID : {}", id);
-            throw new ResourceNotFoundException("Employer not found with ID: " + id);
+            logger.error("Employer not found with ID : {}",employerDto.getId());
+            throw new ResourceNotFoundException("Employer not found with ID: " + employerDto.getId());
         }
-        existingEmployer.setName(convertEmployer.getName());
-        existingEmployer.setCompanyName(convertEmployer.getCompanyName());
-        existingEmployer.setCompanyType(convertEmployer.getCompanyType());
-        existingEmployer.setDescription(convertEmployer.getDescription());
-        existingEmployer.setIndustryType(convertEmployer.getIndustryType());
-        logger.info("Employer with ID: {} has been updated", id);
-        return convertEntityToDto(employerRepository.save(existingEmployer));
+        Employer employer = convertDtoToEntity(employerDto);
+        logger.info("Employer with ID: {} has been updated", employerDto.getId());
+        return convertEntityToDto(employerRepository.save(employer));
     }
 
-    public EmployerDto getEmployerById(long id) {
-        logger.info("Fetching employer with ID: {}", id);
-        Employer employer = employerRepository.findByIsDeletedFalseAndId((int) id);
+    public EmployerDto getEmployerById(long employerId) {
+        logger.info("Fetching employer with ID: {}", employerId);
+        Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
-            logger.error(" Employer not found with ID : {}", id);
-            throw new ResourceNotFoundException("Employer not found with ID: " + id);
+            logger.error(" Employer not found with ID : {}", employerId);
+            throw new ResourceNotFoundException("Employer not found with ID: " + employerId);
         }
         return convertEntityToDto(employer);
     }

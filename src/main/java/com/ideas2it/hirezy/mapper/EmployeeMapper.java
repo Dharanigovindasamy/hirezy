@@ -28,16 +28,11 @@ public class EmployeeMapper {
         employee.setName(employeeDto.getName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setResume(employeeDto.getResume());
-        employee.setContactMail(employeeDto.getContactMail());
         employee.setCity(employeeDto.getCity());
         employee.setQualification(employeeDto.getQualification());
-        employee.setPercentage(employeeDto.getPercentage());
-        employee.setYearOfPassOut(employeeDto.getYearOfPassOut());
-        employee.setWorkMode(employeeDto.getWorkMode());
         employee.setYearOfExperience(employeeDto.getYearOfExperience());
         employee.setCurrentCompany(employeeDto.getCurrentCompany());
         employee.setDesignation(employeeDto.getDesignation());
-        employee.setCompanyCity(employeeDto.getCompanyCity());
         employee.setNoticePeriod(employeeDto.getNoticePeriod());
         return employee;
     }
@@ -56,16 +51,11 @@ public class EmployeeMapper {
         employeeDto.setName(employee.getName());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
         employeeDto.setResume(employee.getResume());
-        employeeDto.setContactMail(employee.getContactMail());
         employeeDto.setCity(employee.getCity());
         employeeDto.setQualification(employee.getQualification());
-        employeeDto.setPercentage(employee.getPercentage());
-        employeeDto.setYearOfPassOut(employee.getYearOfPassOut());
-        employeeDto.setWorkMode(employee.getWorkMode());
         employeeDto.setYearOfExperience(employee.getYearOfExperience());
         employeeDto.setCurrentCompany(employee.getCurrentCompany());
         employeeDto.setDesignation(employee.getDesignation());
-        employeeDto.setCompanyCity(employee.getCompanyCity());
         employeeDto.setNoticePeriod(employee.getNoticePeriod());
         return employeeDto;
     }
@@ -75,16 +65,11 @@ public class EmployeeMapper {
         employee.setName(employeeDto.getName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setResume(employeeDto.getResume());
-        employee.setContactMail(employeeDto.getContactMail());
         employee.setCity(employeeDto.getCity());
         employee.setQualification(employeeDto.getQualification());
-        employee.setPercentage(employeeDto.getPercentage());
-        employee.setYearOfPassOut(employeeDto.getYearOfPassOut());
-        employee.setWorkMode(employeeDto.getWorkMode());
         employee.setYearOfExperience(employeeDto.getYearOfExperience());
         employee.setCurrentCompany(employeeDto.getCurrentCompany());
         employee.setDesignation(employeeDto.getDesignation());
-        employee.setCompanyCity(employeeDto.getCompanyCity());
         employee.setNoticePeriod(employeeDto.getNoticePeriod());
         employee.setUser(user);
         return employee;

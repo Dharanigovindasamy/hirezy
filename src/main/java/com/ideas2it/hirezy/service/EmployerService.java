@@ -20,28 +20,32 @@ import java.util.List;
 public interface EmployerService {
      /**
       * This method will create a company in the portal
-      * @param employerDto
+      * @param employerDto {@link EmployerDto}
+      *     It contains the employeeDto details to be created.
+      * @return EmployerDto
+      *     It is the created employeeDto in the Database.
       */
      EmployerDto createEmployer(EmployerDto employerDto);
 
      /**
-      *This method gets all the companies that are present
+      *This method retrieves all the companies that are present
       */
-     public List<EmployerDto> getAllEmployer();
+     public List<EmployerDto> getAllEmployers();
 
      /**
       * This method is used to delete an company from the portal
-      * @param id
+      *
+      * @param employerId
+      *     It is id of the employer to removed.
       */
-     public void removeEmployer(int id);
+     public void removeEmployer(long employerId);
 
      /**
       * This method is used to alter the company details in the portal
-      * @param id
       * @param employerDto
       * @return
       */
-     public EmployerDto updateEmployer(int id, EmployerDto employerDto);
+     public EmployerDto updateEmployer(EmployerDto employerDto);
 
      /**
       * This method is used to get the company based on the id

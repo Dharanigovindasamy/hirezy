@@ -40,23 +40,11 @@ public class Employee {
     @Column(name = "resume", nullable = false)
     private String resume;
 
-    @Column(name = "contact_mail", nullable = false)
-    private String contactMail;
-
     @Column(name = "city", nullable = false)
     private String city;
 
     @Column(name = "qualification", nullable = false)
     private String qualification;
-
-    @Column(name = "percentage", nullable = false)
-    private float percentage;
-
-    @Column(name = "year_of_pass_out", nullable = false)
-    private int yearOfPassOut;
-
-    @Column(name = "work_mode", nullable = false)
-    private String workMode;
 
     @Column(name = "year_of_experience", nullable = false)
     private int yearOfExperience;
@@ -67,14 +55,11 @@ public class Employee {
     @Column(name = "designation", nullable = false)
     private String designation;
 
-        @Column(name = "company_city", nullable = false)
-    private String companyCity;
-
     @Column(name = "notice_period", nullable = false)
     private int noticePeriod;
 
     @Column(name = "is_removed")
-    private boolean isRemoved;
+    private boolean isDeleted;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",  referencedColumnName = "id" )

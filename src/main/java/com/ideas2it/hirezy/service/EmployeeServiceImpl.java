@@ -3,12 +3,13 @@ package com.ideas2it.hirezy.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ideas2it.hirezy.model.User;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ideas2it.hirezy.mapper.EmployeeMapper;
+import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
@@ -28,16 +29,12 @@ import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapEntityToDto;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private  EmployeeRepository employeeRepository;
 
     @Autowired
     private UserService userService;
 
     private static final Logger logger = LogManager.getLogger();
-
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -51,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> retrieveEmployees() {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         List<Employee> employees =  employeeRepository.findAll();
+
         if (employees.isEmpty()) {
             logger.warn("Empty employee details");
         } else {
@@ -61,7 +59,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employeeDtos;
     }
-
 
     @Override
     public EmployeeDto retrieveEmployeeById(Long employeeId) {
@@ -75,35 +72,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             return mapEntityToDto(employee);
     }
 
-
-
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
-        EmployeeDto finalEmployeeDto = employeeDto;
-        Employee employee = employeeRepository.findById(employeeDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + finalEmployeeDto.getId()));
-        if(null == employee) {
-            logger.warn("No employee under in employee id {}", employeeDto.getId());
-            return null;
-        } else {
-            employee.setName(employeeDto.getName());
-            employee.setDateOfBirth(employeeDto.getDateOfBirth());
-            employee.setResume(employeeDto.getResume());
-            employee.setContactMail(employeeDto.getContactMail());
-            employee.setCity(employeeDto.getCity());
-            employee.setQualification(employeeDto.getQualification());
-            employee.setPercentage(employeeDto.getPercentage());
-            employee.setYearOfPassOut(employeeDto.getYearOfPassOut());
-            employee.setWorkMode(employeeDto.getWorkMode());
-            employee.setYearOfExperience(employeeDto.getYearOfExperience());
-            employee.setCurrentCompany(employeeDto.getCurrentCompany());
-            employee.setDesignation(employeeDto.getDesignation());
-            employee.setCompanyCity(employeeDto.getCompanyCity());
-            employee.setNoticePeriod(employeeDto.getNoticePeriod());
-            employeeDto = mapEntityToDto(employeeRepository.save(employee));
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId());
+        if(null != employee) {
+            employeeDto = mapEntityToDto(employeeRepository.save(EmployeeMapper.mapDtoToEntity(employeeDto)));
             logger.info("Employee details updated successfully {}", employeeDto.getId());
+            return employeeDto;
         }
-        return employeeDto;
+        logger.warn("No employee under in employee id {}", employeeDto.getId());
+        throw new ResourceNotFoundException("Employee not found" + employeeDto.getId());
     }
 
     @Override
@@ -113,9 +91,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (null == employee) {
             logger.warn("No employee found in employee id {}", employeeId);
         }
-        employee.setRemoved(true);
-        employeeRepository.save(employee);
-        logger.info("Employee id deleted successfully {} ", employeeId);
+        if (employee != null) {
+            employee.setDeleted(true);
+            employeeRepository.save(employee);
+            logger.info("Employee id deleted successfully {} ", employeeId);
+        }
     }
 
     @Override

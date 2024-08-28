@@ -26,7 +26,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
      *This method is returns a single department that is soft deleted
      * </p>
      */
-    Employer findByIsDeletedFalseAndId(int companyId);
+    Employer findByIsDeletedFalseAndId(long companyId);
 
 
 }
