@@ -10,7 +10,7 @@ import lombok.*;
  * @author paari
  */
 @Entity
-@Table(name = "skills")
+@Table(name = "skill")
 @Builder
 @Getter
 @Setter

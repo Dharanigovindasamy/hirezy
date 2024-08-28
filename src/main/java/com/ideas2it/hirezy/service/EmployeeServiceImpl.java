@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ideas2it.hirezy.model.User;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private UserService userService;
+
     private static final Logger logger = LogManager.getLogger();
 
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
@@ -37,7 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-        Employee employee = mapDtoToEntity(employeeDto);
+        User user = userService.retrieveUserById(employeeDto.getUserId());
+        Employee employee = mapDtoToEntity(employeeDto,user);
         employeeDto = mapEntityToDto(employeeRepository.save(employee));
         return employeeDto;
     }

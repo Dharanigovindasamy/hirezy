@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 @Getter
 @Entity
-@Table(name = "employer_details")
+@Table(name = "employer")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,5 +46,9 @@ public class Employer {
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER)
     private List<JobPost> jobPost;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id",  referencedColumnName = "id" )
+    private User user;
 
 }

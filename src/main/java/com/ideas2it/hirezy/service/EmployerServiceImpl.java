@@ -4,7 +4,9 @@ import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.Employer;
+import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.EmployerRepository;
+import com.ideas2it.hirezy.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
@@ -33,8 +36,12 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     @Lazy
     private JobPostService jobPostService;
 
+    @Autowired
+    private UserService userService;
+
     public EmployerDto createEmployer(EmployerDto employerDto) {
-        Employer employer = convertDtoToEntity(employerDto);
+        User user = userService.retrieveUserById(employerDto.getUserId());
+        Employer employer = convertDtoToEntity(employerDto,user);
         logger.info("Creating a new employer with name: {}", employer.getName());
         logger.info("Company has been successfully created");
         Employer savedEmployer = employerRepository.save(employer);
@@ -78,6 +85,10 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
             throw new ResourceNotFoundException("Employer not found with ID: " + id);
         }
         existingEmployer.setName(convertEmployer.getName());
+        existingEmployer.setCompanyName(convertEmployer.getCompanyName());
+        existingEmployer.setCompanyType(convertEmployer.getCompanyType());
+        existingEmployer.setDescription(convertEmployer.getDescription());
+        existingEmployer.setIndustryType(convertEmployer.getIndustryType());
         logger.info("Employer with ID: {} has been updated", id);
         return convertEntityToDto(employerRepository.save(existingEmployer));
     }

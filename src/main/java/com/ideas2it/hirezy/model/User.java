@@ -24,7 +24,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "user")
 public class User implements UserDetails {
 
     @Id
@@ -45,6 +45,12 @@ public class User implements UserDetails {
 
     @Column(name = "is_active")
     private boolean isActive = true;
+
+    @OneToOne(mappedBy = "user")
+    private Employee employee;
+
+    @OneToOne(mappedBy = "user")
+    private Employer employer;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

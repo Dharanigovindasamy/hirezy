@@ -70,4 +70,6 @@ public class EmployeeDto {
     private String companyCity;
     @NotNull
     private int noticePeriod;
+    @NotNull(message = "User ID cannot be null")
+    private Long userId;
 }

@@ -22,6 +22,7 @@ import lombok.*;
 @Getter
 @Setter
 public class EmployerDto {
+
     @NotNull(message = "Employer ID cannot be null")
     private Long Id;
     @NotBlank(message = "Name cannot be blank")
@@ -37,4 +38,6 @@ public class EmployerDto {
     @NotBlank(message = "Company type cannot be blank")
     @Size(max = 50, message = "Company type cannot exceed 50 characters")
     private String companyType;
+    @NotNull(message = "User ID cannot be null")
+    private Long userId;
 }

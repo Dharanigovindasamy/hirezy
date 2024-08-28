@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  * @version 1
  */
 @Entity
-@Table(name = "job_applications")
+@Table(name = "job_application")
 @Getter
 @Setter
 @Builder

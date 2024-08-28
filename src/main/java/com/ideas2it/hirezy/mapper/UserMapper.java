@@ -3,6 +3,8 @@ package com.ideas2it.hirezy.mapper;
 import com.ideas2it.hirezy.dto.UserDto;
 import com.ideas2it.hirezy.model.User;
 
+import java.util.Optional;
+
 /**
  * <p>
  *  This is the Mapper class for the User.
@@ -13,13 +15,20 @@ import com.ideas2it.hirezy.model.User;
  */
 public class UserMapper {
 
-    public static User mapUserDto(UserDto userDto) {
+    public static User mapToUser(UserDto userDto) {
         return User.builder()
                 .userName(userDto.getUserName())
                 .emailId(userDto.getEmailId())
-                .password(userDto.getPassword())
                 .phoneNumber(userDto.getPhoneNumber())
                 .build();
 
+    }
+
+    public static  UserDto mapToUserDto(User user) {
+        return UserDto.builder()
+                .emailId(user.getEmailId())
+                .phoneNumber(user.getPhoneNumber())
+                .userName(user.getUsername())
+                .build();
     }
 }

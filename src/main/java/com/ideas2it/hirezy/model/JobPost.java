@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "job_postings")
+@Table(name = "job_posting")
 @Builder
 public class JobPost {
 

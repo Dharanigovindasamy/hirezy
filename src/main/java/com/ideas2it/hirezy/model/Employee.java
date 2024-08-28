@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1
  */
 @Entity
-@Table(name = "employees")
+@Table(name = "employee")
 @Getter
 @Setter
 @Builder
@@ -77,9 +77,10 @@ public class Employee {
     private boolean isRemoved;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id",  referencedColumnName = "id" )
     private User user;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobApplication> jobApplications;
+
 }

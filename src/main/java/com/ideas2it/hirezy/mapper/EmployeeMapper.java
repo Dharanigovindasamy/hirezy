@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.model.Employee;
+import com.ideas2it.hirezy.model.User;
 
 /**
  * <p>
@@ -67,6 +68,26 @@ public class EmployeeMapper {
         employeeDto.setCompanyCity(employee.getCompanyCity());
         employeeDto.setNoticePeriod(employee.getNoticePeriod());
         return employeeDto;
+    }
+
+    public static Employee mapDtoToEntity (EmployeeDto employeeDto, User user) {
+        Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
+        employee.setDateOfBirth(employeeDto.getDateOfBirth());
+        employee.setResume(employeeDto.getResume());
+        employee.setContactMail(employeeDto.getContactMail());
+        employee.setCity(employeeDto.getCity());
+        employee.setQualification(employeeDto.getQualification());
+        employee.setPercentage(employeeDto.getPercentage());
+        employee.setYearOfPassOut(employeeDto.getYearOfPassOut());
+        employee.setWorkMode(employeeDto.getWorkMode());
+        employee.setYearOfExperience(employeeDto.getYearOfExperience());
+        employee.setCurrentCompany(employeeDto.getCurrentCompany());
+        employee.setDesignation(employeeDto.getDesignation());
+        employee.setCompanyCity(employeeDto.getCompanyCity());
+        employee.setNoticePeriod(employeeDto.getNoticePeriod());
+        employee.setUser(user);
+        return employee;
     }
 }
 
