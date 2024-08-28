@@ -26,7 +26,7 @@ import com.ideas2it.hirezy.service.JobApplicationService;
  * @version 1
  */
 @RestController
-@RequestMapping("api/v1/employee/job-applications")
+@RequestMapping("api/v1/employer/job-applications")
 public class JobApplicationController {
 
     @Autowired

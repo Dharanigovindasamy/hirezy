@@ -46,6 +46,9 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     @Autowired
     private JobPostService jobPostService;
 
+    @Autowired
+    private EmailService emailService;
+
     private static final Logger logger = LogManager.getLogger();
 
     @Override
@@ -94,6 +97,12 @@ public class JobApplicationServiceImpl implements JobApplicationService{
             JobApplication jobApplication = jobApplicationOptional.get();
             jobApplication.setStatus(status);
             jobApplicationRepository.save(jobApplication);
+            String employeeEmail = jobApplication.getEmployee().getUser().getEmailId();
+            String subject = "Your Job Application Status Has Been Updated";
+            String message = String.format("Dear %s,\n\nYour application status for the job post '%s' has been updated to '%s'.\n\nThanks",
+                    jobApplication.getEmployee().getName(), jobApplication.getJobPost().getTitle(), status);
+
+            emailService.sendEmail(employeeEmail, subject, message);
             return mapToJobApplicationDto(jobApplication);
         } else {
             throw new ResourceNotFoundException("Job application not found");
