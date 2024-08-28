@@ -25,7 +25,7 @@ public class Employer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name="name")
     private String name;
@@ -42,6 +42,7 @@ public class Employer {
     @Column(name = "industry_type")
     private String industryType;
 
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

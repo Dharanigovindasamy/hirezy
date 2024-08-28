@@ -68,7 +68,7 @@ public class Employee {
     @Column(name = "notice_period", nullable = false)
     private int noticePeriod;
 
-    @Column(name = "is_removed")
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

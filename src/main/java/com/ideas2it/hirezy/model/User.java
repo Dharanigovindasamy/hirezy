@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private long Id;
 
     @Column(name = "name")
     private String userName;
@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "is_active")
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     @OneToOne(mappedBy = "user")

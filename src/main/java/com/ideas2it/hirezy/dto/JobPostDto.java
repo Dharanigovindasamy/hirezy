@@ -3,8 +3,6 @@ package com.ideas2it.hirezy.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,40 +12,42 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * <p>
+ *     The class defines the job post details that send and receive as json format
+ * </p>
+ *
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class JobPostDto {
-    private Long id;
+    private long id;
 
-    @NotBlank(message = "Title cannot be blank")
+    @NotBlank(message = "Enter job post title")
     private String title;
 
-    @NotBlank(message = "Job descripiton cannot be blank")
+    @NotBlank(message = "Enter job description")
     private String jobDescription;
 
-    @Pattern(regexp =  "^[0-9]*$",message ="Experience should be in digit" )
+    @NotNull(message = "enter experience")
     private int experience;
 
+    @NotNull(message = "enter skills")
     private List<String> keySkills;
 
-    @NotBlank(message = "Name is Required")
-    @Size(min=2, max=30, message = "State should not exceed 30 characters")
-    @Pattern(regexp = "^[a-zA-Z]+([ ][a-zA-Z]+)*$", message = "State should be alphabets" )
+    @NotBlank(message = "Enter state")
     private String state;
 
-    @NotBlank(message = "City is Required")
-    @Size(min=2, max=30, message = "City should not exceed 30 characters")
-    @Pattern(regexp = "^[a-zA-Z]+([ ][a-zA-Z]+)*$", message = "Name should be alphabets" )
+    @NotBlank(message = "Enter city")
     private String city;
 
-    @NotNull(message = "JobCategory ID is Required")
-    private Long jobCategoryId;
-
-    @NotNull(message = "Employer ID is Required")
-    private Long employerId;
-
+    @NotNull(message = "Enter job category Id")
+    private long jobCategoryId;
+    private long employerId;
     private LocalDate postedDate;
 }

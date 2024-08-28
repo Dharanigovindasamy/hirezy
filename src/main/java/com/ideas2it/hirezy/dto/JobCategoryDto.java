@@ -20,8 +20,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class JobCategoryDto {
-    private Long id;
-
+    private long id;
     @NotBlank(message = "Job category name cannot be blank")
     private String name;
 }

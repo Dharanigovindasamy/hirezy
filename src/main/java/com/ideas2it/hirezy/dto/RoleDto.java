@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,6 +14,8 @@ import lombok.Getter;
 public class RoleDto {
 
     private long id;
+
+    @NotBlank(message = "Enter role name")
     private String roleName;
 
 }

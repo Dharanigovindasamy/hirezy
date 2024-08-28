@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SkillDto {
     private long skillId;
+
+    @NotBlank(message = "Skill must not be blank")
     private String skillName;
 }

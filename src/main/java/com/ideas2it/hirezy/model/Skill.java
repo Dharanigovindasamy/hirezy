@@ -26,7 +26,7 @@ public class Skill {
     @Column(name = "skill_name")
     private String skillName;
 
-    @Column
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
 }

@@ -66,5 +66,5 @@ public class EmployeeDto {
     private int noticePeriod;
 
     @NotNull(message = "User ID cannot be null")
-    private Long userId;
+    private long userId;
 }

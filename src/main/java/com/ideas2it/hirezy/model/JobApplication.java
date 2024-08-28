@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
  *    This class used for after filling the job applications by employee,
  *    can access the applications by employer by editing the status and viewed by employee
  *    along with applied date and status
- *
  * </p>
  * @author dharani.govindhasamy
  * @version 1
@@ -35,7 +34,7 @@ public class JobApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "status")
     private String status;
@@ -43,7 +42,7 @@ public class JobApplication {
     @Column(name = "applied_date")
     private LocalDateTime appliedDate;
 
-    @Column
+    @Column(name = "is_deleted")
     private boolean isDeleted;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

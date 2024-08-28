@@ -17,6 +17,7 @@ import lombok.Setter;
  * - A JobSubcategory with the name "Software Developer" might belong to the JobCategory "IT Jobs".
  * @Author kishore
  */
+
 @Entity
 @Getter
 @Setter
@@ -27,7 +28,7 @@ import lombok.Setter;
 public class JobSubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "name", nullable = false)
     private String name;

@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,11 @@ import lombok.Setter;
 @Setter
 @Getter
 public class LocationDto {
-    private  Long id;
+    private  long id;
+
+    @NotBlank(message = "State can't be blank")
     private String state;
+
+    @NotBlank(message = "City can't be blank")
     private String city;
 }

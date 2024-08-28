@@ -30,8 +30,8 @@ public class JobApplicationDto {
 
     @NotNull
     private LocalDateTime appliedDate;
-    private Long employeeId;
-    private Long jobPostId;
+    private long employeeId;
+    private long jobPostId;
     private EmployeeDto employee;
     private JobPostDto jobPostDto;
 }
