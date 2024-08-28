@@ -29,6 +29,7 @@ public class JobPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "job_title")
     private String title;
 
     @Column(name = "job_description")
