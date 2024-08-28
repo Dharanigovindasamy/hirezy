@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
@@ -21,7 +22,7 @@ public interface EmployeeService {
       * @param employeeDto - {@link EmployeeDto} employeeDto data from user
       * @return employeeDto - employeeDto data from the table
       */
-     EmployeeDto saveEmployee(EmployeeDto employeeDto);
+     EmployeeDto saveEmployee(EmployeeDto employeeDto) ;
 
      /**
       * <p>

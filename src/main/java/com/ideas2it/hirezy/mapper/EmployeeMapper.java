@@ -7,7 +7,6 @@ import com.ideas2it.hirezy.model.User;
 /**
  * <p>
  *     This class used for conversion of Dto to entity and vice-versa
- *
  * </p>
  *
  * @author dharani.govindhasamy
@@ -19,7 +18,7 @@ public class EmployeeMapper {
     /**
      * <p>
      *     This method used to convert EmployeeDto profile into employee entity and set the values
-     * @param employeeDto - employeeDto given from user
+     * @param employeeDto - {@link EmployeeDto}employeeDto given from user
      * @return Employee - employee entity
      * </p.
      */
@@ -43,7 +42,7 @@ public class EmployeeMapper {
      * </p>
      *
      * @param employee - employee entity to the user
-     * @return EmployeeDto - EmployeeDto object to the user
+     * @return EmployeeDto - {@link EmployeeDto} EmployeeDto object to the user
      */
     public static EmployeeDto mapEntityToDto (Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();

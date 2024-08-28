@@ -43,12 +43,8 @@ public class EmployeeController {
      * </p>
      */
     @PostMapping
-    public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody @ModelAttribute EmployeeDto employeeDto , BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            logger.warn(ResponseEntity.badRequest().body("Invalid file upload: " + bindingResult.getAllErrors().get(0).getDefaultMessage()));
-        }
+    public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto){
         logger.info(ResponseEntity.ok("Files uploaded successfully"));
-
         return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
     }
 
@@ -103,5 +99,4 @@ public class EmployeeController {
         employeeService.deleteEmployee(employeeId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
