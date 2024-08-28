@@ -44,7 +44,7 @@ public class Employer {
 
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobPost> jobPost;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

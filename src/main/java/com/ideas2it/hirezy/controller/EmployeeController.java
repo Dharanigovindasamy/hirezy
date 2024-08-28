@@ -3,17 +3,13 @@ package com.ideas2it.hirezy.controller;
 import java.util.List;
 
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.service.EmployeeService;
@@ -33,7 +29,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-
+    private static final Logger logger = LogManager.getLogger();
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -47,7 +43,12 @@ public class EmployeeController {
      * </p>
      */
     @PostMapping
-    public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto ) {
+    public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody @ModelAttribute EmployeeDto employeeDto , BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            logger.warn(ResponseEntity.badRequest().body("Invalid file upload: " + bindingResult.getAllErrors().get(0).getDefaultMessage()));
+        }
+        logger.info(ResponseEntity.ok("Files uploaded successfully"));
+
         return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
     }
 

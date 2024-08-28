@@ -24,16 +24,17 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String state;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String city;
 
     @Column
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER,
+               cascade = CascadeType.ALL)
     private List<JobPost> jobPost;
 
 }

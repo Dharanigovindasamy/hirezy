@@ -42,7 +42,7 @@ public class JobCategory {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobSubCategory> subcategories;
 
 }

@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.JobPostDto;
+import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.model.JobPost;
@@ -66,5 +67,28 @@ public class JobPostMapper {
         }
 
         return jobPostBuilder.build();
+    }
+
+    public static JobPost mapToJobPost(JobPostDto jobPostDto) {
+        if (jobPostDto == null) {
+            return null;
+        }
+        return JobPost.builder()
+                .title(jobPostDto.getTitle())
+                .jobDescription(jobPostDto.getJobDescription())
+                .experience(jobPostDto.getExperience())
+                .keySkills(jobPostDto.getKeySkills())
+                .location(Location.builder()
+                        .state(jobPostDto.getState())
+                        .city(jobPostDto.getCity())
+                        .build())
+                .jobCategory(JobCategory.builder()
+                        .id(jobPostDto.getJobCategoryId())
+                        .build())
+                .employer(Employer.builder()
+                        .id(jobPostDto.getEmployerId())
+                        .build())
+
+                .build();
     }
 }
