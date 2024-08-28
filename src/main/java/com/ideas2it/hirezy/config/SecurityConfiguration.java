@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,10 +23,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("api/v1/authentication/**").permitAll()
-                        .requestMatchers("api/v1/admin/**").hasRole("Admin")
+                        .requestMatchers("api/v1/admin/**").permitAll()
                         .requestMatchers("api/v1/employers","api/v1/employers/**").hasRole("EMPLOYER")
                         .requestMatchers("api/v1/employees", "api/v1/employees/**").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
@@ -37,4 +38,5 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+//    java mail sender
 }

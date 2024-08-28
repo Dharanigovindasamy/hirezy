@@ -65,15 +65,15 @@ public class GlobalExceptionHandler {
      * @param e     The exception that was thrown.
      * @return A ResponseEntity containing the error details and HTTP status.
      */
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Map<String, Object>> handleAnyServerError(HttpServletRequest req, Exception e) {
-        Map<String, Object> errorDetails = new HashMap<>();
-        errorDetails.put("message", "Internal Server Error: An unexpected error occurred on the server. " +
-                "Please try again later or contact support if the issue persists.");
-        errorDetails.put("details", e.getMessage());
-        errorDetails.put("url", req.getRequestURL());
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<Map<String, Object>> handleAnyServerError(HttpServletRequest req, Exception e) {
+//        Map<String, Object> errorDetails = new HashMap<>();
+//        errorDetails.put("message", "Internal Server Error: An unexpected error occurred on the server. " +
+//                "Please try again later or contact support if the issue persists.");
+//        errorDetails.put("details", e.getMessage());
+//        errorDetails.put("url", req.getRequestURL());
+//        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     /**
      * Handles cases where an argument fails validation.
