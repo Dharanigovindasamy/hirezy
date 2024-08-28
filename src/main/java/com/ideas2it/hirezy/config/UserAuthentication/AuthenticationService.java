@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.config.UserAuthentication;
 
 import com.ideas2it.hirezy.config.JwtService;
 import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
+import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.UserRepository;
 import com.ideas2it.hirezy.service.RoleService;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import static com.ideas2it.hirezy.config.UserAuthentication.RegisteredRequest.*;
 
 /**
  * This class manage all the authentication process.
@@ -24,6 +27,22 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final RoleService roleService;
 
+    public void registerAdmin(){
+        if(userRepository.findById(1L).isEmpty()){
+            userRepository.save(User.builder()
+                    .Id(1L)
+                    .userName("Kishore")
+                    .emailId("kishoreofficial@gmail.com")
+                    .password(passwordEncoder.encode("Kishore@789"))
+                    .phoneNumber("7258631509").
+                    role(Role.builder()
+                            .Id(1)
+                            .roleName("ADMIN")
+                            .build())
+                    .build());
+
+        }
+    }
     public AuthenticationResponse register(RegisteredRequest request,String role) {
         String email = request.getEmail();
         for (User user : userRepository.findAll()){

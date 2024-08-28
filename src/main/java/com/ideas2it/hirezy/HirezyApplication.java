@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy;
 
+import com.ideas2it.hirezy.config.UserAuthentication.AuthenticationService;
 import com.ideas2it.hirezy.controller.JobCategoryController;
 import com.ideas2it.hirezy.service.RoleService;
 import jakarta.annotation.PostConstruct;
@@ -16,11 +17,14 @@ public class HirezyApplication {
 	@Autowired
 	private RoleService roleService;
 
+	@Autowired
+	private AuthenticationService authenticationService;
+
 	@PostConstruct
 	public void initUsers() {
 		roleService.addRoles();
+		authenticationService.registerAdmin();
 	}
-
 	public static void main(String[] args) {
 
 		SpringApplication.run(HirezyApplication.class, args);

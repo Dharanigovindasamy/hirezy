@@ -1,6 +1,5 @@
 package com.ideas2it.hirezy.mapper;
 
-import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobApplicationDto;
 import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobApplication;
@@ -50,6 +49,6 @@ public class JobApplicationMapper {
                 .employee(EmployeeMapper.mapEntityToDto(jobApplication.getEmployee()))
                 .jobPostDto(JobPostMapper.mapToJobPostDto(jobApplication.getJobPost()))
                 .status(jobApplication.getStatus())
-                .AppliedDate(jobApplication.getAppliedDate()).build();
+                .appliedDate(jobApplication.getAppliedDate()).build();
     }
 }

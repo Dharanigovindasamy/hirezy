@@ -76,7 +76,7 @@ public class JobApplicationController {
         return new ResponseEntity<>(updatedJobApplication,HttpStatus.OK);
     }
 
-    @GetMapping("/jobpost/{jobPostId}")
+    @GetMapping("/jobPost/{jobPostId}")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
@@ -106,7 +106,6 @@ public class JobApplicationController {
      * @return List<JobApplicationDto>
      *     It contains the list of jobs applied by the employee.
      */
-
     @GetMapping("/employee/{employeeId}")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
         List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);

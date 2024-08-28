@@ -34,7 +34,7 @@ public class EmployerController {
      *This method is used to create a employer into the repository
      * </p>
      */
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<EmployerDto> addEmployer(@RequestBody EmployerDto employerDto) {
         logger.info("Request received to add a new employer: {}", employerDto.getName());
         EmployerDto savedEmployer = employerService.createEmployer(employerDto);

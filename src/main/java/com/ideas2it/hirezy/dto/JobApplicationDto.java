@@ -28,7 +28,7 @@ public class JobApplicationDto {
     private String status;
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime AppliedDate;
+    private LocalDateTime appliedDate;
     private Long employeeId;
     private Long jobPostId;
     private EmployeeDto employee;
