@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.service;
 
 import com.ideas2it.hirezy.dto.JobPostDto;
+import com.ideas2it.hirezy.model.JobPost;
 
 import java.util.List;
 
@@ -77,4 +78,6 @@ public interface JobPostService {
     List<JobPostDto> searchJobsByFilters(String state, String city, String jobCategoryName,
                                          String jobSubcategoryName, String companyName,
                                          String companyType, String industryType,Integer experience,List<String> keySkills);
+
+    JobPost retrieveJobForApplication(long jobPostId);
 }

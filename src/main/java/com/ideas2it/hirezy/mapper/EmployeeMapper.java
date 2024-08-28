@@ -51,7 +51,7 @@ public class EmployeeMapper {
      */
     public static EmployeeDto mapEntityToDto (Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
-        employeeDto.setId(employee.getEmployeeId());
+        employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
         employeeDto.setResume(employee.getResume());

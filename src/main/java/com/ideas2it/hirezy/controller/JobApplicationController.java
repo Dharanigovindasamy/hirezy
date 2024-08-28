@@ -1,18 +1,20 @@
 package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.dto.EmployeeDto;
-import com.ideas2it.hirezy.dto.JobApplicationDto;
-import com.ideas2it.hirezy.model.Employee;
-import com.ideas2it.hirezy.model.JobApplication;
-import com.ideas2it.hirezy.service.EmployeeService;
-import com.ideas2it.hirezy.service.JobApplicationService;
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.JobApplicationDto;
+import com.ideas2it.hirezy.service.JobApplicationService;
 
 /**
  * <p>
@@ -24,12 +26,11 @@ import java.util.List;
  * @version 1
  */
 @RestController
-@RequestMapping("api/v1/employers/job-applications")
+@RequestMapping("api/v1/employee/job-applications")
 public class JobApplicationController {
 
     @Autowired
     private JobApplicationService jobApplicationService;
-
 
     /**
      * <p>
@@ -52,7 +53,7 @@ public class JobApplicationController {
      *
      */
     @GetMapping("/{id}")
-    public ResponseEntity<JobApplicationDto> getJobApplicationById(@PathVariable("id") Long id) {
+    public ResponseEntity<JobApplicationDto> getJobApplicationById(@PathVariable Long id) {
         JobApplicationDto jobApplicationDto = jobApplicationService.getJobApplicationById(id);
         return new ResponseEntity<>(jobApplicationDto, HttpStatus.OK);
     }
@@ -65,15 +66,8 @@ public class JobApplicationController {
      * </p>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> removeJobApplication(@PathVariable("id") Long id) {
-        jobApplicationService.removeJobApplication(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping("/employee/{employeeId}/job-post/{jobPostId}")
-    public ResponseEntity<JobApplication> applyForJobPostByEmployee(@PathVariable Long employeeId, @PathVariable Long jobPostId) {
-       JobApplication jobApplication = jobApplicationService.applyJobByEmployee(employeeId, jobPostId);
-        return  new ResponseEntity<>(jobApplication, HttpStatus.OK);
+    public ResponseEntity<String> removeJobApplication(@PathVariable Long id) {
+        return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.OK);
     }
 
     @PutMapping("/{id}/status")
@@ -89,5 +83,33 @@ public class JobApplicationController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(jobApplications,HttpStatus.OK);
+    }
+
+    /**
+     * This method is to assign job to the employee.
+     * @param employeeId
+     *     It is the id of the employee to be assigned.
+     * @param jobPostId
+     *     It is the job id which is to be assigned.
+     * @return String
+     *     It is the success message to be returned to the employee.
+     */
+    @PutMapping("/jobPost/{jobPostId}/employee/{employeeId}")
+    public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
+        return  new ResponseEntity<>(jobApplicationService.applyJob(employeeId,jobPostId),HttpStatus.OK);
+    }
+
+    /**
+     * This method is to retrieve the jobs applied by the employee
+     * @param employeeId
+     *     It is the id of the employee to get their jobs applied.
+     * @return List<JobApplicationDto>
+     *     It contains the list of jobs applied by the employee.
+     */
+
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
+        List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);
+        return new ResponseEntity<>(jobApplicationDto,HttpStatus.OK);
     }
 }

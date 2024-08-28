@@ -97,6 +97,15 @@ public class JobPostServiceImpl implements JobPostService {
     }
 
     @Override
+    public JobPost retrieveJobForApplication(long jobPostId) {
+
+        JobPost jobPost = jobPostRepository.findById(jobPostId)
+                .orElseThrow(() -> new ResourceNotFoundException("job application not found" + jobPostId));
+         return jobPost;
+
+    }
+
+    @Override
     public JobPostDto createJobPost(long employerId, JobPostDto jobPostDto) {
         logger.info("Creating job post for employer ID: {}", employerId);
         EmployerDto employerDto = employerService.getEmployerById(employerId);

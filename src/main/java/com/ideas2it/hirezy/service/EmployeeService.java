@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.service;
 import java.util.List;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
+import com.ideas2it.hirezy.model.Employee;
 import org.springframework.stereotype.Service;
 
 /**
@@ -64,4 +65,13 @@ public interface EmployeeService {
       * </p>*
       */
      void deleteEmployee(Long employeeId);
+
+     /**
+      * This method is to retrieve employee for applying the job.
+      * @param employeeId
+      *    It is id of the employee who apply for the job
+      * @return Employee
+      *    It contains all the employee Details for applying Job.
+      */
+     Employee retrieveEmployeeForJobPost(long employeeId);
 }

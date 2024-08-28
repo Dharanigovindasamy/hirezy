@@ -70,6 +70,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             return mapEntityToDto(employee);
     }
 
+
+
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
         EmployeeDto finalEmployeeDto = employeeDto;
@@ -109,5 +111,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setRemoved(true);
         employeeRepository.save(employee);
         logger.info("Employee id deleted successfully {} ", employeeId);
+    }
+
+    @Override
+    public Employee retrieveEmployeeForJobPost(long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
     }
 }

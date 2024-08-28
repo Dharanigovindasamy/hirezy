@@ -74,46 +74,17 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         return mapToJobApplicationDto(jobApplication);
     }
 
-
     @Override
-    public void removeJobApplication(Long id) {
+    public String removeJobApplicationForEmployee(Long id) {
         JobApplication jobApplication = jobApplicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Job application not found" + id));
         if (null == jobApplication) {
             logger.warn("No job Application found in id {}", id);
         }
-        jobApplication.setActive(true);
+        jobApplication.setDeleted(true);
         jobApplicationRepository.save(jobApplication);
         logger.info("Employee id deleted successfully {} ", id);
-    }
-
-
-    @Override
-    public JobApplication applyJobByEmployee(Long employeeId, Long jobPostId) {
-        EmployeeDto employeeDto = employeeService.retrieveEmployeeById(employeeId);
-        Employee employee = mapDtoToEntity(employeeDto);
-        JobPostDto jobPostDto = jobPostService.getJobById(jobPostId);
-        JobPost jobPost = mapToJobPost(jobPostDto, Employer.builder().build());
-
-        if (employee == null) {
-            throw new ResourceNotFoundException("Employee not found with ID: " + employeeId);
-        }
-        if (jobPost == null) {
-            throw new ResourceNotFoundException("Job post not found with ID: " + jobPostId);
-        }
-        JobApplication jobApplication = jobApplicationRepository.findByEmployeeAndJobPost(employee, jobPost);
-        if (jobApplication == null) {
-            jobApplication = JobApplication.builder()
-                    .employee(employee)
-                    .jobPost(jobPost)
-                    .status("Applied")
-                    .appliedDate(LocalDateTime.now())
-                    .isActive(true)
-                    .build();
-        } else {
-            logger.info("Application already exists for employee ID: " + employeeId + " and job post ID: " + jobPostId);
-        }
-        return jobApplicationRepository.save(jobApplication);
+        return "Job application Deleted Successfully";
     }
 
     @Override
@@ -135,6 +106,30 @@ public class JobApplicationServiceImpl implements JobApplicationService{
                 .stream()
                 .map(JobApplicationMapper::mapToJobApplicationDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String applyJob(long employeeId, long jobPostId) {
+        JobApplication jobApplication = jobApplicationRepository.findById(jobPostId)
+                .orElseThrow(() -> new ResourceNotFoundException("The Job Post does not found" + jobPostId));
+        Employee employee = employeeService.retrieveEmployeeForJobPost(employeeId);
+        jobApplication.setEmployee(employee);
+        JobPost jobPost = jobPostService.retrieveJobForApplication(jobPostId);
+        jobApplication.setJobPost(jobPost);
+        jobApplicationRepository.save(jobApplication);
+        return "Job Applied Successfully";
+    }
+
+    @Override
+    public List<JobApplicationDto> retrieveEmployeeAppliedJobs(Long employeeId) {
+        List<JobApplicationDto> jobApplicationDto = new ArrayList<>();
+        for (JobApplication jobApplication : jobApplicationRepository.findByEmployeeId(employeeId)){
+            if(null != jobApplication) {
+                jobApplicationDto.add(mapToJobApplicationDto(jobApplication));
+            }
+            throw  new ResourceNotFoundException("The Employee has no job application" + employeeId);
+        }
+        return  jobApplicationDto;
     }
 }
 
