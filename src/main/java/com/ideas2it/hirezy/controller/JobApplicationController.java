@@ -67,7 +67,7 @@ public class JobApplicationController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeJobApplication(@PathVariable Long id) {
-        return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.OK);
+        return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}/status")

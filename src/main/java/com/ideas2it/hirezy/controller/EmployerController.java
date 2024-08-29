@@ -99,7 +99,7 @@ public class EmployerController {
         logger.info("Request received to delete employer with ID: {}", employerId);
         employerService.removeEmployer(employerId);
         logger.info("Employer with ID {} has been deleted", employerId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     /**
      * <p>

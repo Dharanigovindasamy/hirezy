@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
@@ -37,10 +36,10 @@ public class EmployeeController {
     /**
      * <p>
      * Adding employee profile details into the table as HTTP json data format
-     *
+     * </p>
      * @param employeeDto - {@link EmployeeDto} employeeDto receive from user as json format
      * @return employeeDto - employeeDto after adding into the table
-     * </p>
+     *
      */
     @PostMapping
     public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto){
@@ -51,9 +50,9 @@ public class EmployeeController {
     /**
      * <p>
      *     Retrieve all employee profile details from the table
-     *
-     * @return <List<EmployeeDto>> - list of employee profile
      * </p>
+     * @return <List<EmployeeDto>> - list of employee profile
+     *
      */
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> displayEmployees() {
@@ -61,11 +60,11 @@ public class EmployeeController {
     }
 
     /**
-     * <p>Display employee details By employee Id
-     *
+     * <p>
+     *     Display employee details By employee Id
+     * </p>
      * @param employeeId - Id of the employee
      * @return employeeDto - employeeDto of the respective employee Id
-     * </p>
      *
      */
     @GetMapping("/{id}")
@@ -77,10 +76,10 @@ public class EmployeeController {
     /**
      * <p>
      *     Update employee by checking with employee id
-     *
+     * </p>
      * @param employeeDto - {@link EmployeeDto}
      * @return EmployeeDto - employeeDto to the user
-     * /p>
+     *
      */
     @PutMapping
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
@@ -89,14 +88,15 @@ public class EmployeeController {
     }
 
     /**
-     * <p>Delete employee by giving employee id
-     *
-     * @param employeeId - employeeId of the employee
+     * <p>
+     *     Delete employee by giving employee id
      * </p>
+     * @param employeeId - employeeId of the employee
+     *
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

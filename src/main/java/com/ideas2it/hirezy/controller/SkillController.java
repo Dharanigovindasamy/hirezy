@@ -83,6 +83,6 @@ public class SkillController {
         if (skillService.deleteSkill(skillId)) {
             return new ResponseEntity<>("Skill Id - " + skillId + " deleted successfully", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error in deleting the Skill Id - " + skillId , HttpStatus.OK);
+        return new ResponseEntity<>("Error in deleting the Skill Id - " + skillId , HttpStatus.NO_CONTENT);
     }
 }

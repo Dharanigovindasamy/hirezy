@@ -46,8 +46,8 @@ public class JobPostDto {
     @NotBlank(message = "Enter city")
     private String city;
 
-    @NotNull(message = "Enter job category Id")
-    private long jobCategoryId;
+    //@NotNull(message = "Enter job category Id")
+    private Long jobCategoryId;
     private long employerId;
     private LocalDate postedDate;
 }

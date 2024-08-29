@@ -100,6 +100,6 @@ public class LocationController {
     public ResponseEntity<Void> deleteLocation(@PathVariable("id")Long id) {
         locationService.deleteLocation(id);
         logger.info("Location can be deleted successfully {}", id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
