@@ -133,4 +133,5 @@ public class OtpService {
         String verifiedKey = "verified:" + email;
         return Boolean.TRUE.equals(redisTemplate.hasKey(verifiedKey));
     }
+
 }
