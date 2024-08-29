@@ -38,7 +38,7 @@ public class JobPost {
     private int experience;
 
     @ElementCollection
-    @CollectionTable(name = "job_key_skills", joinColumns = @JoinColumn(name = "job_post_id"))
+    @CollectionTable(name = "job_key_skill", joinColumns = @JoinColumn(name = "job_post_id"))
     @Column(name = "key_skill")
     private List<String> keySkills;
 

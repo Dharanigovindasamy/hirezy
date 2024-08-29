@@ -23,7 +23,7 @@ import java.util.List;
  * Provides endpoints to create, retrieve, update, delete JobCategory.
  */
 @RestController
-@RequestMapping("/api/v1/jobcategories")
+@RequestMapping("/api/v1/category")
 public class JobCategoryController {
 
     @Autowired

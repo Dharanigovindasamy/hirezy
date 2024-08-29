@@ -4,6 +4,7 @@ import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.service.EmployerService;
 import com.ideas2it.hirezy.service.JobPostService;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class EmployerController {
      * </p>
      */
     @PostMapping
-    public ResponseEntity<EmployerDto> addEmployer(@RequestBody EmployerDto employerDto) {
+    public ResponseEntity<EmployerDto> addEmployer(@Valid @RequestBody EmployerDto employerDto) {
         logger.info("Request received to add a new employer: {}", employerDto.getName());
         EmployerDto savedEmployer = employerService.createEmployer(employerDto);
         logger.info("Employer created with ID: {}", savedEmployer.getId());
@@ -81,7 +82,7 @@ public class EmployerController {
      * </p>
      */
     @PutMapping
-    public ResponseEntity<EmployerDto> updateEmployer(@RequestBody EmployerDto employerDto) {
+    public ResponseEntity<EmployerDto> updateEmployer(@Valid @RequestBody EmployerDto employerDto) {
         logger.info("Request received to update employer with ID: {}",employerDto.getId());
         EmployerDto updateEmployerDto =  employerService.updateEmployer(employerDto);
         return new ResponseEntity<>((updateEmployerDto),HttpStatus.OK);
