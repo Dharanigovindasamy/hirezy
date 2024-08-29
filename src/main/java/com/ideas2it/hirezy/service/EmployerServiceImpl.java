@@ -42,7 +42,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     @Override
     public EmployerDto createEmployer(EmployerDto employerDto) {
         User user = userService.retrieveUserById(employerDto.getUserId());
-        Employer employer = convertDtoToEntity(employerDto,user);
+        Employer employer = convertDtoToEntity(employerDto, user);
         logger.info("Creating a new employer with name: {}", employer.getName());
         logger.info("Company has been successfully created");
         Employer savedEmployer = employerRepository.save(employer);
@@ -55,7 +55,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Fetching all employers");
         List<EmployerDto> result = new ArrayList<>();
         List<Employer> employers = employerRepository.findByIsDeletedFalse();
-        if(employers.isEmpty()) {
+        if (employers.isEmpty()) {
             logger.warn("No employers found");
         } else {
             for (Employer employer : employers) {
@@ -81,10 +81,10 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     }
 
     @Override
-    public EmployerDto updateEmployer(EmployerDto employerDto)  {
-        Employer existingEmployer =  employerRepository.findByIsDeletedFalseAndId(employerDto.getId());
+    public EmployerDto updateEmployer(EmployerDto employerDto) {
+        Employer existingEmployer = employerRepository.findByIsDeletedFalseAndId(employerDto.getId());
         if (existingEmployer == null) {
-            logger.error("Employer not found with ID : {}",employerDto.getId());
+            logger.error("Employer not found with ID : {}", employerDto.getId());
             throw new ResourceNotFoundException("Employer not found with ID: " + employerDto.getId());
         }
         Employer employer = convertDtoToEntity(employerDto);
@@ -122,7 +122,12 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     }
 
     @Override
-    public Long countEmployers() {
-        return  employerRepository.count();
+    public Long countActiveEmployers() {
+        return employerRepository.countByIsDeleted(false);
+    }
+
+    @Override
+    public Long countDeletedEmployers() {
+        return employerRepository.countByIsDeleted(true);
     }
 }

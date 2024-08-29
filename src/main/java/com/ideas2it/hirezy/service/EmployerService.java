@@ -92,8 +92,16 @@ public interface EmployerService {
       */
      List<JobPostDto> getAllJobPostsByEmployer(Long employerId);
 
-     /*
-      * Return total count of register employer
+     /**
+      * Retrieves the count of active employers.
+      * @return the number of active employers
       */
-     Long countEmployers();
+     Long countActiveEmployers();
+
+     /**
+      * Retrieves the count of deleted employers.
+      * @return the number of deleted employers.
+      */
+     Long countDeletedEmployers();
 }
+

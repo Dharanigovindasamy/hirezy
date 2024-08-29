@@ -68,9 +68,16 @@ public interface EmployeeService {
       */
      Employee retrieveEmployeeForJobPost(long employeeId);
 
-     /*
-      * Return total register employee.
+     /**
+      * Retrieves the count of active employees.
+      * @return the number of active employees
       */
-     Long countEmployees();
+     Long countActiveEmployees();
+
+    /**
+     * Retrieves the count of deleted employees.
+     * @return the number of deleted employees.
+     */
+     Long countDeletedEmployees();
 
 }

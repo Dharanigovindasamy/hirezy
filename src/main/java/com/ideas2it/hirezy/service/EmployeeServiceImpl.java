@@ -105,7 +105,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Long countEmployees() {
-        return employeeRepository.count();
+    public Long countActiveEmployees() {
+        return employeeRepository.countByIsDeleted(false);
+    }
+
+    @Override
+    public Long countDeletedEmployees() {
+        return employeeRepository.countByIsDeleted(true);
     }
 }

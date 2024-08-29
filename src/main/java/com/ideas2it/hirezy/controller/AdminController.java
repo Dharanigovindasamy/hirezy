@@ -21,13 +21,21 @@ public class AdminController {
     private EmployerService employerService;
 
     @GetMapping("/dashboard")
-    public ResponseEntity<Map<String,Long>>getCounts() {
-        Long employerCount = employerService.countEmployers();
-        Long employeeCount = employeeService.countEmployees();
+    public ResponseEntity<Map<String,Map<String,Long>>>getCounts() {
+        Long acticveEmployerCount = employerService.countActiveEmployers();
+        Long deletedEmployerCount = employerService.countDeletedEmployers();
+        Long acticveEmployeeCount = employeeService.countActiveEmployees();
+        Long deletedEmployeeCount = employeeService.countDeletedEmployees();
 
-        Map<String,Long> counts = new HashMap<>();
-        counts.put(("employerCount"),employerCount);
-        counts.put(("employeeCount"),employeeCount);
+        Map<String,Long> employerCounts = new HashMap<>();
+        employerCounts.put("active",acticveEmployerCount);
+        employerCounts.put("deleted",deletedEmployerCount);
+        Map<String,Long> employeeCounts = new HashMap<>();
+        employeeCounts.put("active",acticveEmployeeCount);
+        employeeCounts.put("deleted",deletedEmployeeCount);
+        Map<String,Map<String,Long>> counts =new HashMap<>();
+        counts.put("employer",employerCounts);
+        counts.put("employee",employeeCounts);
         return ResponseEntity.ok(counts);
     }
 }

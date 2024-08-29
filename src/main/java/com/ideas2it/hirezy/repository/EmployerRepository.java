@@ -32,5 +32,12 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
      */
     Employer findByIsDeletedFalseAndId(long companyId);
 
+    /**
+     * Counts the number of employer based on their deletion status.
+     * @param isDeleted the deletion status to filter by,
+     * @return the number of employers with the specified  deletion status.
+     */
+    Long countByIsDeleted(boolean isDeleted);
+
 
 }
