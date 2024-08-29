@@ -99,8 +99,8 @@ public class JobApplicationServiceImpl implements JobApplicationService{
             jobApplicationRepository.save(jobApplication);
             String employeeEmail = jobApplication.getEmployee().getUser().getEmailId();
             String subject = "Your Job Application Status Has Been Updated";
-            String message = String.format("Dear %s,\n\nYour application status for the job post '%s' has been updated to '%s'.\n\nThanks",
-                    jobApplication.getEmployee().getName(), jobApplication.getJobPost().getTitle(), status);
+            String message = String.format("Dear %s,\n\nYour application status for the job post '%s' has been updated to '%s'.\n\nBest regards,\n '%s'",
+                    jobApplication.getEmployee().getName(), jobApplication.getJobPost().getTitle(), status,jobApplication.getJobPost().getEmployer().getCompanyName());
 
             emailService.sendEmail(employeeEmail, subject, message);
             return mapToJobApplicationDto(jobApplication);

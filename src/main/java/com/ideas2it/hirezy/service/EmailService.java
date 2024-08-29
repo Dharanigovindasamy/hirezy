@@ -13,6 +13,13 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    /**
+     * Sends an email with the specified recipient, subject, and body.
+     *
+     * @param toEmail the recipient's email address
+     * @param subject the subject of the email
+     * @param body the body of the email
+     */
     public void sendEmail(String toEmail,String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);

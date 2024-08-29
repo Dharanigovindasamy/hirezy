@@ -89,13 +89,10 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Location findOrCreateLocation(String state, String city) {
-        // Try to find the location by state and city
         Optional<Location> locationOptional = locationRepository.findByStateAndCity(state, city);
         if (locationOptional.isPresent()) {
-            // Return the existing location
             return locationOptional.get();
         } else {
-            // If not found, create a new location
             Location newLocation = new Location();
             newLocation.setState(state);
             newLocation.setCity(city);

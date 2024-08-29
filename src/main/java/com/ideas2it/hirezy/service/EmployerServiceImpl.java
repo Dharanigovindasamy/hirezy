@@ -37,6 +37,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     @Autowired
     private UserService userService;
 
+    @Override
     public EmployerDto createEmployer(EmployerDto employerDto) {
         User user = userService.retrieveUserById(employerDto.getUserId());
         Employer employer = convertDtoToEntity(employerDto,user);
@@ -46,6 +47,8 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Employer created successfully with ID: {}", savedEmployer.getId());
         return convertEntityToDto(employerRepository.save(employer));
     }
+
+    @Override
     public List<EmployerDto> getAllEmployers() {
         logger.info("Fetching all employers");
         List<EmployerDto> result = new ArrayList<>();
@@ -61,6 +64,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         return result;
     }
 
+    @Override
     public void removeEmployer(long employerId) {
         logger.info("Removing employer with ID: {}", employerId);
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
@@ -74,6 +78,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
 
     }
 
+    @Override
     public EmployerDto updateEmployer(EmployerDto employerDto)  {
         Employer existingEmployer =  employerRepository.findByIsDeletedFalseAndId(employerDto.getId());
         if (existingEmployer == null) {
@@ -85,6 +90,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         return convertEntityToDto(employerRepository.save(employer));
     }
 
+    @Override
     public EmployerDto getEmployerById(long employerId) {
         logger.info("Fetching employer with ID: {}", employerId);
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
@@ -95,16 +101,19 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         return convertEntityToDto(employer);
     }
 
+    @Override
     public JobPostDto updateJobPost(long employerId, long jobId, JobPostDto jobPostDto) {
         logger.info("Updating job post with id: {} for employer with id: {}", jobId, employerId);
         return jobPostService.updateJobPost(jobId, jobPostDto);
     }
 
+    @Override
     public void deleteJobPost(Long jobId) {
         logger.info("Deleting job post with ID: {}", jobId);
         jobPostService.deleteJobPost(jobId);
     }
 
+    @Override
     public List<JobPostDto> getAllJobPostsByEmployer(Long employerId) {
         logger.info("Fetching all job posts for employer with ID: {}", employerId);
         return jobPostService.getAllJobPostsByEmployer(employerId);
