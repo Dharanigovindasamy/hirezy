@@ -28,17 +28,16 @@ public class AuthenticationService {
     private final RoleService roleService;
 
     /**
-     * This method is used to by default create a admin user
-     * and provide the details while registering
+     * This method is to register the Admin while running the application.
+     * By this the admin does not need to register.
      */
-
     public void registerAdmin(){
         if(userRepository.findById(1L).isEmpty()){
             userRepository.save(User.builder()
                     .Id(1L)
-                    .emailId("kishoreofficial@gmail.com")
-                    .password(passwordEncoder.encode("Kishore@789"))
-                    .phoneNumber("7258631509").
+                    .emailId(System.getenv("ADMIN_EMAIL"))
+                    .password(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")))
+                    .phoneNumber(System.getenv("ADMIN_PHONE_NUMBER")).
                     role(Role.builder()
                             .Id(1)
                             .roleName("ADMIN")
@@ -51,11 +50,14 @@ public class AuthenticationService {
     /**
      * This method is used to register the user details
      * in the repository
-     * @param request
+     * @param request {@link RegisteredRequest}
+     *     It contains the user details for signup.
      * @param role
-     * @return
+     *     It is the role of that user who will log in.
+     * @return String
+     *     Ii is the reply message to the user.
      */
-    public String register(RegisteredRequest request,String role) {
+    public String registerUser(RegisteredRequest request,String role) {
         String email = request.getEmail();
         for (User user : userRepository.findAll()){
             if(email.equals(user.getEmailId())){
@@ -64,7 +66,6 @@ public class AuthenticationService {
             }
         }
         var user = User.builder()
-                .userName(request.getName())
                 .emailId(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phoneNumber(request.getPhoneNumber())
@@ -75,12 +76,13 @@ public class AuthenticationService {
     }
 
     /**
-     * This method is used to verify if the credentials
-     * are correct
-     * @param request
-     * @return
+     * This method is to verify the user login information.
+     * If it is verified then the token for that user will be generated.
+     * @param request {@link AuthenticationRequest}
+     *     It contains the Email and password of that user.
+     * @return AuthenticationResponse
+     *     It contains the Token generated for that user.
      */
-
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
