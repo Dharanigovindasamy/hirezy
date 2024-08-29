@@ -91,4 +91,9 @@ public interface EmployerService {
       * @return A list of `JobPostDto` representing all job posts for the specified employer.
       */
      List<JobPostDto> getAllJobPostsByEmployer(Long employerId);
+
+     /*
+      * Return total count of register employer
+      */
+     Long countEmployers();
 }

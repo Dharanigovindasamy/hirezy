@@ -103,4 +103,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
     }
+
+    @Override
+    public Long countEmployees() {
+        return employeeRepository.count();
+    }
 }

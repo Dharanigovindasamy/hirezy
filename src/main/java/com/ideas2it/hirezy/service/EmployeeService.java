@@ -67,4 +67,10 @@ public interface EmployeeService {
       *    It contains all the employee Details for applying Job.
       */
      Employee retrieveEmployeeForJobPost(long employeeId);
+
+     /*
+      * Return total register employee.
+      */
+     Long countEmployees();
+
 }

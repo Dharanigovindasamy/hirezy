@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(EmployerController.class);
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }

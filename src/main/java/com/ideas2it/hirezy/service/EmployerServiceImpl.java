@@ -120,4 +120,9 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Fetching all job posts for employer with ID: {}", employerId);
         return jobPostService.getAllJobPostsByEmployer(employerId);
     }
+
+    @Override
+    public Long countEmployers() {
+        return  employerRepository.count();
+    }
 }
