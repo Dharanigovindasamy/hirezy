@@ -1,30 +1,24 @@
 package com.ideas2it.hirezy.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.ideas2it.hirezy.mapper.JobApplicationMapper;
-import com.ideas2it.hirezy.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ideas2it.hirezy.dto.EmployeeDto;
+import com.ideas2it.hirezy.model.Employee;
+import com.ideas2it.hirezy.model.JobApplication;
+import com.ideas2it.hirezy.model.JobPost;
+import com.ideas2it.hirezy.mapper.JobApplicationMapper;
 import com.ideas2it.hirezy.dto.JobApplicationDto;
-import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.repository.JobApplicationRepository;
-import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapDtoToEntity;
-import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapEntityToDto;
-import static com.ideas2it.hirezy.mapper.JobApplicationMapper.mapToJobApplication;
 import static com.ideas2it.hirezy.mapper.JobApplicationMapper.mapToJobApplicationDto;
-import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPost;
-import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPostDto;
+
 
 /**
  * <p>

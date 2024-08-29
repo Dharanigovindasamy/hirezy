@@ -1,9 +1,10 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.JobCategoryDto;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.JobCategoryDto;
 
 /**
  *<p>

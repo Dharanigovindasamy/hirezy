@@ -2,11 +2,19 @@ package com.ideas2it.hirezy.service;
 
 import java.util.List;
 
-import com.ideas2it.hirezy.dto.JobApplicationDto;
 import org.springframework.stereotype.Service;
 
+import com.ideas2it.hirezy.dto.JobApplicationDto;
+
+/**
+ * <p>
+ *     This interface used for job application functionalities
+ * </p>
+ *
+ */
 @Service
 public interface JobApplicationService {
+
     /**
       * <p>
       *     This method gets all the job applications which there exists

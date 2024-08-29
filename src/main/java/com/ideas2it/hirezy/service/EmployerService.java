@@ -1,10 +1,11 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.EmployerDto;
-import com.ideas2it.hirezy.dto.JobPostDto;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.EmployerDto;
+import com.ideas2it.hirezy.dto.JobPostDto;
 
 
 /**
@@ -15,6 +16,8 @@ import java.util.List;
  *     service handles operations related to job posts associated with employers, such as
  *     updating, deleting, and retrieving all job posts by a specific employer.
  * </p>
+ * @author dharani.govindhasamy
+ * @version 1
  **/
 @Service
 public interface EmployerService {
@@ -42,15 +45,16 @@ public interface EmployerService {
 
      /**
       * This method is used to alter the company details in the portal
-      * @param employerDto
-      * @return
+      * @param employerDto - {@link EmployerDto}
+      *            It contains the employeeDto details to be created.
+      * @return EmployerDto - EmployerDto received to user
       */
-     public EmployerDto updateEmployer(EmployerDto employerDto);
+      EmployerDto updateEmployer(EmployerDto employerDto);
 
      /**
       * This method is used to get the company based on the id
-      * @param id
-      * @return
+      * @param id - id of the employer
+      * @return EmployerDto - EmployerDto received to user
       */
      EmployerDto getEmployerById(long id);
 
@@ -62,7 +66,7 @@ public interface EmployerService {
       *
       * @param employerId The unique identifier of the employer.
       * @param jobId The unique identifier of the job post to be updated.
-      * @param jobPostDto The data transfer object containing the updated job post details.
+      * @param jobPostDto -{@link JobPostDto}The data transfer object containing the updated job post details.
       * @return The updated `JobPostDto` reflecting the changes made.
       */
      JobPostDto updateJobPost(long employerId, long jobId, JobPostDto jobPostDto);

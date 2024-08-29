@@ -1,11 +1,11 @@
 package com.ideas2it.hirezy.service;
 
-import java.io.IOException;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.model.Employee;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>

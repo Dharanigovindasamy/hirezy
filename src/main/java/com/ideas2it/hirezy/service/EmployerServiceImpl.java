@@ -1,28 +1,30 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.EmployerDto;
-import com.ideas2it.hirezy.dto.JobPostDto;
-import com.ideas2it.hirezy.exception.ResourceNotFoundException;
-import com.ideas2it.hirezy.model.Employer;
-import com.ideas2it.hirezy.model.User;
-import com.ideas2it.hirezy.repository.EmployerRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.ideas2it.hirezy.dto.EmployerDto;
+import com.ideas2it.hirezy.dto.JobPostDto;
+import com.ideas2it.hirezy.exception.ResourceNotFoundException;
+import com.ideas2it.hirezy.model.Employer;
+import com.ideas2it.hirezy.model.User;
+import com.ideas2it.hirezy.repository.EmployerRepository;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
 
 /**
- * This class handles
+ * <p>
+ *     This class handles
  * the business logic related to employer operations, including creating,
  * updating, retrieving, and deleting employer records. Additionally,
  * it manages job posts associated with employers.
+ * </p>
  * @author kishore
  */
 @Service

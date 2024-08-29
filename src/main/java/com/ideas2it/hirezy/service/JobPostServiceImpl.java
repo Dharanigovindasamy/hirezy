@@ -1,5 +1,18 @@
 package com.ideas2it.hirezy.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.time.LocalDate;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobCategoryDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
@@ -11,26 +24,18 @@ import com.ideas2it.hirezy.model.JobPost;
 import com.ideas2it.hirezy.model.Location;
 import com.ideas2it.hirezy.repository.JobPostRepository;
 import com.ideas2it.hirezy.repository.JobPostSpecifications;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapToJobCategory;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPost;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPostDto;
-import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocation;
 
+/**
+ * <p>
+ *     This class used for job post functionalities lke adding , retrieving, updating nd deleting
+ * </p>
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Service
 public class JobPostServiceImpl implements JobPostService {
     @Autowired
@@ -98,7 +103,6 @@ public class JobPostServiceImpl implements JobPostService {
 
     @Override
     public JobPost retrieveJobForApplication(long jobPostId) {
-
         JobPost jobPost = jobPostRepository.findById(jobPostId)
                 .orElseThrow(() -> new ResourceNotFoundException("job application not found" + jobPostId));
          return jobPost;

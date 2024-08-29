@@ -16,12 +16,12 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@Service
 /**
  * This is the service class that is used
  * for generation of the otp
  *verification of the otp and account takes place
  */
+@Service
 public class OtpService {
     @Autowired
     private JavaMailSender javaMailSender;
@@ -34,12 +34,12 @@ public class OtpService {
     private static final long RATE_LIMIT_PERIOD_SECONDS = 300;
 
     /**
-     *
-     * This method is used to check if the number of attempts has exceeded
-     *and then generate the otp
-     * @param email
-     * @return
-     * @throws MessagingException
+     * <p>
+     *     Generating otp and valid with specific time interval along with OTP code.
+     *    If time limit is exceed, try again otherwise send otp to mail
+     * </p>
+     * @param email - sending mail
+     * @return String - OTP status to the mail
      */
     public String generateOTP(String email) throws MessagingException {
         if (isRateLimited(email)) {
@@ -73,11 +73,12 @@ public class OtpService {
     }
 
     /**
-     * This method is used to check if otp sent by the user matches
-     * with the otp stored in redis
-     * @param email
-     * @param otpCode
-     * @return
+     * <p>
+     *     Verifying OTP status
+     * </p>
+     * @param email - email id of the user
+     * @param otpCode - otp sent from mail
+     * @return boolean - if verifies return true. otherwise, return false
      */
     public boolean verifyOTP(String email, String otpCode) {
         String otpKey = OTP_PREFIX + email;
@@ -91,9 +92,10 @@ public class OtpService {
     }
 
     /**
-     * This method is used to limit the number of otp generation attempts
-     * @param email
-     * @return
+     * Checks if the given email has exceeded the rate limit for OTP requests.
+     *
+     * @param email the email address to check
+     * @return true if the rate limit is exceeded, false otherwise
      */
     private boolean isRateLimited(String email) {
         String rateLimitKey = RATE_LIMIT_PREFIX + email;
@@ -105,10 +107,11 @@ public class OtpService {
     }
 
     /**
-     * This is the method used to create a unique random otp
-     * for a user
-     * @param length
-     * @return
+     * <p>
+     *     Generating OTP with random numbers of 6 digit length
+     * </p>
+     * @param length - size of the OTP
+     * @return String - OTP generated
      */
     private String generateRandomOTP(int length) {
         Random random = new Random();
@@ -120,14 +123,14 @@ public class OtpService {
     }
 
     /**
-     * verification of the email takes place
-     * to check if the account is verified
-     * @param email
-     * @return
+     * <p>
+     *     Check the account is verified or not by entering OTP
+     * </p>
+     * @param email - User mail id
+     * @return true if account is verified, otherwise false
      */
     public boolean isAccountVerified(String email) {
         String verifiedKey = "verified:" + email;
         return Boolean.TRUE.equals(redisTemplate.hasKey(verifiedKey));
     }
-
 }

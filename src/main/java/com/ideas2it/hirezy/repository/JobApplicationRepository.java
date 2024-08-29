@@ -1,14 +1,10 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.model.Employee;
-import com.ideas2it.hirezy.model.JobApplication;
-import com.ideas2it.hirezy.model.JobPost;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
-import java.util.Optional;
+
+import com.ideas2it.hirezy.model.JobApplication;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -24,8 +20,19 @@ import java.util.Optional;
 @Repository
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
 
+    /**
+     * List of job applications under the job post
+     * @param jobPostId - od of the job post
+     * @return List of job applications under job post
+     */
     List<JobApplication> findByJobPostId(Long jobPostId);
 
+    /**
+     * List of job applications under the job post
+     *
+     * @param employeeId - id of the employer
+     *  @return List of job applications who posted the job
+     */
     List<JobApplication> findByEmployeeId(Long employeeId);
 
 }

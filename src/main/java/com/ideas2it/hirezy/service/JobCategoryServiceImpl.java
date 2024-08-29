@@ -1,19 +1,27 @@
 package com.ideas2it.hirezy.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.hirezy.dto.JobCategoryDto;
 import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.mapper.JobCategoryMapper;
 import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.repository.JobCategoryRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * <p>
+ *     This class used for job categories functionalities like CRUD Operations
+ * </p>
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Service
 public class JobCategoryServiceImpl  implements JobCategoryService {
     @Autowired

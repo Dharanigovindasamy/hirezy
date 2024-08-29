@@ -13,6 +13,15 @@ import com.ideas2it.hirezy.mapper.SkillMapper;
 import com.ideas2it.hirezy.model.Skill;
 import com.ideas2it.hirezy.repository.SkillRepository;
 
+/**
+ * <p>
+ *     This class used for skill data CRUD business performs.
+ *  It can save, retrieve, update and delete the skill details
+ * </p>
+ *
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Service
 public class SkillServiceImpl implements SkillService{
 

@@ -1,8 +1,9 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.model.JobCategory;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import com.ideas2it.hirezy.model.JobCategory;
 
 /**
  * Repository interface for managing JobCategory entities.
@@ -12,5 +13,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface JobCategoryRepository extends CrudRepository<JobCategory, Long> {
+
+    /**
+     * Retrieve the job category name
+     * @param name - name of the job category
+     * @return true if searching category is present or else false
+     */
     boolean existsByName(String name);
 }

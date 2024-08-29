@@ -1,14 +1,15 @@
 package com.ideas2it.hirezy.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.model.Location;
-import org.springframework.stereotype.Service;
 
 /**
  *<p>
- *  This interface used for performing CRUD operations
- *
+ *  This interface used for performing CRUD operations in location object
  *</p>>
  *
  * @author dharani.govindhasamy
@@ -42,7 +43,7 @@ public interface LocationService {
      * </p>
      *
      * @param id - location id of the location
-     * @return locationDto - dispalying locationDto of respective id
+     * @return locationDto - displaying locationDto of respective id
      */
     LocationDto displayLocationById(Long id);
 

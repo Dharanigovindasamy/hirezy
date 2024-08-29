@@ -1,11 +1,11 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.JobCategoryDto;
-import com.ideas2it.hirezy.dto.JobSubCategoryDto;
-import com.ideas2it.hirezy.model.JobSubCategory;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.JobCategoryDto;
+import com.ideas2it.hirezy.dto.JobSubCategoryDto;
 
 /**
  *<p>
@@ -17,17 +17,17 @@ import java.util.List;
 @Component
 public interface JobSubCategoryService {
     /**
-     * Retrieves all JobsubCategory.
+     * Retrieves all Job subCategory.
      *
-     * @return a list of JobsubCategory entities
+     * @return a list of Job subCategory entities
      */
     List<JobSubCategoryDto> getAllJobSubCategories();
 
     /**
-     * Retrieves an jobsubCategory by their ID.
+     * Retrieves an job subCategory by their ID.
      *
      * @param id the ID of the JobCategory to be retrieved
-     * @return the jobsubcategory entity with the specified ID
+     * @return the job subcategory entity with the specified ID
      */
     JobSubCategoryDto getJobSubCategoryById(Long id);
 

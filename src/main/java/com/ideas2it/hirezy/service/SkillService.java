@@ -1,9 +1,12 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.SkillDto;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.SkillDto;
+
+
 
 /**
  * This is th service class which will manage all the CRUD operations.

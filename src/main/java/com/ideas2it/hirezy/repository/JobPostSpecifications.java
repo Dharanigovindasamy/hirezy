@@ -1,10 +1,11 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.model.JobPost;
+import java.util.List;
+
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.List;
+import com.ideas2it.hirezy.model.JobPost;
 
 /**
  * This class provides specifications for querying job posts based on their state.

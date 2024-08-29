@@ -1,8 +1,8 @@
 package com.ideas2it.hirezy.repository;
 
+import org.springframework.data.repository.CrudRepository;
 
 import com.ideas2it.hirezy.model.JobSubCategory;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * Repository interface for managing JobSubCategory entities.

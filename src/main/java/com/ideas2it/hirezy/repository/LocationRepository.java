@@ -17,6 +17,18 @@ import java.util.Optional;
  */
 @Repository
 public interface LocationRepository extends CrudRepository<Location ,Long> {
+
+    /**
+     * Retrieve list of locations which are in the list
+     * @return list of locations
+     */
     List<Location> findByIsDeletedFalse();
+
+    /**
+     * Find location by giving state and city
+     * @param state - state given by user
+     * @param city - city given by the user
+     * @return Location - location found under the state and city
+     */
     Optional<Location> findByStateAndCity(String state, String city);
 }

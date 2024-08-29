@@ -1,10 +1,10 @@
 package com.ideas2it.hirezy.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.repository.RoleRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * This class is the Service class for role.

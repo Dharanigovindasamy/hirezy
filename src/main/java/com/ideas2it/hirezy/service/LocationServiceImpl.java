@@ -1,19 +1,18 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.LocationDto;
-import com.ideas2it.hirezy.exception.ResourceNotFoundException;
-import com.ideas2it.hirezy.model.Location;
-import com.ideas2it.hirezy.repository.LocationRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-
+import com.ideas2it.hirezy.dto.LocationDto;
+import com.ideas2it.hirezy.exception.ResourceNotFoundException;
+import com.ideas2it.hirezy.model.Location;
+import com.ideas2it.hirezy.repository.LocationRepository;
 import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocation;
 import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocationDto;
 

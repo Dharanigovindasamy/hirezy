@@ -1,10 +1,9 @@
 package com.ideas2it.hirezy.repository;
 
-import com.ideas2it.hirezy.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.ideas2it.hirezy.model.Employee;
 
 /**
  * <p>
@@ -18,6 +17,11 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+    /**
+     * Retrieve employee which is soft delete
+     * @param employeeId - id of the employee
+     * @return employee - employee are under the id
+     */
     Employee findByIdAndIsDeletedFalse(long employeeId);
 
 }

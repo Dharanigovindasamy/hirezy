@@ -1,5 +1,14 @@
 package com.ideas2it.hirezy.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.hirezy.dto.JobCategoryDto;
 import com.ideas2it.hirezy.dto.JobSubCategoryDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
@@ -8,15 +17,14 @@ import com.ideas2it.hirezy.mapper.JobSubCategoryMapper;
 import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.model.JobSubCategory;
 import com.ideas2it.hirezy.repository.JobSubCategoryRepository;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
+/**
+ * <p>
+ *     This class used for subCategories object details that can add, retrieve, update and delete performs
+ * </p>
+ * @author dharani.govindhasamy
+ * @version 1
+ */
 @Service
 public class JobSubCategoryServiceImpl implements JobSubCategoryService {
 
