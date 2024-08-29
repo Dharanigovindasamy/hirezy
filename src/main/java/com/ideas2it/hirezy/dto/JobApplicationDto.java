@@ -24,10 +24,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class JobApplicationDto {
     private long id;
+
     @NotBlank
     private String status;
+
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime appliedDate;
     private Long employeeId;
     private Long jobPostId;

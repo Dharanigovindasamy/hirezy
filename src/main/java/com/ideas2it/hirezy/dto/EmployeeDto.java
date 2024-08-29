@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,8 @@ public class EmployeeDto {
     @Pattern(regexp = "^[a-zA-Z\\s]+$")
     private String name;
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @NotNull
+    @Past
     private LocalDate dateOfBirth;
 
     @NotBlank
