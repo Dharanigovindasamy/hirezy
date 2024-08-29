@@ -27,6 +27,11 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final RoleService roleService;
 
+    /**
+     * This method is used to by default create a admin user
+     * and provide the details while registering
+     */
+
     public void registerAdmin(){
         if(userRepository.findById(1L).isEmpty()){
             userRepository.save(User.builder()
@@ -43,6 +48,14 @@ public class AuthenticationService {
 
         }
     }
+
+    /**
+     * This method is used to register the user details
+     * in the repository
+     * @param request
+     * @param role
+     * @return
+     */
     public AuthenticationResponse register(RegisteredRequest request,String role) {
         String email = request.getEmail();
         for (User user : userRepository.findAll()){
@@ -64,6 +77,13 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    /**
+     * This method is used to verify if the credentials
+     * are correct
+     * @param request
+     * @return
+     */
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(

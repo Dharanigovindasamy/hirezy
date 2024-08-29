@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * This is the class that is used to obtain the request from
+ * the user
+ */
 public class AuthenticationRequest {
     private String email;
     String password;

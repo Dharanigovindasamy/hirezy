@@ -17,6 +17,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 @Component
 @RequiredArgsConstructor
+/**
+ * This class is used to extract claims from the
+ * token while filtering and update the security
+ * context holder if its authenticated
+ */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;

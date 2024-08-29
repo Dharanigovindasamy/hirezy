@@ -15,6 +15,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+/**
+ * This is the class where the privileges to the roles have been
+ * assigned and the requests are authenticated.
+ */
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;

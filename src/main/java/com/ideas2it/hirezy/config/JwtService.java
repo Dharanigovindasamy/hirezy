@@ -14,22 +14,43 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * This class is where the token and signature is generated
+ * and the operations of extracting all and
+ * specific claims take place
+ */
 @Service
 public class JwtService {
 
     private static final String SECRET_KEY = System.getenv("SECRET_KEY");
 
-
+    /**
+     * This method is used to obtain username from the claims
+     * @param token
+     * @return
+     */
     public String extractUsername(String token) {
 
         return extractClaim(token,Claims::getSubject);
     }
 
+    /**
+     * This method is used to get all details from the token
+     * @param token
+     * @param claimsResolver
+     * @return
+     * @param <T>
+     */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractALlClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    /**
+     * This method is used to generate a token
+     * @param userDetails
+     * @return
+     */
     public String generateToken(UserDetails userDetails) {
 
         return generateToken(new HashMap<>(), userDetails);
@@ -49,6 +70,13 @@ public class JwtService {
                       .compact();
 
     }
+
+    /**
+     *
+     * @param token
+     * @param userDetails
+     * @return
+     */
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);

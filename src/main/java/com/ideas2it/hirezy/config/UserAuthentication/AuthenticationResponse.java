@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * This class is used to act as the
+ * response to the request sent by the user
+ */
 public class AuthenticationResponse {
 
     private String token;

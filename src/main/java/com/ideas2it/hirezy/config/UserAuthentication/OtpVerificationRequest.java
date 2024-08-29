@@ -17,6 +17,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * This is the class that is used to obtain email
+ * and otp from the user
+ */
 public class OtpVerificationRequest {
     private String email;
     private String otp;

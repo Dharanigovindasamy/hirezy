@@ -1,21 +1,20 @@
 package com.ideas2it.hirezy.config.UserAuthentication;
 
 import com.ideas2it.hirezy.service.OtpService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import static com.ideas2it.hirezy.service.EmployerServiceImpl.logger;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  <p>
- *      This class used for check authentication while registering through role and mail id
- *  It can register and login the user information for authentication and authorization process
- *  </p>
- *
- * @author
- * @version 1
+ * This method is the controller that performs
+ * operations such as register,login and verification
  */
+
 @RestController
 @RequestMapping("api/v1/authentication")
 @RequiredArgsConstructor
@@ -25,34 +24,33 @@ public class AuthenticationController {
     private final OtpService otpService;
 
     /**
-     * <p>
-     *     Register the user by giving role and user information like mail id, password
-     * </p>
-     * @param role - role of the user
-     * @param request - user registering context
-     * @return AuthenticationResponse - getting response after registering
+     * This is used to generate a otp and register a user
+     * with the corresponding role
+     * @param role
+     * @param request
+     * @return
      */
     @PostMapping("/register/{role}")
     public ResponseEntity<AuthenticationResponse> register(
             @PathVariable String role,
             @RequestBody RegisteredRequest request
-    ) {
+    ) throws MessagingException {
         String otp = otpService.generateOTP(request.getEmail());
         if (otp != null) {
             return ResponseEntity.ok(authenticationService.register(request, role));
         } else {
-            logger.warn("failed to generate otp");
-            return null;
+            AuthenticationResponse response = new AuthenticationResponse("Failed to generate OTP");
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
     /**
-     * <p>
-     *     Verify the mail by sending OTP to the mail id and verify the account is registered or not
-     * </p>
-     * @param request - verify context like mail, otp
-     * @return AuthenticationResponse - after verification with otp return status either verified or not
+     * This method is used to verify if the otp that
+     * is sent and received are the same
+     * @param request
+     * @return
      */
+
     @PostMapping("/verify-otp")
     public ResponseEntity<AuthenticationResponse> verifyOTP(@RequestBody OtpVerificationRequest request) {
         if (otpService.verifyOTP(request.getEmail(), request.getOtp())) {
@@ -65,13 +63,12 @@ public class AuthenticationController {
     }
 
     /**
-     * <p>
-     *     Login the account which is registered
-     * </p>
-     *
-     * @param request - login mail and password after register
-     * @return AuthenticationResponse - login authentication either login ot not
+     * This method is used to check if the account is already verified
+     * and then generate its jwt token
+     * @param request
+     * @return
      */
+
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody AuthenticationRequest request
