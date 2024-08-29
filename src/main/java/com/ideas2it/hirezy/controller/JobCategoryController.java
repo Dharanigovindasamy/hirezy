@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ import java.util.List;
  * Provides endpoints to create, retrieve, update, delete JobCategory.
  */
 @RestController
-@RequestMapping("/api/v1/jobcategories")
+@RequestMapping("/api/v1/admin/jobcategories")
 public class JobCategoryController {
 
     @Autowired
@@ -38,6 +39,7 @@ public class JobCategoryController {
      * @return The created JobCategory DTO with HTTP status 201 Created.
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<JobCategoryDto> addJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Request to create JobCategory with details: {}", jobCategoryDto);
         JobCategoryDto createdJobCategoryDto = jobCategoryService.createJobCategory(jobCategoryDto);

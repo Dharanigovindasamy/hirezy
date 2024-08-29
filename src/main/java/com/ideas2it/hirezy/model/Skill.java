@@ -28,5 +28,4 @@ public class Skill {
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
-
 }

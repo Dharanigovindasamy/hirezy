@@ -1,7 +1,9 @@
 package com.ideas2it.hirezy.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -70,6 +72,11 @@ public class Employee {
 
     @Column
     private boolean isDeleted;
+
+    @ElementCollection
+    @CollectionTable(name = "employee_key_skill", joinColumns = @JoinColumn(name = "job_post_id"))
+    @Column(name = "key_skill")
+    private List<String> keySkills;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",  referencedColumnName = "id" )

@@ -20,7 +20,7 @@ import com.ideas2it.hirezy.service.RoleService;
  */
 @SpringBootApplication
 public class HirezyApplication {
-	private static final Logger logger = LogManager.getLogger(JobCategoryController.class);
+	private static final Logger logger = LogManager.getLogger(HirezyApplication.class);
 
 	@Autowired
 	private RoleService roleService;

@@ -13,12 +13,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
-@RequiredArgsConstructor
 /**
  * This class is used for providing authentication
  * and uses the Bcrypt password encoder
  */
+@Configuration
+@RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository repository;

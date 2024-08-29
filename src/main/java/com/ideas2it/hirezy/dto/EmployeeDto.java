@@ -13,6 +13,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -67,4 +68,7 @@ public class EmployeeDto {
 
     @NotNull(message = "User ID cannot be null")
     private long userId;
+
+    @NotNull(message = "enter skills")
+    private List<String> keySkills;
 }
