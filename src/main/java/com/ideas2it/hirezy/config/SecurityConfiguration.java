@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * This is the class where the privileges to the roles have been
  * assigned and the requests are authenticated.
+ * @author audhithiyah
  */
 public class SecurityConfiguration {
 

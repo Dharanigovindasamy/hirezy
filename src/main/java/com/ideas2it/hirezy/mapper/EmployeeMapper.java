@@ -33,7 +33,7 @@ public class EmployeeMapper {
         employee.setCurrentCompany(employeeDto.getCurrentCompany());
         employee.setDesignation(employeeDto.getDesignation());
         employee.setNoticePeriod(employeeDto.getNoticePeriod());
-        employee.setKeySkills(employeeDto.getKeySkills());
+        employee.setGender(employeeDto.getGender());
         return employee;
     }
 
@@ -56,8 +56,8 @@ public class EmployeeMapper {
         employeeDto.setYearOfExperience(employee.getYearOfExperience());
         employeeDto.setCurrentCompany(employee.getCurrentCompany());
         employeeDto.setDesignation(employee.getDesignation());
-        employeeDto.setKeySkills(employee.getKeySkills());
         employeeDto.setNoticePeriod(employee.getNoticePeriod());
+        employeeDto.setGender(employee.getGender());
         return employeeDto;
     }
 
@@ -72,8 +72,8 @@ public class EmployeeMapper {
         employee.setCurrentCompany(employeeDto.getCurrentCompany());
         employee.setDesignation(employeeDto.getDesignation());
         employee.setNoticePeriod(employeeDto.getNoticePeriod());
-        employee.setKeySkills(employeeDto.getKeySkills());
         employee.setUser(user);
+        employee.setGender(employeeDto.getGender());
         return employee;
     }
 }

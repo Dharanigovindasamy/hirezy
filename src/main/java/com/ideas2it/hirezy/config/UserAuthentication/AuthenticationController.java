@@ -3,16 +3,16 @@ package com.ideas2it.hirezy.config.UserAuthentication;
 import com.ideas2it.hirezy.service.OtpService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.ideas2it.hirezy.service.EmployerServiceImpl.logger;
 
 /**
  * This class is the controller class for signup and login management.
  * It will manage the user verification and Otp generation for the user.
- * @author paari
+ * @author paari,audhithiyah
  */
 @RestController
 @RequestMapping("api/v1/authentication")
@@ -21,7 +21,6 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final OtpService otpService;
-
     /**
      * This is method will manage the user Sign up.
      * @param role
@@ -40,7 +39,7 @@ public class AuthenticationController {
         if (otp != null) {
             return new ResponseEntity<>(authenticationService.registerUser(request, role),HttpStatus.CREATED);
         } else {
-            logger.warn("failed to generate otp");
+//            logger.warn("failed to generate otp");
             return  new ResponseEntity<>(
                     "OTP generation Failed.Please Try Again Later",
                     HttpStatus.INTERNAL_SERVER_ERROR);

@@ -82,6 +82,9 @@ public class Employee {
     @JoinColumn(name = "user_id",  referencedColumnName = "id" )
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
+
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobApplication> jobApplications;
 

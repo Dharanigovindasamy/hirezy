@@ -2,6 +2,8 @@ package com.ideas2it.hirezy.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,6 +22,7 @@ import java.util.concurrent.TimeUnit;
  * This is the service class that is used
  * for generation of the otp
  *verification of the otp and account takes place
+ * @author audhithiyah
  */
 @Service
 public class OtpService {
@@ -27,6 +30,8 @@ public class OtpService {
     private JavaMailSender javaMailSender;
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    private final Logger logger = LogManager.getLogger(OtpService.class);
 
     private static final String OTP_PREFIX = "otp:";
     private static final String RATE_LIMIT_PREFIX = "rate_limit:";
@@ -43,6 +48,7 @@ public class OtpService {
      */
     public String generateOTP(String email) throws MessagingException {
         if (isRateLimited(email)) {
+            logger.warn("cannot generate otp as the number of attempts has exceeded 5");
             return "Rate limit exceeded. Please try again later.";
         }
 
@@ -56,13 +62,14 @@ public class OtpService {
         helper.setTo(email);
         helper.setSubject("OTP for Hirezy");
 
-        ClassPathResource file = new ClassPathResource("static/Hirezy1.png");
-        helper.addInline("logoImage", file);
+        ClassPathResource file = new ClassPathResource("/static/Hirezy1.png");
+        String cid = "logoImage"; // define a CID for the image
+        helper.addInline(cid, file, "image/png");
 
         String content = "<html><body>" +
-                "Greetings from Hirezy<br>This otp is valid for 5 minutes,please use this 6 digit otp for login<br>DO NOT SHARE THIS OTP FOR SECURITY REASONS" +
+                "Greetings from Hirezy<br>This otp is valid for 5 minutes,<br>please use this 6 digit otp for login<br>DO NOT SHARE THIS OTP FOR SECURITY REASONS" +
                 "<br>Your Hirezy OTP is: " + otpCode +
-                "<br><img alt=\"logo\" src=\"static/Hirezy1.png\"/>" +
+                "<br><img alt=\"logo\" src=\"cid:logoImage\" />" + // use the CID to reference the image
                 "</body></html>";
         System.out.println(content);
         helper.setText(content, true);
@@ -86,8 +93,10 @@ public class OtpService {
         if (storedOTP != null && storedOTP.equals(otpCode)) {
             redisTemplate.delete(otpKey);
             redisTemplate.opsForValue().set("verified:" + email, "true");
+            logger.info("the otp has been successfully verified");
             return true;
         }
+        logger.warn("the otp is not valid");
         return false;
     }
 

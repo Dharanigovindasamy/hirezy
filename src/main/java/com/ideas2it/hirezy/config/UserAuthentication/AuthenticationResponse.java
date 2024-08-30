@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 /**
  * This class is used to act as the
  * response to the request sent by the user
+ * @author audhithiyah
  */
 public class AuthenticationResponse {
 

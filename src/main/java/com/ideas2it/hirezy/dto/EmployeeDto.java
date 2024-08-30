@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
+import com.ideas2it.hirezy.model.GenderEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -13,7 +14,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * <p>
@@ -69,6 +69,6 @@ public class EmployeeDto {
     @NotNull(message = "User ID cannot be null")
     private long userId;
 
-    @NotNull(message = "enter skills")
-    private List<String> keySkills;
+    @NotBlank(message = "Gender has to set")
+    private GenderEnum gender;
 }

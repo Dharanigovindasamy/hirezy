@@ -18,6 +18,7 @@ import java.util.function.Function;
  * This class is where the token and signature is generated
  * and the operations of extracting all and
  * specific claims take place
+ * @author audhithiyah
  */
 @Service
 public class JwtService {

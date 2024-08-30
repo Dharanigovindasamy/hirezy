@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * This class is used for providing authentication
  * and uses the Bcrypt password encoder
+ * @author audhithiyah
  */
 @Configuration
 @RequiredArgsConstructor

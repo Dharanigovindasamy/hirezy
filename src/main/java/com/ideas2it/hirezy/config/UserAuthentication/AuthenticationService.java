@@ -16,7 +16,7 @@ import com.ideas2it.hirezy.service.RoleService;
 /**
  * This class manage all the authentication process.
  * It is responsible for the user validation and token generation.
- * @author paari
+ * @author audhithiyah
  */
 @Service
 @RequiredArgsConstructor

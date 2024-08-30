@@ -21,6 +21,7 @@ import java.io.IOException;
  * This class is used to extract claims from the
  * token while filtering and update the security
  * context holder if its authenticated
+ * @author audhithiyah
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 

@@ -14,10 +14,10 @@ public class EmployerMapper {
         return Employer.builder()
                 .name(employerDto.getName())
                 .companyName(employerDto.getCompanyName())
-                .description(employerDto.getDescription())
-                .companyType(employerDto.getCompanyType())
+                .description(employerDto.getDescription()).companyType(employerDto.getCompanyType())
                 .industryType(employerDto.getIndustryType())
                 .user(user)
+                .gender(employerDto.getGender())
                 .build();
     }
     public static EmployerDto convertEntityToDto(Employer employer) {
@@ -29,6 +29,7 @@ public class EmployerMapper {
                 .companyType(employer.getCompanyType())
                 .industryType(employer.getIndustryType())
                 .userId(employer.getUser().getId())
+                .gender(employer.getGender())
                 .build();
     }
 
@@ -39,6 +40,7 @@ public class EmployerMapper {
                 .description(employerDto.getDescription())
                 .companyType(employerDto.getCompanyType())
                 .industryType(employerDto.getIndustryType())
+                .gender(employerDto.getGender())
                 .build();
     }
 }

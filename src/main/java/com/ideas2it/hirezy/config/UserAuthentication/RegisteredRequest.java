@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 /**
  * This class is used to obtain the details
  * that are required to register a user
+ * @author audhithiyah
  */
 public class RegisteredRequest {
     @NotBlank(message = "Email ID is Required")
