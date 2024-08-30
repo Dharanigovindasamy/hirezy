@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
+import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.User;
 
@@ -63,6 +64,14 @@ public class EmployeeMapper {
         return employeeDto;
     }
 
+    /**
+     * <p>
+     *     This method used for convert employee Dto to entity
+     * </p>
+     * @param employeeDto -{@link EmployeeDto} employeeDto send from user
+     * @param user - user object enter from user
+     * @return Employee - employee detail to the user
+     */
     public static Employee mapDtoToEntity (EmployeeDto employeeDto, User user) {
         Employee employee = new Employee();
         employee.setName(employeeDto.getName());

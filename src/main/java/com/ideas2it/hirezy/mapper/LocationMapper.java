@@ -8,6 +8,12 @@ import com.ideas2it.hirezy.model.Location;
  * @author  kishore
  */
 public class LocationMapper {
+
+    /**
+     * This method used for conversion of location to locationDto
+     * @param location - location entity of the user
+     * @return LocationDto -{@link LocationDto} given to the user
+     */
     public static LocationDto mapToLocationDto(Location location) {
         if (location == null) {
             return null;
@@ -20,6 +26,13 @@ public class LocationMapper {
                 .build();
     }
 
+    /**
+     * <p>
+     *     This method used for conversion of Dto to entity
+     * </p>
+     * @param locationDto -{@link LocationDto} given from the user
+     * @return location - location entity of the user
+     */
     public static Location mapToLocation(LocationDto locationDto) {
         if (locationDto == null) {
             return null;

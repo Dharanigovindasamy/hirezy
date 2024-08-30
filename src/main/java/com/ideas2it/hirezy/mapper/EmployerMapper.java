@@ -9,6 +9,15 @@ import com.ideas2it.hirezy.model.User;
  * @author kishore
  */
 public class EmployerMapper {
+
+    /**
+     * <p>
+     *     This method used for convert employer Dto to entity
+     * </p>
+     * @param employerDto -{@link EmployerDto} employerDto send from user
+     * @param user - user object enter from user
+     * @return Employer - employer detail to the user
+     */
     public static Employer convertDtoToEntity(EmployerDto employerDto, User user) {
         return Employer.builder()
                 .name(employerDto.getName())
@@ -19,6 +28,14 @@ public class EmployerMapper {
                 .gender(employerDto.getGender())
                 .build();
     }
+
+    /**
+     * <p>
+     *     This method used for convert employer entity to Dto
+     * </p>
+     * @param employer - employer details receive from user
+     * @return EmployerDto - employer detail to the user
+     */
     public static EmployerDto convertEntityToDto(Employer employer) {
         return EmployerDto.builder()
                 .Id(employer.getId())
@@ -32,6 +49,13 @@ public class EmployerMapper {
                 .build();
     }
 
+    /**
+     * <p>
+     *     This method used for convert employer Dto to entity
+     * </p>
+     * @param employerDto -{@link EmployerDto} employerDto send from user
+     * @return Employer - employer detail to the user
+     */
     public static Employer convertDtoToEntity(EmployerDto employerDto) {
         return Employer.builder()
                 .name(employerDto.getName())

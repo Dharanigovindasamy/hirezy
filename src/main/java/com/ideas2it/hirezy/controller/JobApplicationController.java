@@ -2,6 +2,8 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ public class JobApplicationController {
     @Autowired
     private JobApplicationService jobApplicationService;
 
+    private static final Logger logger = LogManager.getLogger();
     /**
      * <p>
      *     Retrieve all job application profile details from the table
@@ -42,6 +45,7 @@ public class JobApplicationController {
      */
     @GetMapping
     public ResponseEntity<List<JobApplicationDto>> getAllJobApplications() {
+        logger.info("Displaying all Job Applications successfully");
         return new ResponseEntity<>(jobApplicationService.getAllJobApplications(), HttpStatus.OK);
     }
 
@@ -56,6 +60,7 @@ public class JobApplicationController {
     @GetMapping("/{id}")
     public ResponseEntity<JobApplicationDto> getJobApplicationById(@PathVariable Long id) {
         JobApplicationDto jobApplicationDto = jobApplicationService.getJobApplicationById(id);
+        logger.info("Displaying Job Applications successfully by {}", id);
         return new ResponseEntity<>(jobApplicationDto, HttpStatus.OK);
     }
 
@@ -68,12 +73,14 @@ public class JobApplicationController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeJobApplication(@PathVariable Long id) {
+        logger.info("Job Application deleted successfully by {}", id);
         return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}/status")
     //@RequestMapping(value = "employers/jobApplication/{id}/status", method = RequestMethod.PUT)
     public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
+        logger.info("Job Applications updated successfully {}", id);
         JobApplicationDto updatedJobApplication = jobApplicationService.updateApplicationStatus(id, status);
         return new ResponseEntity<>(updatedJobApplication,HttpStatus.OK);
     }
@@ -83,8 +90,10 @@ public class JobApplicationController {
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
+            logger.warn("No job application under job post {}", jobPostId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        logger.info("Display Job Applications successfully by job post ID {} ", jobPostId);
         return new ResponseEntity<>(jobApplications,HttpStatus.OK);
     }
 
@@ -100,6 +109,7 @@ public class JobApplicationController {
     @PutMapping("/jobPost/{jobPostId}/employee/{employeeId}")
     //@RequestMapping(value = "/employees/{employeeId}/jobPost/{jobPostId}", method = RequestMethod.PUT)
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
+        logger.info("Job Application applied successfully by {}",employeeId );
         return  new ResponseEntity<>(jobApplicationService.applyJob(employeeId,jobPostId),HttpStatus.OK);
     }
 
@@ -114,6 +124,7 @@ public class JobApplicationController {
     //@RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.GET)
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
         List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);
+        logger.info("Displaying all Job Applications successfully {}", employeeId );
         return new ResponseEntity<>(jobApplicationDto,HttpStatus.OK);
     }
 }

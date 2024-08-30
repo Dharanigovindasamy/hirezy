@@ -13,7 +13,7 @@ import lombok.Setter;
  *     transfer job category data between processes.
  * </p>
  *
- * */
+  */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

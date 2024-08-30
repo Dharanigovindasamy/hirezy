@@ -11,6 +11,14 @@ import com.ideas2it.hirezy.model.Location;
  * Mapper for converting between JobPost entity and JobPostDTO.
  */
 public class JobPostMapper {
+
+    /**
+     * <p>
+     *     This method used for conversion of jobPost to jobPostDto
+     * </p>
+     * @param jobPost - jobPost details from the employer
+     * @return JobPostDto - {@link JobPostDto} given to the user
+     */
     public static JobPostDto mapToJobPostDto(JobPost jobPost) {
         if (jobPost == null) {
             return null;
@@ -41,6 +49,14 @@ public class JobPostMapper {
         return jobPostDtoBuilder.build();
     }
 
+    /**
+     * <p>
+     *       This method used for conversion of jobPostDto to jobPost
+     * </p>
+     * @param jobPostDto - {@link JobPostDto} from the user
+     * @param employer - employer details
+     * @return JobPost - JobPost given to the user
+     */
     public static JobPost mapToJobPost(JobPostDto jobPostDto, Employer employer) {
         if (jobPostDto == null) {
             return null;
@@ -80,6 +96,13 @@ public class JobPostMapper {
         return jobPostBuilder.build();
     }
 
+    /**
+     * <p>
+     *       This method used for conversion of jobPostDto to jobPost
+     * </p>
+     * @param jobPostDto - {@link JobPostDto} from the user
+     * @return JobPost - JobPost given to the user
+     */
     public static JobPost mapToJobPost(JobPostDto jobPostDto) {
         if (jobPostDto == null) {
             return null;

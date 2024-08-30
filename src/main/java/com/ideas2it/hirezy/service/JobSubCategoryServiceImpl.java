@@ -60,7 +60,6 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
         if (jobCategory == null) {
             throw new ResourceNotFoundException("JobCategory not found");
         }
-
         JobSubCategory jobSubCategory = JobSubCategoryMapper.maptoJobSubCategory(jobSubcategoryDto);
         jobSubCategory.setJobCategory(JobCategoryMapper.mapToJobCategory(jobCategory));
         return JobSubCategoryMapper.maptoJobSubCategoryDto(jobSubCategoryRepository.save(jobSubCategory));

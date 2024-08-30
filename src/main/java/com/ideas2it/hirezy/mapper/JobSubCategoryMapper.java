@@ -8,6 +8,13 @@ import com.ideas2it.hirezy.model.JobSubCategory;
  */
 public class JobSubCategoryMapper {
 
+    /**
+     * <p>
+     *     This method used for conversion of jobSubCategory to jobSubCategoryDto
+     * </p>
+     * @param jobSubCategory - jobSubCategory from the admin
+     * @return JobSubCategoryDto - {@link JobSubCategoryDto} given to the user
+     */
     public static JobSubCategoryDto maptoJobSubCategoryDto(JobSubCategory jobSubCategory) {
         if (jobSubCategory == null) {
             return null;
@@ -19,6 +26,13 @@ public class JobSubCategoryMapper {
                 .build();
     }
 
+    /**
+     * <p>
+     *     This method used for conversion of jobSubCategory to jobSubCategoryDto
+     * </p>
+     * @param jobSubCategoryDto - {@link JobSubCategoryDto} given from the admin
+     * @return JobSubCategory - JobSubCategory given to the user
+     */
     public static JobSubCategory maptoJobSubCategory(JobSubCategoryDto jobSubCategoryDto) {
         if (jobSubCategoryDto == null) {
             return null;

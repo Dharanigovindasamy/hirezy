@@ -3,8 +3,6 @@ package com.ideas2it.hirezy.mapper;
 import com.ideas2it.hirezy.dto.UserDto;
 import com.ideas2it.hirezy.model.User;
 
-import java.util.Optional;
-
 /**
  * <p>
  *  This is the Mapper class for the User.
@@ -15,6 +13,13 @@ import java.util.Optional;
  */
 public class UserMapper {
 
+    /**
+     * <p>
+     *     The method used for conversion of userDto to user entity
+     * </p>
+     * @param userDto -{@link UserDto} from the user
+     * @return User - user entity details to the user
+     */
     public static User mapToUser(UserDto userDto) {
         return User.builder()
                 .emailId(userDto.getEmailId())
@@ -23,6 +28,13 @@ public class UserMapper {
 
     }
 
+    /**
+     * <p>
+     *      The method used for conversion of user entity to userDto entity
+     * </p>
+     * @param user - user details from the user
+     * @return userDto -{@link UserDto} given to the user
+     */
     public static  UserDto mapToUserDto(User user) {
         return UserDto.builder()
                 .emailId(user.getEmailId())

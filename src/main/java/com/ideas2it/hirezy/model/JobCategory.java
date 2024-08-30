@@ -1,5 +1,7 @@
 package com.ideas2it.hirezy.model;
 
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,9 +16,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
-
 
 /**
  * This entity is used to categorize jobs under broad categories like IT jobs, Sales Jobs,etc.

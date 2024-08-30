@@ -70,8 +70,9 @@ public class LocationServiceImpl implements LocationService {
             logger.warn("location not found with id {}", locationDto.getId());
             return null;
         }
+        Location updatedLocation = locationRepository.save(location);
         logger.info("Location updated successfully {}", locationDto.getId());
-        return mapToLocationDto(location);
+        return mapToLocationDto(updatedLocation);
     }
 
     @Override
