@@ -4,7 +4,12 @@ import com.ideas2it.hirezy.model.enums.GenderEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <p>
@@ -15,7 +20,7 @@ import lombok.*;
  * The EmployerDto class includes fields like ID, name, company name, description,
  * industry type, and company type, with validation constraints to ensure data integrity.
  * </p>
- * @Author kishore
+ * @author kishore
  */
 @Builder
 @NoArgsConstructor

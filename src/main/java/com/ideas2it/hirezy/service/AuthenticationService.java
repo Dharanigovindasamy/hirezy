@@ -1,17 +1,18 @@
-package com.ideas2it.hirezy.config.UserAuthentication;
+package com.ideas2it.hirezy.service;
 
+import com.ideas2it.hirezy.model.AuthenticationRequest;
+import com.ideas2it.hirezy.model.AuthenticationResponse;
+import com.ideas2it.hirezy.model.RegisteredRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ideas2it.hirezy.config.JwtService;
 import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.UserRepository;
-import com.ideas2it.hirezy.service.RoleService;
 
 /**
  * This class manage all the authentication process.
@@ -96,5 +97,23 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public String updatePassword(String email, String password) {
+        User user = userRepository.findByEmailId(email).orElseThrow();
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        return  "Password Updated SuccessFully";
+    }
+
+    /**
+     * This method is to check whether the email is present already.
+     * @param email
+     *     It is the email of the user to be checked.
+     * @return Boolean
+     *     Return true if the email is present else false.
+     */
+    public Boolean findByEmail(String email) {
+        return userRepository.findByEmailId(email).isPresent();
     }
 }

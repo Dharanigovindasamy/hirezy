@@ -3,14 +3,12 @@ package com.ideas2it.hirezy.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.ideas2it.hirezy.model.User;
 import org.springframework.stereotype.Repository;
 
+import com.ideas2it.hirezy.model.User;
+
 /**
- * <p>
- *     User interface extends from JPA repository and perform CRUD operations
- * </p>
+ * This class is the repository for the User.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {

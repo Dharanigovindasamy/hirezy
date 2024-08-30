@@ -1,4 +1,4 @@
-package com.ideas2it.hirezy.config.UserAuthentication;
+package com.ideas2it.hirezy.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

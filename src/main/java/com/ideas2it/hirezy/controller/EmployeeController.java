@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.controller;
 import java.util.List;
 
 import jakarta.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,10 @@ import com.ideas2it.hirezy.service.EmployeeService;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
-    private static final Logger logger = LogManager.getLogger(EmployerController.class);
+    private final EmployeeService employeeService;
+
+    private static final Logger logger = LogManager.getLogger();
+
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }

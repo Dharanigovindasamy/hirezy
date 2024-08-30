@@ -1,13 +1,14 @@
 package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.dto.SkillDto;
-import com.ideas2it.hirezy.service.SkillService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.SkillDto;
+import com.ideas2it.hirezy.service.SkillService;
 
 /**
  * This class is the controller class for skill.

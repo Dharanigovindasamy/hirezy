@@ -1,11 +1,15 @@
 package com.ideas2it.hirezy.dto;
 
+import java.time.LocalDateTime;
+
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <p>

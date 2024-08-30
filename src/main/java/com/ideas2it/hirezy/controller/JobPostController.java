@@ -1,7 +1,7 @@
 package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.dto.JobPostDto;
-import com.ideas2it.hirezy.service.JobPostService;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import com.ideas2it.hirezy.dto.JobPostDto;
+import com.ideas2it.hirezy.service.JobPostService;
 
 /**
  * <p>

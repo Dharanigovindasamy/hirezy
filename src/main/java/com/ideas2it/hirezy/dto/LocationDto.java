@@ -10,7 +10,6 @@ import lombok.Setter;
 /**
  * <p>
  *     This class used as location entity details
- *
  * </p>
  *
  * @author dharani.govindhasamy

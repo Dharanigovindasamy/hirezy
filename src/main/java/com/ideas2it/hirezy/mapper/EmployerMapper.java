@@ -4,7 +4,6 @@ import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.User;
 
-
 /**
  * Mapper for converting between Employer entity and EmployerDTO.
  * @author kishore

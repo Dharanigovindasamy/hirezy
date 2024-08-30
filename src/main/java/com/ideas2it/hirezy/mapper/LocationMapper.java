@@ -5,7 +5,7 @@ import com.ideas2it.hirezy.model.Location;
 
 /**
  * Mapper for converting between LocationPost entity and LocationDTO.
- * @Author  kishore
+ * @author  kishore
  */
 public class LocationMapper {
     public static LocationDto mapToLocationDto(Location location) {

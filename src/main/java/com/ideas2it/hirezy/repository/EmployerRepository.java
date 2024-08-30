@@ -1,18 +1,15 @@
 package com.ideas2it.hirezy.repository;
 
-import java.util.List;
-
+import com.ideas2it.hirezy.model.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ideas2it.hirezy.model.Employer;
+import java.util.List;
 
-/*
- *<p>This class is the interface to JPA repository and acts as the dao for CRUD
- * operations in the dao
- * </p>
-@Author Audhithiyah
-* @Version v1
+/**
+ *This class is the interface to JPA repository and acts as
+ * The dao for CRUD operations in the dao
+ * @author Audhithiyah
  */
 @Repository
 public interface EmployerRepository extends JpaRepository<Employer, Long> {
@@ -23,6 +20,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
      * </p>
      */
     List<Employer> findByIsDeletedFalse();
+
     /**
      * <p>
      *This method is returns employer that is soft deleted

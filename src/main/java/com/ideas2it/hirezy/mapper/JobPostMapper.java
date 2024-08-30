@@ -1,7 +1,6 @@
 package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.JobPostDto;
-import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.model.JobPost;

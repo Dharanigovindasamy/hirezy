@@ -1,26 +1,36 @@
-package com.ideas2it.hirezy.config.UserAuthentication;
+package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.service.OtpService;
 import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.LogManager;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ideas2it.hirezy.model.AuthenticationRequest;
+import com.ideas2it.hirezy.model.AuthenticationResponse;
+import com.ideas2it.hirezy.model.OtpVerificationRequest;
+import com.ideas2it.hirezy.model.RegisteredRequest;
+import com.ideas2it.hirezy.service.AuthenticationService;
+import com.ideas2it.hirezy.service.OtpService;
 
 /**
  * This class is the controller class for signup and login management.
  * It will manage the user verification and Otp generation for the user.
- * @author paari,audhithiyah
+ * @author audhithiyah
  */
 @RestController
 @RequestMapping("/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
-
+    private final Logger logger = LogManager.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
     private final OtpService otpService;
+
     /**
      * This is method will manage the user Sign up.
      * @param role
@@ -31,15 +41,16 @@ public class AuthenticationController {
      *     It IS the message to the user whether he is signed up are not.
      */
     @PostMapping("/register/{role}")
-    public ResponseEntity<String> register(
+    public ResponseEntity<String> registerUser(@Valid
             @PathVariable String role,
             @RequestBody RegisteredRequest request
     ) throws MessagingException {
         String otp = otpService.generateOTP(request.getEmail());
         if (otp != null) {
-            return new ResponseEntity<>(authenticationService.registerUser(request, role),HttpStatus.CREATED);
+            return new ResponseEntity<>(authenticationService.registerUser(
+                    request, role),HttpStatus.CREATED);
         } else {
-//            logger.warn("failed to generate otp");
+            logger.warn("failed to generate otp");
             return  new ResponseEntity<>(
                     "OTP generation Failed.Please Try Again Later",
                     HttpStatus.INTERNAL_SERVER_ERROR);
@@ -48,15 +59,16 @@ public class AuthenticationController {
 
     /**
      * This method is to verify the Otp entered by the user.
-     * @param request
+     * @param otpVerificationRequest
      *     It contains the email and the otp entered by the user.
      * @return String
      *     It is the message  to the user whether the Otp is correct or not.
      */
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOTP(@RequestBody OtpVerificationRequest
-                                                    request) {
-        if (otpService.verifyOTP(request.getEmail(), request.getOtp())) {
+                                                    otpVerificationRequest) {
+        if (otpService.verifyOTP(otpVerificationRequest.getEmail(),
+                otpVerificationRequest.getOtp())) {
             return new ResponseEntity<>(
                     "Account Verified Successfully. Login to Continue.",
                     HttpStatus.OK);
@@ -73,7 +85,7 @@ public class AuthenticationController {
      *     It contains the Token for the user if he is verified.
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
+    public ResponseEntity<AuthenticationResponse> loginUser(
             @RequestBody AuthenticationRequest request
     ) {
         if (!otpService.isAccountVerified(request.getEmail()) &&
@@ -83,5 +95,43 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(response);
         }
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    /**
+     * This method is to update the user password when he forgot his password.
+     *
+     * @param authenticationRequest
+     *     It contains the email of the user who forgot his password.
+     * @return String
+     *     It is the message to the user.
+     */
+    @PostMapping("/forgotPassword")
+    public String updatePassword( @RequestBody AuthenticationRequest authenticationRequest) throws MessagingException {
+        String email = authenticationRequest.getEmail();
+        if(authenticationService.findByEmail(email)) {
+            String otp = otpService.generateOTP(authenticationRequest.getEmail());
+            if(otp != null) {
+                return "Enter OTP to reset Password";
+            }
+            return  "Error in generating otp.Please TryAgain later";
+        }
+        return "Check your Email Id";
+    }
+
+    /**
+     * This method is to reset the password of the user.
+     * @param otpVerificationRequest
+     *     It contains the email,updated password and also otp for verification.
+     *
+     * @return String
+     *     It is the message to the user whether the password is updated or not.
+     */
+    @PostMapping("/forgotPassword/verifyOtp")
+    public String resetPassword(@RequestBody OtpVerificationRequest
+                                            otpVerificationRequest) {
+        if (otpService.verifyOTP(otpVerificationRequest.getEmail(), otpVerificationRequest.getOtp())) {
+            return authenticationService.updatePassword(otpVerificationRequest.getEmail(),otpVerificationRequest.getPassword());
+        }
+        return "Enter The Correct OTP";
     }
 }
