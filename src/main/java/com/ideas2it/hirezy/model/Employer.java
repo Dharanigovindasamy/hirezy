@@ -45,7 +45,7 @@ public class Employer {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private GenderEnum gender;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
