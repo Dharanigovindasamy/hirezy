@@ -1,4 +1,4 @@
-package com.ideas2it.hirezy.controller;
+package com.ideas2it.hirezy.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +18,6 @@ import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.Location;
 import com.ideas2it.hirezy.repository.LocationRepository;
-import com.ideas2it.hirezy.service.LocationServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class LocationServiceTest {

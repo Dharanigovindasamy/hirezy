@@ -38,10 +38,10 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
 
     @Override
     public List<JobSubCategoryDto> getAllJobSubCategories() {
-        List<JobSubCategory> jobSubcategories = StreamSupport.stream(jobSubCategoryRepository.findAll().spliterator(), false)
+        List<JobSubCategory> jobSubCategories = StreamSupport.stream(jobSubCategoryRepository.findAll().spliterator(), false)
                 .toList();
 
-        return jobSubcategories.stream()
+        return jobSubCategories.stream()
                 .map(JobSubCategoryMapper::maptoJobSubCategoryDto)
                 .collect(Collectors.toList());
     }
@@ -56,12 +56,13 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
     @Override
     public JobSubCategoryDto createJobSubcategory(JobSubCategoryDto jobSubcategoryDto) {
         logger.debug("Request to create JobSubCategory with details: {}", jobSubcategoryDto);
-        JobCategoryDto jobCategory = jobCategoryService.getJobCategoryById(jobSubcategoryDto.getJobCategoryId());
-        if (jobCategory == null) {
+        JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(jobSubcategoryDto.getJobCategoryId());
+        if (jobCategoryDto == null) {
             throw new ResourceNotFoundException("JobCategory not found");
         }
+
         JobSubCategory jobSubCategory = JobSubCategoryMapper.maptoJobSubCategory(jobSubcategoryDto);
-        jobSubCategory.setJobCategory(JobCategoryMapper.mapToJobCategory(jobCategory));
+        jobSubCategory.setJobCategory(JobCategoryMapper.mapToJobCategory(jobCategoryDto));
         return JobSubCategoryMapper.maptoJobSubCategoryDto(jobSubCategoryRepository.save(jobSubCategory));
     }
 
@@ -79,8 +80,9 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
 
     @Override
     public void deleteJobSubcategory(Long id) {
-        JobSubCategory jobSubcategory = jobSubCategoryRepository.findById(id)
+        JobSubCategory jobSubCategory = jobSubCategoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("JobSubcategory not found"));
-        jobSubCategoryRepository.delete(jobSubcategory);
+        jobSubCategoryRepository.delete(jobSubCategory);
+        logger.info("Job sub Category deleted successfully {}", id);
     }
 }

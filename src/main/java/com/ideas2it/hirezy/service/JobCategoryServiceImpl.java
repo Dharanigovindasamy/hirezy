@@ -40,7 +40,7 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
         for (JobCategory jobCategory : jobCategorys) {
             jobCategoryDtos.add(JobCategoryMapper.mapTojobCategoryDto(jobCategory));
         }
-        logger.info("Retrieving list of all jobCategorys");
+        logger.info("Retrieving list of all jobCategory's");
         return jobCategoryDtos;
     }
 
