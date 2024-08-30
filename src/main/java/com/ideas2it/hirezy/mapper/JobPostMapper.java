@@ -5,6 +5,7 @@ import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.model.JobPost;
+import com.ideas2it.hirezy.model.JobSubCategory;
 import com.ideas2it.hirezy.model.Location;
 
 /**
@@ -32,6 +33,10 @@ public class JobPostMapper {
 
         if (jobPost.getJobCategory() != null) {
             jobPostDtoBuilder.jobCategoryId(jobPost.getJobCategory().getId());
+        }
+
+        if(jobPost.getJobSubCategory() != null) {
+            jobPostDtoBuilder.jobSubCategoryId(jobPost.getJobSubCategory().getId());
         }
 
         return jobPostDtoBuilder.build();
@@ -66,6 +71,13 @@ public class JobPostMapper {
             jobPostBuilder.jobCategory(jobCategory);
         }
 
+        if(jobPostDto.getJobSubCategoryId() != null) {
+            JobSubCategory jobSubCategory = JobSubCategory.builder()
+                    .id(jobPostDto.getJobSubCategoryId())
+                    .build();
+            jobPostBuilder.jobSubCategory(jobSubCategory);
+        }
+
         return jobPostBuilder.build();
     }
 
@@ -84,6 +96,9 @@ public class JobPostMapper {
                         .build())
                 .jobCategory(JobCategory.builder()
                         .id(jobPostDto.getJobCategoryId())
+                        .build())
+                .jobCategory(JobCategory.builder()
+                        .id(jobPostDto.getJobSubCategoryId())
                         .build())
                 .employer(Employer.builder()
                         .id(jobPostDto.getEmployerId())

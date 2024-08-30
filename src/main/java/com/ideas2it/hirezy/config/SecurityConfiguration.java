@@ -31,10 +31,10 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("api/v1/authentication/**").permitAll()
-                        .requestMatchers("api/v1/admin/**").hasRole("ADMIN")
-                        .requestMatchers("api/v1/employers","api/v1/employers/**").hasRole("EMPLOYER")
-                        .requestMatchers("api/v1/employees", "api/v1/employees/**").hasRole("EMPLOYEE")
+                        .requestMatchers("/authentication/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/employers","/employers/**").hasRole("EMPLOYER")
+                        .requestMatchers("/employees", "/employees/**").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,4 +1,4 @@
-package com.ideas2it.hirezy.repository;
+package com.ideas2it.hirezy.util;
 
 import java.util.List;
 

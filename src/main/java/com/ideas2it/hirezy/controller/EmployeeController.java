@@ -23,7 +23,7 @@ import com.ideas2it.hirezy.service.EmployeeService;
  * @version 1
  */
 @RestController
-@RequestMapping("api/v1/employees")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired

@@ -47,11 +47,15 @@ public class JobPost {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "job_category_id")
     private JobCategory jobCategory;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "job_subcategory_id")
+    private JobSubCategory jobSubCategory;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employer_id")
     private Employer employer;
 

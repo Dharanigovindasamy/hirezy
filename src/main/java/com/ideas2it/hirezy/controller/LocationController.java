@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1
  */
 @Controller
-@RequestMapping("api/v1/location")
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired

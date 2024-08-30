@@ -23,7 +23,7 @@ import java.util.List;
  * @author kishorekumar.n
  */
 @Controller
-@RequestMapping("api/v1/jobposts")
+@RequestMapping("/jobposts")
 public class JobPostController {
     @Autowired
     private JobPostService jobPostService;

@@ -20,7 +20,7 @@ import java.util.List;
  * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobPosts.
  */
 @RestController
-@RequestMapping("api/v1/employers")
+@RequestMapping("/employers")
 public class EmployerController {
     private static final Logger logger = LogManager.getLogger(EmployerController.class);
 

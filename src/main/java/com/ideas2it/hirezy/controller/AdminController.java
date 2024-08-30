@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/v1/admin")
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private EmployeeService employeeService;

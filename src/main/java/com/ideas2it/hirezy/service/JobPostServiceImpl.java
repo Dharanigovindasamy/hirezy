@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 
+import com.ideas2it.hirezy.dto.JobSubCategoryDto;
+import com.ideas2it.hirezy.model.JobSubCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,12 @@ import com.ideas2it.hirezy.model.JobCategory;
 import com.ideas2it.hirezy.model.JobPost;
 import com.ideas2it.hirezy.model.Location;
 import com.ideas2it.hirezy.repository.JobPostRepository;
-import com.ideas2it.hirezy.repository.JobPostSpecifications;
+import com.ideas2it.hirezy.util.JobPostSpecifications;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapToJobCategory;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPost;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPostDto;
+import static com.ideas2it.hirezy.mapper.JobSubCategoryMapper.maptoJobSubCategory;
 
 /**
  * <p>
@@ -50,6 +53,9 @@ public class JobPostServiceImpl implements JobPostService {
 
     @Autowired
     private  JobCategoryService jobCategoryService;
+
+    @Autowired
+    private JobSubCategoryService jobSubCategoryService;
 
     private static final Logger logger = LogManager.getLogger(JobPostServiceImpl.class);
 
@@ -125,9 +131,13 @@ public class JobPostServiceImpl implements JobPostService {
             throw new ResourceNotFoundException("Job Category not found");
         }
         JobCategory jobCategory = mapToJobCategory(jobCategoryDto);
+
+        JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
+        JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
         Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
         JobPost jobPost = mapToJobPost(jobPostDto, employer);
         jobPost.setJobCategory(jobCategory);
+        jobPost.setJobSubCategory(jobSubCategory);
         jobPost.setLocation(location);
         if (jobPost.getPostedDate() == null) {
             jobPost.setPostedDate(LocalDate.now());
@@ -152,6 +162,11 @@ public class JobPostServiceImpl implements JobPostService {
             }
             JobCategory jobCategory = mapToJobCategory(jobCategoryDto);
             jobPost.setJobCategory(jobCategory);
+
+            JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
+            JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
+            jobPost.setJobSubCategory(jobSubCategory);
+
             Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
             jobPost.setLocation(location);
             jobPost = jobPostRepository.save(jobPost);

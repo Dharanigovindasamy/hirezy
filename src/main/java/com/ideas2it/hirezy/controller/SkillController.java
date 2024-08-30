@@ -15,7 +15,7 @@ import java.util.List;
  * @author paari
  */
 @RestController
-@RequestMapping("api/v1/skill")
+@RequestMapping("/skill")
 public class SkillController {
 
     @Autowired
