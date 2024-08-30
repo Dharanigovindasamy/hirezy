@@ -1,9 +1,9 @@
 package com.ideas2it.hirezy.dto;
 
+import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +26,7 @@ public class JobApplicationDto {
     private long id;
 
     @NotBlank
-    private String status;
+    private JobApplicationStatus status;
 
     @NotNull
     private LocalDateTime appliedDate;

@@ -1,8 +1,11 @@
 package com.ideas2it.hirezy.model;
 
+import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,8 +39,8 @@ public class JobApplication {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private JobApplicationStatus status;
 
     @Column(name = "applied_date")
     private LocalDateTime appliedDate;

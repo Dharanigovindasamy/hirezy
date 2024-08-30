@@ -1,4 +1,4 @@
-package com.ideas2it.hirezy.model;
+package com.ideas2it.hirezy.model.enums;
 
 public enum GenderEnum {
     M,

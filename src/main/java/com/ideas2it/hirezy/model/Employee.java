@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.model;
 
+import com.ideas2it.hirezy.model.enums.GenderEnum;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;

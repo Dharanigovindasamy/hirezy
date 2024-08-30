@@ -1,10 +1,12 @@
 package com.ideas2it.hirezy.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +91,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         Optional<JobApplication> jobApplicationOptional = jobApplicationRepository.findById(applicationId);
         if (jobApplicationOptional.isPresent()) {
             JobApplication jobApplication = jobApplicationOptional.get();
-            jobApplication.setStatus(status);
+            jobApplication.setStatus(JobApplicationStatus.valueOf(status));
             jobApplicationRepository.save(jobApplication);
             String employeeEmail = jobApplication.getEmployee().getUser().getEmailId();
             String subject = "Your Job Application Status Has Been Updated";
@@ -119,6 +121,8 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         jobApplication.setEmployee(employee);
         JobPost jobPost = jobPostService.retrieveJobForApplication(jobPostId);
         jobApplication.setJobPost(jobPost);
+        jobApplication.setAppliedDate(LocalDateTime.now());
+        jobApplication.setStatus(JobApplicationStatus.APPLIED);
         jobApplicationRepository.save(jobApplication);
         return "Job Applied Successfully";
     }

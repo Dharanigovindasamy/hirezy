@@ -1,6 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
-import com.ideas2it.hirezy.model.GenderEnum;
+import com.ideas2it.hirezy.model.enums.GenderEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

@@ -15,7 +15,7 @@ import lombok.Setter;
  *
  * Example:
  * - A JobSubcategory with the name "Software Developer" might belong to the JobCategory "IT Jobs".
- * @Author kishore
+ * @author kishorekumar.n
  */
 
 @Entity

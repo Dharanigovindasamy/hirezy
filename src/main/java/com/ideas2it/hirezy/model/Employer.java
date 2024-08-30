@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.model;
 
+import com.ideas2it.hirezy.model.enums.GenderEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ import java.util.List;
  * <p>
  *     This class used for entity of employer details contains company details
  * that has to be used for job post
- *
  * </p>
  * @author dharani.govindhasamy
  * @version 1
