@@ -80,7 +80,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         if (null == jobApplication) {
             logger.warn("No job Application found in id {}", id);
         }
-        jobApplication.setDeleted(true);
+        jobApplication.setStatus(JobApplicationStatus.WITHDRAW);
         jobApplicationRepository.save(jobApplication);
         logger.info("Employee id deleted successfully {} ", id);
         return "Job application Deleted Successfully";

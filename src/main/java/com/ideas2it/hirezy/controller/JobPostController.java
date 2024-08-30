@@ -65,6 +65,7 @@ public class JobPostController {
             return ResponseEntity.notFound().build();
         }
     }
+
     /**
      * <p>
      * Searches for job posts based on various filters such as state, city, job category,

@@ -25,7 +25,7 @@ import java.util.Set;
  * A jobCategory with the nae "IT" jobs might have subcategories like "Software developer","System Analyst",etc.
  * Attributes:
  *
- * @Author kishore
+ * @author kishorekumar.n
  */
 @Entity
 @Getter

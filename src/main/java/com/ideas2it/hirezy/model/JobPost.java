@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
  *     various attributes related to a job, such as title, description, key skills,
  *     location, job category, employer, and the date the job was posted.
  * </p>
+ * @author kishorekumar.n
  */
 @Entity
 @Data

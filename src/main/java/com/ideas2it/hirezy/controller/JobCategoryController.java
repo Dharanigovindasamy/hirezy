@@ -39,7 +39,6 @@ public class JobCategoryController {
      * @return The created JobCategory DTO with HTTP status 201 Created.
      */
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<JobCategoryDto> addJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Request to create JobCategory with details: {}", jobCategoryDto);
         JobCategoryDto createdJobCategoryDto = jobCategoryService.createJobCategory(jobCategoryDto);

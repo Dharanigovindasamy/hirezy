@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1
  */
 @Controller
-@RequestMapping("/location")
+@RequestMapping("admin/location")
 public class LocationController {
 
     @Autowired
