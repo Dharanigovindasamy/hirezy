@@ -77,7 +77,7 @@ public class Employee {
     private boolean isDeleted;
 
     @ElementCollection
-    @CollectionTable(name = "employee_key_skill", joinColumns = @JoinColumn(name = "job_post_id"))
+    @CollectionTable(name = "employee_key_skill", joinColumns = @JoinColumn(name = "employee_id"))
     @Column(name = "key_skill")
     private List<String> keySkills;
 
