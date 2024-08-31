@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,6 +85,7 @@ public class JobPostController {
      * @return ResponseEntity containing the list of job posts that match the search criteria.
      */
     @PostMapping("/search")
+    @PreAuthorize("hasRole('EMPLOYER') and hasRole('ADMIN') and hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobPostDto>> searchJobs(
             @RequestParam(required = false) String state,
             @RequestParam(required = false) String city,

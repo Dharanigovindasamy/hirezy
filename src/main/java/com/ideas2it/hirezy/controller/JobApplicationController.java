@@ -87,6 +87,7 @@ public class JobApplicationController {
     }
 
     @GetMapping("/jobPost/{jobPostId}")
+    @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
@@ -107,6 +108,7 @@ public class JobApplicationController {
      *     It is the success message to be returned to the employee.
      */
     @PutMapping("/jobPost/{jobPostId}/employee/{employeeId}")
+    @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
         logger.info("Job Application applied successfully by {}",employeeId );
         return  new ResponseEntity<>(jobApplicationService.applyJob(employeeId,jobPostId),HttpStatus.OK);
@@ -120,6 +122,7 @@ public class JobApplicationController {
      *     It contains the list of jobs applied by the employee.
      */
     @GetMapping("/employee/{employeeId}")
+    @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
         List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);
         logger.info("Displaying all Job Applications successfully {}", employeeId );
