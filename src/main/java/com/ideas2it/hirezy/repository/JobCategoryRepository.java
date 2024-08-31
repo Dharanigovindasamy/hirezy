@@ -16,6 +16,7 @@ public interface JobCategoryRepository extends CrudRepository<JobCategory, Long>
 
     /**
      * Retrieve the job category name
+     *
      * @param name - name of the job category
      * @return true if searching category is present or else false
      */
