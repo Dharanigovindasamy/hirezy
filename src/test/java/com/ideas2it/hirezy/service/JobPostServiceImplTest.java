@@ -16,12 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +59,6 @@ class JobPostServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize mock objects and DTOs
         employerDto = new EmployerDto();
         employerDto.setId(1L);
 
@@ -137,11 +134,21 @@ class JobPostServiceImplTest {
         List<JobPost> jobPosts = List.of(jobPost);
         when(jobPostRepository.findAll(any(Specification.class))).thenReturn(jobPosts);
 
-        List<JobPostDto> jobPostDtos = jobPostServiceImpl.searchJobsByFilters("Tamil Nadu", "Chennai",
-                "IT", "Software Development", "ABC Corp", "Private", "IT", 2, List.of("Java"));
-
-        assertEquals(1, jobPostDtos.size());
-        verify(jobPostRepository, times(1)).findAll(any(Specification.class));
+        Object[][] testCases = {
+                {"Tamil Nadu", "Chennai", "IT", "Software Development", null, "Private", "IT", 2, List.of("Java")},
+                {null, "Chennai", null, null, null, null, null, 2, null},
+                {null, null, null, null, null, null, null, 2, null},
+                {null, null, null, null, null, null, null, null, null},
+                {"Tamil Nadu", "Chennai", null, null, null, null, null, null, List.of("Java", "Spring")}
+        };
+        for (Object[] testCase : testCases) {
+            List<JobPostDto> jobPostDtos = jobPostServiceImpl.searchJobsByFilters(
+                    (String) testCase[0], (String) testCase[1], (String) testCase[2],
+                    (String) testCase[3], (String) testCase[4], (String) testCase[5],
+                    (String) testCase[6], (Integer) testCase[7], (List<String>) testCase[8]);
+            assertEquals(1, jobPostDtos.size());
+        }
+        verify(jobPostRepository, times(testCases.length)).findAll(any(Specification.class));
     }
 
     @Test

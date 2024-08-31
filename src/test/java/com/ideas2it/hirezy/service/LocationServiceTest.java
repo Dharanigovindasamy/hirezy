@@ -35,9 +35,11 @@ public class LocationServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         location = Location.builder()
+                .id(1)
                 .state("tamilnadu")
                 .city("chennai").build();
         locationDto = LocationDto.builder()
+                .id(1)
                 .state("tamilnadu")
                 .city("chennai").build();
     }
