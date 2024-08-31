@@ -24,4 +24,5 @@ public class OtpVerificationRequest {
     @Email(regexp = "\\\\b[A-za-z0-9._%-]\"\n\"+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,4}\\\\b")
     private String email;
     private String otp;
+    private String password;
 }

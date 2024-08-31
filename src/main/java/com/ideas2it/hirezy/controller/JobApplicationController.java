@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ import com.ideas2it.hirezy.service.JobApplicationService;
  * @version 1
  */
 @RestController
-@RequestMapping("/employers/job-applications")
+@RequestMapping("/job-applications")
 public class JobApplicationController {
 
     @Autowired
@@ -78,7 +79,7 @@ public class JobApplicationController {
     }
 
     @PutMapping("/{id}/status")
-    //@RequestMapping(value = "employers/jobApplication/{id}/status", method = RequestMethod.PUT)
+    @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
         logger.info("Job Applications updated successfully {}", id);
         JobApplicationDto updatedJobApplication = jobApplicationService.updateApplicationStatus(id, status);
@@ -86,7 +87,6 @@ public class JobApplicationController {
     }
 
     @GetMapping("/jobPost/{jobPostId}")
-    //@RequestMapping(value = "employers/jobPost/{jobPostId}", method = RequestMethod.GET)
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
@@ -107,7 +107,6 @@ public class JobApplicationController {
      *     It is the success message to be returned to the employee.
      */
     @PutMapping("/jobPost/{jobPostId}/employee/{employeeId}")
-    //@RequestMapping(value = "/employees/{employeeId}/jobPost/{jobPostId}", method = RequestMethod.PUT)
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
         logger.info("Job Application applied successfully by {}",employeeId );
         return  new ResponseEntity<>(jobApplicationService.applyJob(employeeId,jobPostId),HttpStatus.OK);
@@ -121,7 +120,6 @@ public class JobApplicationController {
      *     It contains the list of jobs applied by the employee.
      */
     @GetMapping("/employee/{employeeId}")
-    //@RequestMapping(value = "/employees/{employeeId}", method = RequestMethod.GET)
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
         List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);
         logger.info("Displaying all Job Applications successfully {}", employeeId );
