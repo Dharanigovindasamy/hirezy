@@ -5,8 +5,6 @@ import jakarta.mail.internet.MimeMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -57,19 +55,19 @@ public class OtpService {
         redisTemplate.opsForValue().set(otpKey, otpCode, Duration.ofMinutes(5));
 
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true); // true indicates multipart message
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setTo(email);
         helper.setSubject("OTP for Hirezy");
 
         ClassPathResource file = new ClassPathResource("/static/Hirezy1.png");
-        String cid = "logoImage"; // define a CID for the image
+        String cid = "logoImage";
         helper.addInline(cid, file, "image/png");
 
         String content = "<html><body>" +
                 "Greetings from Hirezy<br>This otp is valid for 5 minutes,<br>please use this 6 digit otp for login<br>DO NOT SHARE THIS OTP FOR SECURITY REASONS" +
                 "<br>Your Hirezy OTP is: " + otpCode +
-                "<br><img alt=\"logo\" src=\"cid:logoImage\" />" + // use the CID to reference the image
+                "<br><img alt=\"logo\" src=\"cid:logoImage\" />" +
                 "</body></html>";
         System.out.println(content);
         helper.setText(content, true);
