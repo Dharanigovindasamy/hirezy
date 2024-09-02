@@ -52,7 +52,7 @@ public interface JobApplicationService {
 
      JobApplicationDto updateApplicationStatus(Long applicationId, String status);
 
-     List<JobApplicationDto> getJobApplicationByjobPostId(Long jobpostId);
+     List<JobApplicationDto> getJobApplicationByJobPostId(Long jobPostId);
 
     /**
      * This method is to assign job for the employee.

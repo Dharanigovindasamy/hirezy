@@ -35,12 +35,12 @@ public class AuthenticationService {
     public void registerAdmin(){
         if(userRepository.findById(1L).isEmpty()){
             userRepository.save(User.builder()
-                    .Id(1L)
+                    .id(1L)
                     .emailId(System.getenv("ADMIN_EMAIL"))
                     .password(passwordEncoder.encode(System.getenv("ADMIN_PASSWORD")))
                     .phoneNumber(System.getenv("ADMIN_PHONE_NUMBER")).
                     role(Role.builder()
-                            .Id(1)
+                            .id(1)
                             .roleName("ADMIN")
                             .build())
                     .build());

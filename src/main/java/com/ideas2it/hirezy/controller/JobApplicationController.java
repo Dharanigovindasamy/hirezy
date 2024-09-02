@@ -89,7 +89,7 @@ public class JobApplicationController {
     @GetMapping("/jobPost/{jobPostId}")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
-        List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByjobPostId(jobPostId);
+        List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByJobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
             logger.warn("No job application under job post {}", jobPostId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

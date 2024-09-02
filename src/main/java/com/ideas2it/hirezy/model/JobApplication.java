@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.model;
 
-import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
+
 
 /**
  * <p>

@@ -50,7 +50,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     @Override
     public List<JobApplicationDto> getAllJobApplications() {
         List<JobApplicationDto> jobApplicationDtos = new ArrayList<>();
-        List<JobApplication> jobApplications = (List<JobApplication>) jobApplicationRepository.findAll();
+        List<JobApplication> jobApplications = jobApplicationRepository.findAll();
         if (jobApplications.isEmpty()) {
             logger.warn("Empty job application details");
         } else {
@@ -106,8 +106,8 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     }
 
     @Override
-    public List<JobApplicationDto> getJobApplicationByjobPostId(Long jobpostId) {
-        return jobApplicationRepository.findByJobPostId(jobpostId)
+    public List<JobApplicationDto> getJobApplicationByJobPostId(Long jobPostId) {
+        return jobApplicationRepository.findByJobPostId(jobPostId)
                 .stream()
                 .map(JobApplicationMapper::mapToJobApplicationDto)
                 .collect(Collectors.toList());
@@ -134,10 +134,8 @@ public class JobApplicationServiceImpl implements JobApplicationService{
             if(null != jobApplication) {
                 jobApplicationDto.add(mapToJobApplicationDto(jobApplication));
             }
-            throw  new ResourceNotFoundException("The Employee has no job application" + employeeId);
+            throw new ResourceNotFoundException("The Employee has no job application" + employeeId);
         }
         return  jobApplicationDto;
     }
 }
-
-

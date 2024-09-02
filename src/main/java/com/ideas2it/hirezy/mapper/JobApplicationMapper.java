@@ -46,7 +46,7 @@ public class JobApplicationMapper {
                 .id(jobApplication.getId())
                 .jobPostId(jobApplication.getJobPost().getId())
                 .employeeId(jobApplication.getEmployee().getId())
-                .employee(EmployeeMapper.mapEntityToDto(jobApplication.getEmployee()))
+                .employeeDto(EmployeeMapper.mapEntityToDto(jobApplication.getEmployee()))
                 .jobPostDto(JobPostMapper.mapToJobPostDto(jobApplication.getJobPost()))
                 .status(jobApplication.getStatus())
                 .appliedDate(jobApplication.getAppliedDate()).build();

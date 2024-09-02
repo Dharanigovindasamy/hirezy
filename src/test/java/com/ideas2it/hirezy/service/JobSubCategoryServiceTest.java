@@ -22,11 +22,7 @@ import com.ideas2it.hirezy.model.JobSubCategory;
 import com.ideas2it.hirezy.repository.JobSubCategoryRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class
-
-
-
-JobSubCategoryServiceTest {
+public class JobSubCategoryServiceTest {
 
     @Mock
     private JobSubCategoryRepository jobSubCategoryRepository;

@@ -36,6 +36,6 @@ public class JobApplicationDto {
     private LocalDateTime appliedDate;
     private long employeeId;
     private long jobPostId;
-    private EmployeeDto employee;
+    private EmployeeDto employeeDto;
     private JobPostDto jobPostDto;
 }
