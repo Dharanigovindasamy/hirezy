@@ -1,6 +1,6 @@
 package com.ideas2it.hirezy.dto;
 
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -54,5 +54,5 @@ public class EmployerDto {
     private Long userId;
 
     @NotBlank
-    private GenderEnum gender;
+    private Gender gender;
 }

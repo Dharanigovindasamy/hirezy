@@ -3,7 +3,7 @@ package com.ideas2it.hirezy.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -70,7 +70,7 @@ public class EmployeeDto {
     private long userId;
 
     @NotBlank(message = "Gender has to set")
-    private GenderEnum gender;
+    private Gender gender;
 
     @NotNull(message = "enter skills")
     private List<String> keySkills;

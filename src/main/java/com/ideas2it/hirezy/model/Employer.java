@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.model;
 
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,7 +47,7 @@ public class Employer {
     private boolean isDeleted;
 
     @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
+    private Gender gender;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobPost> jobPost;

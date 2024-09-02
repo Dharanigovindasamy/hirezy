@@ -1,6 +1,6 @@
 package com.ideas2it.hirezy.model;
 
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -86,7 +86,7 @@ public class Employee {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private GenderEnum gender;
+    private Gender gender;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<JobApplication> jobApplications;
