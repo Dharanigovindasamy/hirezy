@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HirezyApplication {
-	private static final Logger logger = LogManager.getLogger(JobCategoryController.class);
+	private static final Logger logger = LogManager.getLogger(HirezyApplication.class);
 
 	@Autowired
 	private RoleService roleService;
