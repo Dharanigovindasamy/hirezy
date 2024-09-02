@@ -52,7 +52,7 @@ class JobPostControllerTest {
     }
 
     @Test
-    void testGetJobById_Found() {
+    void testGetJobByIdFound() {
         when(jobPostService.getJobById(1L)).thenReturn(jobPostDto);
 
         ResponseEntity<JobPostDto> response = jobPostController.getJobById(1L);
@@ -65,7 +65,7 @@ class JobPostControllerTest {
     }
 
     @Test
-    void testGetJobById_NotFound() {
+    void testGetJobByIdNotFound() {
         when(jobPostService.getJobById(1L)).thenReturn(null);
 
         ResponseEntity<JobPostDto> response = jobPostController.getJobById(1L);
@@ -80,35 +80,23 @@ class JobPostControllerTest {
     @Test
     void testSearchJobs() {
         List<JobPostDto> expectedJobs = Arrays.asList(jobPostDto);
-
-        // All parameters provided except company-related details
         when(jobPostService.searchJobsByFilters("Tamil Nadu", "Chennai", "IT", "Software", null, "Private", "Software", 3, Arrays.asList("Java", "Spring")))
                 .thenReturn(expectedJobs);
-
         ResponseEntity<List<JobPostDto>> response = jobPostController.searchJobs("Tamil Nadu", "Chennai", "IT", "Software", null, "Private", "Software", 3, Arrays.asList("Java", "Spring"));
         assertEquals(expectedJobs, response.getBody());
         assertEquals(200, response.getStatusCodeValue());
-
-        // Only city and state provided
         when(jobPostService.searchJobsByFilters(null, "Chennai", null, null, null, null, null, null, null))
                 .thenReturn(expectedJobs);
-
         response = jobPostController.searchJobs(null, "Chennai", null, null, null, null, null, null, null);
         assertEquals(expectedJobs, response.getBody());
         assertEquals(200, response.getStatusCodeValue());
-
-        // Only experience provided
         when(jobPostService.searchJobsByFilters(null, null, null, null, null, null, null, 3, null))
                 .thenReturn(expectedJobs);
-
         response = jobPostController.searchJobs(null, null, null, null, null, null, null, 3, null);
         assertEquals(expectedJobs, response.getBody());
         assertEquals(200, response.getStatusCodeValue());
-
-        // No filters provided
         when(jobPostService.searchJobsByFilters(null, null, null, null, null, null, null, null, null))
                 .thenReturn(expectedJobs);
-
         response = jobPostController.searchJobs(null, null, null, null, null, null, null, null, null);
         assertEquals(expectedJobs, response.getBody());
         assertEquals(200, response.getStatusCodeValue());

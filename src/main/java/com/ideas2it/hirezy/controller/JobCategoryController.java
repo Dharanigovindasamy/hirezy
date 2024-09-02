@@ -2,7 +2,6 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,25 +40,11 @@ public class JobCategoryController {
      * @return The created JobCategory DTO with HTTP status 201 Created.
      */
     @PostMapping
-    public ResponseEntity<JobCategoryDto> addJobCategory(@Valid @RequestBody JobCategoryDto jobCategoryDto) {
+    public ResponseEntity<JobCategoryDto> addJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Request to create JobCategory with details: {}", jobCategoryDto);
         JobCategoryDto createdJobCategoryDto = jobCategoryService.createJobCategory(jobCategoryDto);
         logger.info("JobCategory created with ID: {}", createdJobCategoryDto.getId());
         return new ResponseEntity<>(createdJobCategoryDto, HttpStatus.CREATED);
-    }
-
-    /**
-     * Deletes a JobCategory by ID.
-     *
-     * @param id The ID of the JobCategory to be deleted.
-     * @return HTTP status 204 No Content.
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteJobCategory(@PathVariable Long id) {
-        logger.info("Deleting JobCategory with ID: {}", id);
-        jobCategoryService.deleteJobCategory(id);
-        logger.info("JobCategory with ID {} deleted successfully", id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -92,15 +77,28 @@ public class JobCategoryController {
     /**
      * Updates an JobCategory.
      *
-     * @param id The ID of the jobCategory to be updated.
      * @param jobCategoryDto {@link JobCategoryDto} The DTO containing updated jobCategory data.
      * @return The updated jobCategory DTO with HTTP status 200 OK.
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<JobCategoryDto> updateJobCategory(@Valid @PathVariable Long id, @RequestBody JobCategoryDto jobCategoryDto) {
-        logger.info("Updating jobCategory with ID: {}", id);
-        JobCategoryDto updatedjobCategoryDto = jobCategoryService.updateJobCategory(id, jobCategoryDto);
-        logger.info("Updated jobCategory with ID: {}", id);
+    @PutMapping
+    public ResponseEntity<JobCategoryDto> updateJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
+        logger.info("Updating jobCategory with ID: {}", jobCategoryDto.getId());
+        JobCategoryDto updatedjobCategoryDto = jobCategoryService.updateJobCategory(jobCategoryDto.getId(), jobCategoryDto);
+        logger.info("Updated jobCategory with ID: {}", jobCategoryDto.getId());
         return new ResponseEntity<>(updatedjobCategoryDto, HttpStatus.OK);
+    }
+
+    /**
+     * Deletes a JobCategory by ID.
+     *
+     * @param id The ID of the JobCategory to be deleted.
+     * @return HTTP status 204 No Content.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteJobCategory(@PathVariable Long id) {
+        logger.info("Deleting JobCategory with ID: {}", id);
+        jobCategoryService.deleteJobCategory(id);
+        logger.info("JobCategory with ID {} deleted successfully", id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -78,6 +78,15 @@ public class JobApplicationController {
         return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * <p>
+     *     Update job application status
+     * </p>
+     *
+     * @param id - id of the job application
+     * @param status - status to be updated in jon application
+     * @return JobApplicationDto - {@link JobApplicationDto} job application details after updating the status
+     */
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
@@ -86,6 +95,13 @@ public class JobApplicationController {
         return new ResponseEntity<>(updatedJobApplication,HttpStatus.OK);
     }
 
+    /**
+     * <p>
+     *     Retrieving job applications under the job post by giving job Post id
+     * </p>
+     * @param jobPostId - id of the job post
+     * @return List<JobApplicationDto> - list of job applications under the job post
+     */
     @GetMapping("/jobPost/{jobPostId}")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {

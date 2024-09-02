@@ -50,7 +50,7 @@ public class EmployerController {
      * </p>
      */
     @GetMapping()
-    public ResponseEntity<List<EmployerDto>>  DisplayAllEmployer() {
+    public ResponseEntity<List<EmployerDto>>  displayAllEmployer() {
         logger.info("Request received to get all employers");
         List<EmployerDto> employers  = employerService.getAllEmployers();
         logger.info("Returning {} employers", employers.size());

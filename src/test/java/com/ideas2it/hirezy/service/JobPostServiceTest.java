@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class JobPostServiceImplTest {
+class JobPostServiceTest {
     @Mock
     private JobPostRepository jobPostRepository;
 
