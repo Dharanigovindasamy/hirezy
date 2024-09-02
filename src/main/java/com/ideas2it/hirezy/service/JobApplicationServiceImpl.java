@@ -129,12 +129,14 @@ public class JobApplicationServiceImpl implements JobApplicationService{
 
     @Override
     public List<JobApplicationDto> retrieveEmployeeAppliedJobs(Long employeeId) {
-        List<JobApplicationDto> jobApplicationDto = new ArrayList<>();
-        for (JobApplication jobApplication : jobApplicationRepository.findByEmployeeId(employeeId)){
-            if(null != jobApplication) {
-                jobApplicationDto.add(mapToJobApplicationDto(jobApplication));
-            }
+
+        List<JobApplication> jobApplications = jobApplicationRepository.findByEmployeeId(employeeId);
+        if(jobApplications.isEmpty()){
             throw new ResourceNotFoundException("The Employee has no job application" + employeeId);
+        }
+        List<JobApplicationDto> jobApplicationDto = new ArrayList<>();
+        for (JobApplication jobApplication : jobApplications) {
+            jobApplicationDto.add(mapToJobApplicationDto(jobApplication));
         }
         return  jobApplicationDto;
     }

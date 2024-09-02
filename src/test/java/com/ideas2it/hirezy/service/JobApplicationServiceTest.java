@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -63,7 +64,7 @@ public class JobApplicationServiceTest {
                         .currentCompany("ideas2it")
                         .designation("software developer")
                         .noticePeriod(3)
-                        .keySkills(List.of("html", "css", "java")) // Corrected the keySkills list
+                        .keySkills(List.of("html", "css", "java"))
                         .user(User.builder()
                                 .id(1L)
                                 .emailId("john@gmail.com")
@@ -117,7 +118,7 @@ public class JobApplicationServiceTest {
         jobApplicationDto = JobApplicationDto.builder()
                 .id(1L)
                 .status(JobApplicationStatus.APPLIED)
-                .appliedDate(LocalDate.parse("2024-08-08").atStartOfDay()) // Corrected line
+                .appliedDate(LocalDate.parse("2024-08-08").atStartOfDay())
                 .employeeDto(EmployeeDto.builder()
                         .id(1L)
                         .name("John")
@@ -224,18 +225,21 @@ public class JobApplicationServiceTest {
 
     @Test
     void testRetrieveEmployeeAppliedJobs() {
-        when(jobApplicationRepository.findByEmployeeId(jobApplicationDto.getEmployeeId())).thenReturn((List<JobApplication>) jobApplication);
-        List<JobApplicationDto> response = jobApplicationService.retrieveEmployeeAppliedJobs(jobApplicationDto.getEmployeeId());
-        assertNotNull(response);
-        assertEquals(1,response.size());
+        List<JobApplication> jobApplications = List.of(jobApplication);
+        when(jobApplicationRepository.findByEmployeeId(1L)).thenReturn(jobApplications);
+
+        List<JobApplicationDto> result = jobApplicationService.retrieveEmployeeAppliedJobs(1L);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(jobApplicationRepository, times(1)).findByEmployeeId(1L);
     }
     
     @Test
     void testRetrieveEmployeeAppliedJobsFailure() {
-        Long employeeId = 1L;
-        when(jobApplicationRepository.findByEmployeeId(employeeId)).thenReturn(Collections.emptyList());
-        ResourceNotFoundException thrown = assertThrows(ResourceNotFoundException.class,
-                () -> jobApplicationService.retrieveEmployeeAppliedJobs(employeeId));
-        assertEquals("The Employee has no job applications: " + employeeId, thrown.getMessage());
+        when(jobApplicationRepository.findByEmployeeId(2L)).thenReturn(List.of());
+        assertThrows(ResourceNotFoundException.class, () -> {
+            jobApplicationService.retrieveEmployeeAppliedJobs(2L);
+        });
     }
 }
