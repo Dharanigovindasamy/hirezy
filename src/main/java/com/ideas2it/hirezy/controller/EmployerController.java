@@ -110,7 +110,7 @@ public class EmployerController {
      * </p>
      */
     @PostMapping("/{employerId}/jobPosts")
-    public ResponseEntity<JobPostDto> createJobPost(
+    public ResponseEntity<JobPostDto> createJobPost(@Valid
             @PathVariable Long employerId,
             @RequestBody JobPostDto jobPostDto) {
         logger.info("Request received to create a job post for employer ID: {}", employerId);

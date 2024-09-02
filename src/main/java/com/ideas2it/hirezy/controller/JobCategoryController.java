@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class JobCategoryController {
      * @return The created JobCategory DTO with HTTP status 201 Created.
      */
     @PostMapping
-    public ResponseEntity<JobCategoryDto> addJobCategory(@RequestBody JobCategoryDto jobCategoryDto) {
+    public ResponseEntity<JobCategoryDto> addJobCategory(@Valid @RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Request to create JobCategory with details: {}", jobCategoryDto);
         JobCategoryDto createdJobCategoryDto = jobCategoryService.createJobCategory(jobCategoryDto);
         logger.info("JobCategory created with ID: {}", createdJobCategoryDto.getId());
@@ -96,7 +97,7 @@ public class JobCategoryController {
      * @return The updated jobCategory DTO with HTTP status 200 OK.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<JobCategoryDto> updateJobCategory(@PathVariable Long id, @RequestBody JobCategoryDto jobCategoryDto) {
+    public ResponseEntity<JobCategoryDto> updateJobCategory(@Valid @PathVariable Long id, @RequestBody JobCategoryDto jobCategoryDto) {
         logger.info("Updating jobCategory with ID: {}", id);
         JobCategoryDto updatedjobCategoryDto = jobCategoryService.updateJobCategory(id, jobCategoryDto);
         logger.info("Updated jobCategory with ID: {}", id);
