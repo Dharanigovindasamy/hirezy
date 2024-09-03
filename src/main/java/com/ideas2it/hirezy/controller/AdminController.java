@@ -20,6 +20,10 @@ public class AdminController {
     @Autowired
     private EmployerService employerService;
 
+    /**
+     * Get employee and employer active and deleted counts
+     * @return <String,Map<String,Long>> - active and deleted status of employee and employer
+     */
     @GetMapping("/dashboard")
     public ResponseEntity<Map<String,Map<String,Long>>>getCounts() {
         Long activeEmployerCount = employerService.countActiveEmployers();
