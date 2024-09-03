@@ -7,7 +7,6 @@ import static org.mockito.Mockito.*;
 import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
-import com.ideas2it.hirezy.mapper.EmployerMapper;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.EmployerRepository;
@@ -20,10 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployerServiceTests {
+public class EmployerServiceTest {
     @Mock
  private EmployerRepository employerRepository;
     @Mock

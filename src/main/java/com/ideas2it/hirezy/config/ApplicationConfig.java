@@ -25,6 +25,14 @@ public class ApplicationConfig {
 
     private final UserRepository repository;
 
+    /**
+     * This method creates a bean for the UserDetailsService.
+     * It loads user-specific data during authentication.
+     * The method retrieves a user by their email ID from the repository.
+     *
+     * @return an instance of UserDetailsService
+     * @throws UsernameNotFoundException if the user is not found
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> repository.findByEmailId(username)
@@ -45,14 +53,25 @@ public class ApplicationConfig {
     }
 
     /**
-     * This method creates a configured instance of the authentication manager
-     * @param config
+     * This method creates a configured instance of the authentication manager.
+     * The authentication manager is responsible for processing authentication requests.
+     * It delegates the actual verification of user credentials to one or more AuthenticationProvider instances.
+     *
+     * @param config - the configuration object that provides the authentication manager
+     * @return an instance of AuthenticationManager
+     * @throws Exception if an error occurs while retrieving the authentication manager
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
+    /**
+     * This method creates a bean for the PasswordEncoder.
+     * BCryptPasswordEncoder is used to encode passwords for security.
+     *
+     * @return an instance of BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

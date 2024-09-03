@@ -61,6 +61,8 @@ public class GlobalExceptionHandler {
      * This method intercepts MethodArgumentNotValidException and returns a map of field errors and their respective messages.
      *
      * @param ex The exception that was thrown when a method argument is invalid.
+     * @param req   The HttpServletRequest object that contains the request the client made to the server.
+     * @param e     The exception that was thrown.
      * @return A Map containing field names as keys and error messages as values.
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -69,7 +71,6 @@ public class GlobalExceptionHandler {
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errorMap.put(error.getField(), error.getDefaultMessage());
         }
-        // errorMap.put("details", e.getMessage());
         errorMap.put("url", String.valueOf(req.getRequestURL()));
         errorMap.put("TimeStamp", String.valueOf(LocalDateTime.now()));
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);

@@ -24,14 +24,14 @@ public class AdminController {
     public ResponseEntity<Map<String,Map<String,Long>>>getCounts() {
         Long activeEmployerCount = employerService.countActiveEmployers();
         Long deletedEmployerCount = employerService.countDeletedEmployers();
-        Long acticveEmployeeCount = employeeService.countActiveEmployees();
+        Long activeEmployeeCount = employeeService.countActiveEmployees();
         Long deletedEmployeeCount = employeeService.countDeletedEmployees();
 
         Map<String,Long> employerCounts = new HashMap<>();
         employerCounts.put("active",activeEmployerCount);
         employerCounts.put("deleted",deletedEmployerCount);
         Map<String,Long> employeeCounts = new HashMap<>();
-        employeeCounts.put("active",acticveEmployeeCount);
+        employeeCounts.put("active",activeEmployeeCount);
         employeeCounts.put("deleted",deletedEmployeeCount);
         Map<String,Map<String,Long>> counts =new HashMap<>();
         counts.put("employer",employerCounts);

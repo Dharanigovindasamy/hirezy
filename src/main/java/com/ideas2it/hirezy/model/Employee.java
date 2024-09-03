@@ -1,6 +1,8 @@
 package com.ideas2it.hirezy.model;
 
-import com.ideas2it.hirezy.model.enums.Gender;
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -22,8 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.List;
+import com.ideas2it.hirezy.model.enums.Gender;
 /**
  * <p>
  *     This class used for entering employee profile details into the entity table.

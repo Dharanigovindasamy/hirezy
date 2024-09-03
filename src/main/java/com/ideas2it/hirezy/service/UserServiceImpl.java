@@ -9,7 +9,7 @@ import com.ideas2it.hirezy.repository.UserRepository;
 
 /**
  * <p>
- *     This class used for user details informations
+ *     This class used for user details information
  * </p>
  * @author dharani.govindhasamy
  * @version 1
