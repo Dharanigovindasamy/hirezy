@@ -23,7 +23,7 @@ public interface LocationService {
      *     Adding location details
      * </p>
      *
-     * @param locationDto - locationDto given from user
+     * @param locationDto - {@link LocationDto}locationDto given from user
      * @return locationDto - locationDto after added into the table
      */
     LocationDto addLocation(LocationDto locationDto);

@@ -69,10 +69,12 @@ public class AuthenticationController {
                                                     otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmail(),
                 otpVerificationRequest.getOtp())) {
+            logger.info("account has been verified successfully");
             return new ResponseEntity<>(
                     "Account Verified Successfully. Login to Continue.",
                     HttpStatus.OK);
         } else {
+            logger.warn("incorrect otp has been sent,please check");
             return new ResponseEntity<>("Invalid OTP",HttpStatus.BAD_REQUEST);
         }
     }
@@ -90,10 +92,12 @@ public class AuthenticationController {
     ) {
         if (!otpService.isAccountVerified(request.getEmail()) &&
                 !request.getEmail().equals("kishoreofficial@gmail.com")) {
+            logger.warn("account is not verified yet,please verify");
             AuthenticationResponse response = new AuthenticationResponse(
                     "Account not verified. Please verify your account.");
             return ResponseEntity.badRequest().body(response);
         }
+        logger.info("account is verified and successfully logged in");
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
