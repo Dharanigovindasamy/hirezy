@@ -82,8 +82,8 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         }
         jobApplication.setStatus(JobApplicationStatus.WITHDRAW);
         jobApplicationRepository.save(jobApplication);
-        logger.info("Employee id deleted successfully {} ", id);
-        return "Job application Deleted Successfully";
+        logger.info("Employee Withdraw application successfully {} ", id);
+        return "Job application Withdraw application  Successfully";
     }
 
     @Override

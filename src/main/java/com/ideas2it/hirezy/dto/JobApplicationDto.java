@@ -28,10 +28,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JobApplicationDto {
     private long id;
-
     @NotBlank
     private JobApplicationStatus status;
-
     @NotNull
     private LocalDateTime appliedDate;
     private long employeeId;

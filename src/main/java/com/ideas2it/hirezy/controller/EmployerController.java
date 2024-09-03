@@ -49,8 +49,8 @@ public class EmployerController {
      *This method is used to show all the employer in the repository
      * </p>
      */
-    @GetMapping()
-    public ResponseEntity<List<EmployerDto>>  displayAllEmployer() {
+    @GetMapping
+    public ResponseEntity<List<EmployerDto>>  DisplayAllEmployer() {
         logger.info("Request received to get all employers");
         List<EmployerDto> employers  = employerService.getAllEmployers();
         logger.info("Returning {} employers", employers.size());

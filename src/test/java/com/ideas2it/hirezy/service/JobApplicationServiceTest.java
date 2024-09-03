@@ -1,13 +1,10 @@
 package com.ideas2it.hirezy.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.ideas2it.hirezy.mapper.JobApplicationMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +22,7 @@ import com.ideas2it.hirezy.dto.JobApplicationDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.*;
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import com.ideas2it.hirezy.repository.JobApplicationRepository;
 
@@ -81,10 +78,10 @@ public class JobApplicationServiceTest {
                                         .description("it software skills development")
                                         .companyType("")
                                         .industryType("")
-                                        .gender(GenderEnum.F)
+                                        .gender(Gender.F)
                                         .build())
                                 .build())
-                        .gender(GenderEnum.F).build())
+                        .gender(Gender.F).build())
                 .jobPost(JobPost.builder()
                         .id(1L)
                         .title("Front end")
@@ -110,7 +107,7 @@ public class JobApplicationServiceTest {
                                 .description("freshers hiring")
                                 .companyType("service based")
                                 .industryType("IT mnc")
-                                .gender(GenderEnum.F).build())
+                                .gender(Gender.F).build())
                         .postedDate(LocalDate.of(2024, 8, 8))
                         .build())
                 .build();
@@ -131,7 +128,7 @@ public class JobApplicationServiceTest {
                         .designation("software developer")
                         .noticePeriod(3)
                         .keySkills(List.of("html", "css", "java"))
-                        .gender(GenderEnum.F).build())
+                        .gender(Gender.F).build())
                 .jobPostDto(JobPostDto.builder()
                         .id(1L)
                         .title("front end")

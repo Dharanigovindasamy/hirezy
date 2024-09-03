@@ -4,9 +4,10 @@ import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.service.JobPostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class JobPostControllerTest {
     @Mock
     private JobPostService jobPostService;
@@ -27,7 +29,6 @@ class JobPostControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         jobPostDto = JobPostDto.builder()
                 .id(1L)
                 .title("Software Engineer")
@@ -41,39 +42,30 @@ class JobPostControllerTest {
     void testGetAllJobs() {
         List<JobPostDto> jobPosts = Arrays.asList(jobPostDto);
         when(jobPostService.getAllJobs()).thenReturn(jobPosts);
-
         ResponseEntity<List<JobPostDto>> response = jobPostController.getAllJobs();
-
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jobPosts, response.getBody());
-
         verify(jobPostService, times(1)).getAllJobs();
     }
 
     @Test
     void testGetJobByIdFound() {
         when(jobPostService.getJobById(1L)).thenReturn(jobPostDto);
-
         ResponseEntity<JobPostDto> response = jobPostController.getJobById(1L);
-
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jobPostDto, response.getBody());
-
         verify(jobPostService, times(1)).getJobById(1L);
     }
 
     @Test
     void testGetJobByIdNotFound() {
         when(jobPostService.getJobById(1L)).thenReturn(null);
-
         ResponseEntity<JobPostDto> response = jobPostController.getJobById(1L);
-
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
-
         verify(jobPostService, times(1)).getJobById(1L);
     }
 

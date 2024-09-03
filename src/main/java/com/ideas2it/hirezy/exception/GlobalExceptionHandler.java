@@ -57,24 +57,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handles general server errors.
-     * This method intercepts RuntimeException and returns a 500 Internal Server Error status.
-     *
-     * @param req   The HttpServletRequest object that contains the request the client made to the server.
-     * @param e     The exception that was thrown.
-     * @return A ResponseEntity containing the error details and HTTP status.
-     */
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<Map<String, Object>> handleAnyServerError(HttpServletRequest req, Exception e) {
-//        Map<String, Object> errorDetails = new HashMap<>();
-//        errorDetails.put("message", "Internal Server Error: An unexpected error occurred on the server. " +
-//                "Please try again later or contact support if the issue persists.");
-//        errorDetails.put("details", e.getMessage());
-//        errorDetails.put("url", req.getRequestURL());
-//        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-
-    /**
      * Handles cases where an argument fails validation.
      * This method intercepts MethodArgumentNotValidException and returns a map of field errors and their respective messages.
      *

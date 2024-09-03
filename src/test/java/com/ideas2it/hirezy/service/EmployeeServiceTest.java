@@ -55,9 +55,7 @@ public class EmployeeServiceTest {
     void testSaveEmployee() {
         when(userService.retrieveUserById(employeeDto.getUserId())).thenReturn(user);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-
         EmployeeDto savedEmployeeDto = employeeService.saveEmployee(employeeDto);
-
         assertNotNull(savedEmployeeDto);
         assertEquals(employee.getId(), savedEmployeeDto.getId());
         verify(employeeRepository, times(1)).save(any(Employee.class));
@@ -66,9 +64,7 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployees() {
         when(employeeRepository.findAll()).thenReturn(Arrays.asList(employee));
-
         List<EmployeeDto> employees = employeeService.retrieveEmployees();
-
         assertFalse(employees.isEmpty());
         assertEquals(1, employees.size());
         verify(employeeRepository, times(1)).findAll();
@@ -77,9 +73,7 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployeesWhenEmpty() {
         when(employeeRepository.findAll()).thenReturn(Arrays.asList());
-
         List<EmployeeDto> employees = employeeService.retrieveEmployees();
-
         assertTrue(employees.isEmpty());
         verify(employeeRepository, times(1)).findAll();
     }
@@ -87,9 +81,7 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployeeById() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
-
         EmployeeDto foundEmployee = employeeService.retrieveEmployeeById(employee.getId());
-
         assertNotNull(foundEmployee);
         assertEquals(employee.getId(), foundEmployee.getId());
         verify(employeeRepository, times(1)).findById(employee.getId());
@@ -98,7 +90,6 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployeeByIdThrowsException() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
-
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeById(employee.getId()));
         verify(employeeRepository, times(1)).findById(employee.getId());
     }
@@ -107,9 +98,7 @@ public class EmployeeServiceTest {
     void testUpdateEmployee() {
         when(employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId())).thenReturn(employee);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-
         EmployeeDto updatedEmployeeDto = employeeService.updateEmployee(employeeDto);
-
         assertNotNull(updatedEmployeeDto);
         assertEquals(employee.getId(), updatedEmployeeDto.getId());
         verify(employeeRepository, times(1)).findByIdAndIsDeletedFalse(employeeDto.getId());
@@ -119,7 +108,6 @@ public class EmployeeServiceTest {
     @Test
     void testUpdateEmployeeThrowsException() {
         when(employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId())).thenReturn(null);
-
         assertThrows(ResourceNotFoundException.class, () -> employeeService.updateEmployee(employeeDto));
         verify(employeeRepository, times(1)).findByIdAndIsDeletedFalse(employeeDto.getId());
     }
@@ -127,9 +115,7 @@ public class EmployeeServiceTest {
     @Test
     void testDeleteEmployee() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
-
         employeeService.deleteEmployee(employee.getId());
-
         assertTrue(employee.isDeleted());
         verify(employeeRepository, times(1)).findById(employee.getId());
         verify(employeeRepository, times(1)).save(employee);
@@ -138,7 +124,6 @@ public class EmployeeServiceTest {
     @Test
     void testDeleteEmployeeThrowsException() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
-
         assertThrows(ResourceNotFoundException.class, () -> employeeService.deleteEmployee(employee.getId()));
         verify(employeeRepository, times(1)).findById(employee.getId());
     }
@@ -146,9 +131,7 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployeeForJobPost() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
-
         Employee foundEmployee = employeeService.retrieveEmployeeForJobPost(employee.getId());
-
         assertNotNull(foundEmployee);
         assertEquals(employee.getId(), foundEmployee.getId());
         verify(employeeRepository, times(1)).findById(employee.getId());
@@ -157,7 +140,6 @@ public class EmployeeServiceTest {
     @Test
     void testRetrieveEmployeeForJobPostThrowsException() {
         when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
-
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeForJobPost(employee.getId()));
         verify(employeeRepository, times(1)).findById(employee.getId());
     }
@@ -165,9 +147,7 @@ public class EmployeeServiceTest {
     @Test
     void testCountActiveEmployees() {
         when(employeeRepository.countByIsDeleted(false)).thenReturn(10L);
-
         Long activeEmployeeCount = employeeService.countActiveEmployees();
-
         assertEquals(10L, activeEmployeeCount);
         verify(employeeRepository, times(1)).countByIsDeleted(false);
     }
@@ -175,9 +155,7 @@ public class EmployeeServiceTest {
     @Test
     void testCountDeletedEmployees() {
         when(employeeRepository.countByIsDeleted(true)).thenReturn(5L);
-
         Long deletedEmployeeCount = employeeService.countDeletedEmployees();
-
         assertEquals(5L, deletedEmployeeCount);
         verify(employeeRepository, times(1)).countByIsDeleted(true);
     }
