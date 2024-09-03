@@ -165,7 +165,7 @@ public class JobApplicationControllerTest {
     void testRemoveJobApplication() {
         String removeJob = " ";
         when(jobApplicationService.removeJobApplicationForEmployee(jobApplicationDto.getId())).thenReturn(removeJob);
-        ResponseEntity<String> response = jobApplicationController.removeJobApplication(jobApplicationDto.getId());
+        ResponseEntity<String> response = jobApplicationController.removeEmployeeJobApplication(jobApplicationDto.getId());
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 

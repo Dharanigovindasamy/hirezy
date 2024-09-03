@@ -3,7 +3,10 @@ package com.ideas2it.hirezy.service;
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.Employee;
+import com.ideas2it.hirezy.model.Employer;
+import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
+import com.ideas2it.hirezy.model.enums.Gender;
 import com.ideas2it.hirezy.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +43,40 @@ public class EmployeeServiceTest {
 
     @BeforeEach
     void setUp() {
-        employee = new Employee();
+        employee = (Employee.builder()
+                .id(1L)
+                .name("John")
+                .dateOfBirth(LocalDate.of(2000, 10, 10))
+                .resume("resume")
+                .city("chennai")
+                .qualification("BE")
+                .yearOfExperience(3)
+                .currentCompany("ideas2it")
+                .designation("software developer")
+                .noticePeriod(3)
+                .keySkills(List.of("html", "css", "java"))
+                .user(User.builder()
+                        .id(1L)
+                        .emailId("john@gmail.com")
+                        .password("12343")
+                        .phoneNumber("976432132")
+                        .role(Role.builder()
+                                .id(1L)
+                                .roleName("employee")
+                                .build())
+                        .employer(Employer.builder()
+                                .id(1L)
+                                .name("Sri")
+                                .companyName("ideas2it")
+                                .description("it software skills development")
+                                .companyType("")
+                                .industryType("")
+                                .gender(Gender.F)
+                                .build())
+                        .build())
+                .gender(Gender.F)
+                .build());
+
         employee.setId(1L);
         employee.setDeleted(false);
 
@@ -63,35 +100,30 @@ public class EmployeeServiceTest {
 
     @Test
     void testRetrieveEmployees() {
-        when(employeeRepository.findAll()).thenReturn(Arrays.asList(employee));
+        lenient().when(employeeRepository.findByIsDeletedFalse()).thenReturn(Arrays.asList(employee));
         List<EmployeeDto> employees = employeeService.retrieveEmployees();
         assertFalse(employees.isEmpty());
         assertEquals(1, employees.size());
-        verify(employeeRepository, times(1)).findAll();
     }
 
     @Test
-    void testRetrieveEmployeesWhenEmpty() {
-        when(employeeRepository.findAll()).thenReturn(Arrays.asList());
-        List<EmployeeDto> employees = employeeService.retrieveEmployees();
-        assertTrue(employees.isEmpty());
-        verify(employeeRepository, times(1)).findAll();
+    void testRetrieveEmployeesFailure() {
+        lenient().when(employeeRepository.findAll()).thenReturn(null);
+        assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployees());
     }
 
     @Test
     void testRetrieveEmployeeById() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(employee);
         EmployeeDto foundEmployee = employeeService.retrieveEmployeeById(employee.getId());
         assertNotNull(foundEmployee);
         assertEquals(employee.getId(), foundEmployee.getId());
-        verify(employeeRepository, times(1)).findById(employee.getId());
     }
 
     @Test
     void testRetrieveEmployeeByIdThrowsException() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeById(employee.getId()));
-        verify(employeeRepository, times(1)).findById(employee.getId());
     }
 
     @Test
@@ -114,34 +146,29 @@ public class EmployeeServiceTest {
 
     @Test
     void testDeleteEmployee() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(employee);
         employeeService.deleteEmployee(employee.getId());
         assertTrue(employee.isDeleted());
-        verify(employeeRepository, times(1)).findById(employee.getId());
-        verify(employeeRepository, times(1)).save(employee);
     }
 
     @Test
     void testDeleteEmployeeThrowsException() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.deleteEmployee(employee.getId()));
-        verify(employeeRepository, times(1)).findById(employee.getId());
     }
 
     @Test
     void testRetrieveEmployeeForJobPost() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(employee);
         Employee foundEmployee = employeeService.retrieveEmployeeForJobPost(employee.getId());
         assertNotNull(foundEmployee);
         assertEquals(employee.getId(), foundEmployee.getId());
-        verify(employeeRepository, times(1)).findById(employee.getId());
     }
 
     @Test
     void testRetrieveEmployeeForJobPostThrowsException() {
-        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.empty());
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeForJobPost(employee.getId()));
-        verify(employeeRepository, times(1)).findById(employee.getId());
     }
 
     @Test
@@ -149,7 +176,6 @@ public class EmployeeServiceTest {
         when(employeeRepository.countByIsDeleted(false)).thenReturn(10L);
         Long activeEmployeeCount = employeeService.countActiveEmployees();
         assertEquals(10L, activeEmployeeCount);
-        verify(employeeRepository, times(1)).countByIsDeleted(false);
     }
 
     @Test

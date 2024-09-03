@@ -146,7 +146,7 @@ public class JobApplicationServiceTest {
 
     @Test
     void testGetAllJobApplications() {
-        when(jobApplicationRepository.findAll()).thenReturn(List.of(jobApplication));
+        when(jobApplicationRepository.findByIsDeletedFalse()).thenReturn(List.of(jobApplication));
         List<JobApplicationDto> response = jobApplicationService.getAllJobApplications();
         assertNotNull(response);
         assertEquals(1, response.size());
@@ -154,7 +154,7 @@ public class JobApplicationServiceTest {
 
     @Test
     void testGetJobApplicationById() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.ofNullable(jobApplication));
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(jobApplication);
         JobApplicationDto response = jobApplicationService.getJobApplicationById(jobApplicationDto.getId());
         assertNotNull(response);
         assertEquals(jobApplicationDto.getAppliedDate(), response.getAppliedDate());
@@ -162,29 +162,28 @@ public class JobApplicationServiceTest {
 
     @Test
     void testGetJobApplicationByIdFailure() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.empty());
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> jobApplicationService.getJobApplicationById(jobApplicationDto.getId()));
     }
 
     @Test
     void testRemoveJobApplicationForEmployee() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.ofNullable(jobApplication));
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(jobApplication);
         when(jobApplicationRepository.save(any(JobApplication.class))).thenReturn(jobApplication);
         String removeJobApplicationForEmployee = jobApplicationService.removeJobApplicationForEmployee(jobApplicationDto.getId());
-        assertEquals("Job application Deleted Successfully", removeJobApplicationForEmployee);
+        assertEquals("Job application Withdraw application  Successfully", removeJobApplicationForEmployee);
     }
 
     @Test
     void testRemoveJobApplicationForEmployeeFailure() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.empty());
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> jobApplicationService.removeJobApplicationForEmployee(jobApplicationDto.getId()));
     }
 
     @Test
     void testUpdateApplicationStatus() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.ofNullable(jobApplication));
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(jobApplication);
         when(jobApplicationRepository.save(any(JobApplication.class))).thenReturn(jobApplication);
-        // when(emailService.sendEmail(employeeEmail, subject, message)).
         JobApplicationDto response = jobApplicationService.updateApplicationStatus(jobApplicationDto.getId(), String.valueOf(jobApplicationDto.getStatus()));
         assertNotNull(response);
         assertEquals(jobApplicationDto.getStatus(), response.getStatus());
@@ -192,7 +191,7 @@ public class JobApplicationServiceTest {
 
     @Test
     void testUpdateApplicationStatusFailure() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getId())).thenReturn(Optional.empty());
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> jobApplicationService.updateApplicationStatus(jobApplicationDto.getId(), jobApplicationDto.getStatus().name()));
     }
 
@@ -206,7 +205,7 @@ public class JobApplicationServiceTest {
 
     @Test
     void testApplyJob() {
-        when(jobApplicationRepository.findById(jobApplicationDto.getJobPostId())).thenReturn(Optional.ofNullable(jobApplication));
+        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getJobPostId())).thenReturn(jobApplication);
         when(jobApplicationRepository.save(jobApplication)).thenReturn(jobApplication);
         String response = jobApplicationService.applyJob(jobApplicationDto.getEmployeeId(), jobApplicationDto.getJobPostId());
         assertNotNull(response);

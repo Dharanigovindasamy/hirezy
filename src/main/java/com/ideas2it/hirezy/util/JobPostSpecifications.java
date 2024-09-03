@@ -14,9 +14,10 @@ import com.ideas2it.hirezy.model.JobPost;
  * @author kishore
  */
 public class JobPostSpecifications {
+
     public static Specification<JobPost> hasState(String state) {
         return (root, query, criteriaBuilder) ->
-                state == null ? null : criteriaBuilder.equal(root.get("location").get("state"), state);
+                    state == null ? null : criteriaBuilder.equal(root.get("location").get("state"), state);
     }
 
     public static Specification<JobPost> hasCity(String city) {
@@ -55,14 +56,14 @@ public class JobPostSpecifications {
     }
 
     public static  Specification<JobPost> hasKeySkills(List<String> keySkills) {
-        return (root, query, criteriabuilder) -> {
+        return (root, query, criteriaBuilder) -> {
             if (keySkills == null || keySkills.isEmpty()) {
                 return null;
             }
             Predicate[] predicates = keySkills.stream()
-                    .map(skill->criteriabuilder.isMember(skill,root.get("keySkills")))
+                    .map(skill->criteriaBuilder.isMember(skill,root.get("keySkills")))
                     .toArray(Predicate[]::new);
-            return criteriabuilder.or(predicates);
+            return criteriaBuilder.or(predicates);
         };
     }
 }
