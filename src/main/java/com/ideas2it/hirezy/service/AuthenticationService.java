@@ -1,8 +1,6 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.model.AuthenticationRequest;
-import com.ideas2it.hirezy.model.AuthenticationResponse;
-import com.ideas2it.hirezy.model.RegisteredRequest;
+import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,40 +49,40 @@ public class AuthenticationService {
     /**
      * This method is used to register the user details
      * in the repository
-     * @param request {@link RegisteredRequest}
+     * @param user {@link User}
      *     It contains the user details for signup.
      * @param role
      *     It is the role of that user who will log in.
      * @return String
      *     Ii is the reply message to the user.
      */
-    public String registerUser(RegisteredRequest request,String role) {
-        String email = request.getEmail();
-        for (User user : userRepository.findAll()){
-            if(email.equals(user.getEmailId())){
+    public String registerUser(User user, String role) {
+        String email = user.getEmailId();
+        for (User users : userRepository.findAll()){
+            if(email.equals(users.getEmailId())){
                 throw new ResourceAlreadyExistsException("Email Id - " + email
                         + " Already Exist.Enter OTP to verify your account");
             }
         }
-        var user = User.builder()
-                .emailId(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .phoneNumber(request.getPhoneNumber())
+        var users = User.builder()
+                .emailId(user.getEmailId())
+                .password(passwordEncoder.encode(user.getPassword()))
+                .phoneNumber(user.getPhoneNumber())
                 .role(roleService.retrieveRoleByName(role))
                 .build();
-        userRepository.save(user);
+        userRepository.save(users);
         return "SignUp Success";
     }
 
     /**
      * This method is to verify the user login information.
      * If it is verified then the token for that user will be generated.
-     * @param request {@link AuthenticationRequest}
+     * @param request {@link AuthenticationRequestDto}
      *     It contains the Email and password of that user.
      * @return AuthenticationResponse
      *     It contains the Token generated for that user.
      */
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public String authenticate(AuthenticationRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -93,10 +91,7 @@ public class AuthenticationService {
         );
         var user = userRepository.findByEmailId(request.getEmail())
                 .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        return jwtService.generateToken(user);
     }
 
     /**

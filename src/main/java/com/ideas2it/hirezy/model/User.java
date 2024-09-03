@@ -12,11 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,9 +26,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * </p>
  * @author paari
  */
+@Data
 @Builder
-@Getter
-@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -72,13 +67,11 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-
         return password;
     }
 
     @Override
     public String getUsername() {
-
         return emailId;
     }
 

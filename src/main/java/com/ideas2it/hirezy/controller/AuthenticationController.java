@@ -1,5 +1,8 @@
 package com.ideas2it.hirezy.controller;
 
+import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
+import com.ideas2it.hirezy.dto.OtpVerificationDto;
+import com.ideas2it.hirezy.model.*;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 
@@ -11,10 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ideas2it.hirezy.model.AuthenticationRequest;
-import com.ideas2it.hirezy.model.AuthenticationResponse;
-import com.ideas2it.hirezy.model.OtpVerificationRequest;
-import com.ideas2it.hirezy.model.RegisteredRequest;
 import com.ideas2it.hirezy.service.AuthenticationService;
 import com.ideas2it.hirezy.service.OtpService;
 
@@ -87,18 +86,16 @@ public class AuthenticationController {
      *     It contains the Token for the user if he is verified.
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> loginUser(
-            @RequestBody AuthenticationRequest request
+    public ResponseEntity<String> loginUser(
+            @RequestBody AuthenticationRequestDto request
     ) {
-        if (!otpService.isAccountVerified(request.getEmail()) &&
-                !request.getEmail().equals("kishoreofficial@gmail.com")) {
+        if (!otpService.isAccountVerified(request.getEmailId()) &&
+                !request.getEmailId().equals("kishoreofficial@gmail.com")) {
             logger.warn("account is not verified yet,please verify");
-            AuthenticationResponse response = new AuthenticationResponse(
-                    "Account not verified. Please verify your account.");
-            return ResponseEntity.badRequest().body(response);
+            return new ResponseEntity<>("Account not verified. Please verify your account",HttpStatus.BAD_REQUEST);
         }
         logger.info("account is verified and successfully logged in");
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        return new ResponseEntity<>(authenticationService.authenticate(request),HttpStatus.OK);
     }
 
     /**
@@ -110,10 +107,10 @@ public class AuthenticationController {
      *     It is the message to the user.
      */
     @PostMapping("/forgotPassword")
-    public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequest authenticationRequest) throws MessagingException {
-        String email = authenticationRequest.getEmail();
+    public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequestDto authenticationRequest) throws MessagingException {
+        String email = authenticationRequest.getEmailId();
         if(authenticationService.findByEmail(email)) {
-            String otp = otpService.generateOTP(authenticationRequest.getEmail());
+            String otp = otpService.generateOTP(authenticationRequest.getEmailId());
             if(otp != null) {
                 return new ResponseEntity<>("Enter OTP to reset Password",HttpStatus.OK);
             }
@@ -130,11 +127,11 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user whether the password is updated or not.
      */
-    @PostMapping("/forgotPassword/verifyOtp")
-    public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationRequest
+    @PostMapping("/updatePassword/verify-otp")
+    public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationDto
                                             otpVerificationRequest) {
-        if (otpService.verifyOTP(otpVerificationRequest.getEmail(), otpVerificationRequest.getOtp())) {
-            return new ResponseEntity<>(authenticationService.updatePassword(otpVerificationRequest.getEmail(),otpVerificationRequest.getPassword()),HttpStatus.OK);
+        if (otpService.verifyOTP(otpVerificationRequest.getEmailId(), otpVerificationRequest.getOtp())) {
+            return new ResponseEntity<>(authenticationService.updatePassword(otpVerificationRequest.getEmailId(),otpVerificationRequest.getPassword()),HttpStatus.OK);
         }
         return new ResponseEntity<>("Enter The Correct OTP",HttpStatus.BAD_REQUEST);
     }

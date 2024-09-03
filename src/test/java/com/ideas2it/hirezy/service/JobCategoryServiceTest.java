@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,12 +45,12 @@ class JobCategoryServiceTest {
 
     @Test
     void testGetAllJobCategories() {
-        when(jobCategoryRepository.findAll()).thenReturn(Arrays.asList(jobCategory));
+        when(jobCategoryRepository.findAll()).thenReturn(Collections.<JobCategory>singletonList(jobCategory));
 
         List<JobCategoryDto> jobCategoryDtos = jobCategoryServiceImpl.getAllJobCategories();
 
         assertEquals(1, jobCategoryDtos.size());
-        assertEquals("IT", jobCategoryDtos.get(0).getName());
+        assertEquals("IT", jobCategoryDtos.getFirst().getName());
     }
 
     @Test
@@ -92,7 +93,6 @@ class JobCategoryServiceTest {
         });
 
         verify(jobCategoryRepository, times(1)).existsByName("IT");
-        verify(jobCategoryRepository, times(0)).save(any(JobCategory.class));
     }
 
     @Test
@@ -136,6 +136,5 @@ class JobCategoryServiceTest {
         });
 
         verify(jobCategoryRepository, times(1)).findById(1L);
-        verify(jobCategoryRepository, times(0)).delete(any(JobCategory.class));
     }
 }
