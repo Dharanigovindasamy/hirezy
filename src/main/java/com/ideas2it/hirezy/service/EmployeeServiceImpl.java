@@ -50,8 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees =  employeeRepository.findByIsDeletedFalse();
 
         if (employees.isEmpty()) {
-            logger.warn("Empty employee details");
-            throw new ResourceNotFoundException("Currently there is no Employee");
+            logger.warn("Employee does not exists");
         } else {
             for(Employee employee : employees) {
                 EmployeeDto employeeDto = mapEntityToDto(employee);
@@ -66,8 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
 
         if(null == employee) {
-            logger.warn("No employee under this employee id {}", employeeId);
-            throw new ResourceNotFoundException("Employee not found" + employeeId);
+            logger.warn("Employee does not exist for this ID {}", employeeId);
         }
         return mapEntityToDto(employee);
     }
@@ -102,7 +100,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee retrieveEmployeeForJobPost(long employeeId) {
         Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
-        if(employee == null) {
+        if(null == employee) {
+            logger.warn("employee not found for employee id ..{}",employeeId);
             throw new ResourceNotFoundException("Employee Id - " + employeeId + " not found");
         }
         return employee;
@@ -110,11 +109,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Long countActiveEmployees() {
+
         return employeeRepository.countByIsDeleted(false);
     }
 
     @Override
     public Long countDeletedEmployees() {
+
         return employeeRepository.countByIsDeleted(true);
     }
 }

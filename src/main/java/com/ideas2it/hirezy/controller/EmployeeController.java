@@ -39,6 +39,7 @@ public class EmployeeController {
     private static final Logger logger = LogManager.getLogger();
 
     public EmployeeController(EmployeeService employeeService) {
+
         this.employeeService = employeeService;
     }
 
@@ -52,7 +53,7 @@ public class EmployeeController {
      */
     @PostMapping
     public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto){
-        logger.info(ResponseEntity.ok("Files uploaded successfully"));
+        logger.info(ResponseEntity.ok("employee has been uploaded successfully"));
         return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
     }
 
@@ -91,7 +92,7 @@ public class EmployeeController {
      *
      */
     @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         employeeDto = employeeService.updateEmployee(employeeDto);
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }
