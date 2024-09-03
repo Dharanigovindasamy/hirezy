@@ -23,7 +23,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     /**
      * This method is to retrieve all the job application.
      */
-    List<JobApplication> findAllAndIsDeletedFalse();
+    List<JobApplication> findByIsDeletedFalse();
 
     /**
      * This method is to retrieve job application by Id.

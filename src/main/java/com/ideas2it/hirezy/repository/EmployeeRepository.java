@@ -21,7 +21,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     /**
      * This method is to retrieve all the employees from the database.
      */
-    List<Employee> findAllAndIsDeletedFalse();
+    List<Employee> findByIsDeletedFalse();
 
     /**
      * Retrieve employee which is soft delete

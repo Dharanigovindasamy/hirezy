@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> retrieveEmployees() {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
-        List<Employee> employees =  employeeRepository.findAllAndIsDeletedFalse();
+        List<Employee> employees =  employeeRepository.findByIsDeletedFalse();
 
         if (employees.isEmpty()) {
             logger.warn("Empty employee details");

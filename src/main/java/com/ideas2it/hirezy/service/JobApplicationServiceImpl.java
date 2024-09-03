@@ -49,7 +49,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     @Override
     public List<JobApplicationDto> getAllJobApplications() {
         List<JobApplicationDto> jobApplicationDtos = new ArrayList<>();
-        List<JobApplication> jobApplications = jobApplicationRepository.findAllAndIsDeletedFalse();
+        List<JobApplication> jobApplications = jobApplicationRepository.findByIsDeletedFalse();
         if (jobApplications.isEmpty()) {
             logger.warn("Empty job application details");
             throw new ResourceNotFoundException("Currently there is no job application");
@@ -107,7 +107,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     }
 
     @Override
-    public List<JobApplicationDto> getJobApplicationByjobPostId(Long jobPostId) {
+    public List<JobApplicationDto> getJobApplicationByJobPostId(Long jobPostId) {
         return jobApplicationRepository.findByJobPostId(jobPostId)
                 .stream()
                 .map(JobApplicationMapper::mapToJobApplicationDto)
