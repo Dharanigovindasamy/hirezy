@@ -73,7 +73,7 @@ public class JobApplicationController {
      * </p>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeJobApplication(@PathVariable Long id) {
+    public ResponseEntity<String> removeEmployeeJobApplication(@PathVariable Long id) {
         logger.info("Job Application deleted successfully by {}", id);
         return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.NO_CONTENT);
     }
