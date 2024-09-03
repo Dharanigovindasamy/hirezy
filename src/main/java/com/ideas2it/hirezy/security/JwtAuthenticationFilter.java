@@ -1,4 +1,4 @@
-package com.ideas2it.hirezy.config;
+package com.ideas2it.hirezy.security;
 
 import java.io.IOException;
 

@@ -74,7 +74,7 @@ public class JobApplicationController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeEmployeeJobApplication(@PathVariable Long id) {
-        logger.info("Job Application deleted successfully by {}", id);
+        logger.info("Job Application Withdraw successfully by {}", id);
         return new ResponseEntity<>(jobApplicationService.removeJobApplicationForEmployee(id),HttpStatus.NO_CONTENT);
     }
 

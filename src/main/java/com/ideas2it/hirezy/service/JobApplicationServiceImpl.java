@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ideas2it.hirezy.exception.AccessDeniedException;
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -92,7 +93,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         }
         if(jobApplication.getStatus().equals(JobApplicationStatus.WITHDRAW) ||
                 jobApplication.getStatus().equals(JobApplicationStatus.REJECTED)) {
-             throw new RuntimeException("Employee already rejected or withdrew");
+             throw new AccessDeniedException("Employee already rejected or withdrew");
         }
         jobApplication.setStatus(JobApplicationStatus.valueOf(status));
         jobApplicationRepository.save(jobApplication);
@@ -116,16 +117,15 @@ public class JobApplicationServiceImpl implements JobApplicationService{
 
     @Override
     public String applyJob(long employeeId, long jobPostId) {
-        JobApplication jobApplication = jobApplicationRepository.findByIdAndIsDeletedFalse(jobPostId);
-        if(jobApplication == null){
-            throw new ResourceNotFoundException("The Job Post does not found" + jobPostId);
-        }
         Employee employee = employeeService.retrieveEmployeeForJobPost(employeeId);
-        jobApplication.setEmployee(employee);
         JobPost jobPost = jobPostService.retrieveJobForApplication(jobPostId);
-        jobApplication.setJobPost(jobPost);
-        jobApplication.setAppliedDate(LocalDateTime.now());
-        jobApplication.setStatus(JobApplicationStatus.APPLIED);
+
+        JobApplication jobApplication = JobApplication.builder()
+                .employee(employee)
+                .jobPost(jobPost)
+                .appliedDate(LocalDateTime.now())
+                .status(JobApplicationStatus.APPLIED)
+                .build();
         jobApplicationRepository.save(jobApplication);
         return "Job Applied Successfully";
     }

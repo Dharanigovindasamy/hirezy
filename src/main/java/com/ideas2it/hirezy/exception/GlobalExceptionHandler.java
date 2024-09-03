@@ -76,4 +76,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles cases where a requested action cloud not be change.
+     * This method intercepts AccessDeniedException and returns a 403 FORBIDDEN  status.
+     *
+     * @param req   The HttpServletRequest object that contains the request the client made to the server.
+     * @param e     The exception that was thrown.
+     * @return A ResponseEntity containing the error details and HTTP status.
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> AccessDenied(HttpServletRequest req, Exception e) {
+        Map<String, Object> errorDetails = new HashMap<>();
+        errorDetails.put("message", "Action Denied: The resource you're looking for could not change. " +
+                "It may have been Rejected , Withdraw , or you may have the wrong ID.");
+        errorDetails.put("details", e.getMessage());
+        errorDetails.put("url", req.getRequestURL());
+        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+    }
+
 }
