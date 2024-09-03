@@ -35,10 +35,12 @@ public class LocationServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         location = Location.builder()
-                .state("tamilnadu")
+                .id(1)
+                .state("tamilNadu")
                 .city("chennai").build();
         locationDto = LocationDto.builder()
-                .state("tamilnadu")
+                .id(1)
+                .state("tamilNadu")
                 .city("chennai").build();
     }
 
@@ -71,7 +73,6 @@ public class LocationServiceTest {
         when(locationRepository.findById(3L)).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> locationService.displayLocationById(3L));
     }
-
     @Test
     void testUpdateLocation() {
         when(locationRepository.findById(locationDto.getId())).thenReturn(Optional.of(location));
@@ -93,7 +94,7 @@ public class LocationServiceTest {
         when(locationRepository.findById(locationDto.getId())).thenReturn(Optional.ofNullable(location));
         when(locationRepository.save(any(Location.class))).thenReturn(location);
         locationService.deleteLocation(locationDto.getId());
-        assertEquals(true, location.isDeleted());
+        assertTrue(location.isDeleted());
     }
 
     @Test

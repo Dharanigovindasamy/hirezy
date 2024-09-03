@@ -3,7 +3,6 @@ package com.ideas2it.hirezy.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
@@ -50,35 +49,34 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     @Override
     public List<JobApplicationDto> getAllJobApplications() {
         List<JobApplicationDto> jobApplicationDtos = new ArrayList<>();
-        List<JobApplication> jobApplications = jobApplicationRepository.findAll();
+        List<JobApplication> jobApplications = jobApplicationRepository.findAllAndIsDeletedFalse();
         if (jobApplications.isEmpty()) {
             logger.warn("Empty job application details");
-        } else {
-            for(JobApplication jobApplication : jobApplications) {
-                JobApplicationDto jobApplicationDto = mapToJobApplicationDto(jobApplication);
-                jobApplicationDtos.add(jobApplicationDto);
-            }
+            throw new ResourceNotFoundException("Currently there is no job application");
+        }
+        for(JobApplication jobApplication : jobApplications) {
+            JobApplicationDto jobApplicationDto = mapToJobApplicationDto(jobApplication);
+            jobApplicationDtos.add(jobApplicationDto);
         }
         return jobApplicationDtos;
     }
 
     @Override
     public JobApplicationDto getJobApplicationById(Long id) {
-        JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("job application not found" + id));
+        JobApplication jobApplication = jobApplicationRepository.findByIdAndIsDeletedFalse(id);
         if(null == jobApplication) {
             logger.warn("No job application under this job application id {}", id);
-            return null;
+            throw new ResourceNotFoundException("job application not found" + id);
         }
         return mapToJobApplicationDto(jobApplication);
     }
 
     @Override
     public String removeJobApplicationForEmployee(Long id) {
-        JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Job application not found" + id));
+        JobApplication jobApplication = jobApplicationRepository.findByIdAndIsDeletedFalse(id);
         if (null == jobApplication) {
             logger.warn("No job Application found in id {}", id);
+            throw  new ResourceNotFoundException("Job application not found" + id);
         }
         jobApplication.setStatus(JobApplicationStatus.WITHDRAW);
         jobApplicationRepository.save(jobApplication);
@@ -88,25 +86,28 @@ public class JobApplicationServiceImpl implements JobApplicationService{
 
     @Override
     public JobApplicationDto updateApplicationStatus(Long applicationId, String status) {
-        Optional<JobApplication> jobApplicationOptional = jobApplicationRepository.findById(applicationId);
-        if (jobApplicationOptional.isPresent()) {
-            JobApplication jobApplication = jobApplicationOptional.get();
-            jobApplication.setStatus(JobApplicationStatus.valueOf(status));
-            jobApplicationRepository.save(jobApplication);
-            String employeeEmail = jobApplication.getEmployee().getUser().getEmailId();
-            String subject = "Your Job Application Status Has Been Updated";
-            String message = String.format("Dear %s,\n\nYour application status for the job post '%s' has been updated to '%s'.\n\nBest regards,\n '%s'",
-                    jobApplication.getEmployee().getName(), jobApplication.getJobPost().getTitle(), status,jobApplication.getJobPost().getEmployer().getCompanyName());
-
-            emailService.sendEmail(employeeEmail, subject, message);
-            return mapToJobApplicationDto(jobApplication);
-        } else {
-            throw new ResourceNotFoundException("Job application not found");
+        JobApplication jobApplication = jobApplicationRepository.findByIdAndIsDeletedFalse(applicationId);
+        if(jobApplication == null) {
+            throw new ResourceNotFoundException("There is no job application");
         }
+        if(jobApplication.getStatus().equals(JobApplicationStatus.WITHDRAW) ||
+                jobApplication.getStatus().equals(JobApplicationStatus.REJECTED)) {
+             throw new RuntimeException("Employee already rejected or withdrew");
+        }
+        jobApplication.setStatus(JobApplicationStatus.valueOf(status));
+        jobApplicationRepository.save(jobApplication);
+        String employeeEmail = jobApplication.getEmployee().getUser().getEmailId();
+        String subject = "Your Job Application Status Has Been Updated";
+        String message = String.format("Dear %s,\n\nYour application status for the job post '%s' has been updated to '%s'.\n\nBest regards,\n '%s'",
+                jobApplication.getEmployee().getName(), jobApplication.getJobPost().getTitle(), status,jobApplication.getJobPost().getEmployer().getCompanyName());
+
+        emailService.sendEmail(employeeEmail, subject, message);
+        return mapToJobApplicationDto(jobApplication);
+
     }
 
     @Override
-    public List<JobApplicationDto> getJobApplicationByJobPostId(Long jobPostId) {
+    public List<JobApplicationDto> getJobApplicationByjobPostId(Long jobPostId) {
         return jobApplicationRepository.findByJobPostId(jobPostId)
                 .stream()
                 .map(JobApplicationMapper::mapToJobApplicationDto)
@@ -115,8 +116,10 @@ public class JobApplicationServiceImpl implements JobApplicationService{
 
     @Override
     public String applyJob(long employeeId, long jobPostId) {
-        JobApplication jobApplication = jobApplicationRepository.findById(jobPostId)
-                .orElseThrow(() -> new ResourceNotFoundException("The Job Post does not found" + jobPostId));
+        JobApplication jobApplication = jobApplicationRepository.findByIdAndIsDeletedFalse(jobPostId);
+        if(jobApplication == null){
+            throw new ResourceNotFoundException("The Job Post does not found" + jobPostId);
+        }
         Employee employee = employeeService.retrieveEmployeeForJobPost(employeeId);
         jobApplication.setEmployee(employee);
         JobPost jobPost = jobPostService.retrieveJobForApplication(jobPostId);

@@ -99,6 +99,15 @@ public class AuthenticationService {
                 .build();
     }
 
+    /**
+     * This method is to update the password of the user.
+     * @param email
+     *     It is the email of the user to  update password.
+     * @param password
+     *     It is the updated password of the user.
+     * @return String
+     *     It is the message to the user whether the password is updated or not.
+     */
     public String updatePassword(String email, String password) {
         User user = userRepository.findByEmailId(email).orElseThrow();
         user.setPassword(passwordEncoder.encode(password));

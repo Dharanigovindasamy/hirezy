@@ -106,16 +106,16 @@ public class AuthenticationController {
      *     It is the message to the user.
      */
     @PostMapping("/forgotPassword")
-    public String updatePassword( @RequestBody AuthenticationRequest authenticationRequest) throws MessagingException {
+    public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequest authenticationRequest) throws MessagingException {
         String email = authenticationRequest.getEmail();
         if(authenticationService.findByEmail(email)) {
             String otp = otpService.generateOTP(authenticationRequest.getEmail());
             if(otp != null) {
-                return "Enter OTP to reset Password";
+                return new ResponseEntity<>("Enter OTP to reset Password",HttpStatus.OK);
             }
-            return  "Error in generating otp.Please TryAgain later";
+            return  new ResponseEntity<>("Error in generating otp.Please TryAgain later",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return "Check your Email Id";
+        return new ResponseEntity<>("Check your Email Id",HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -127,11 +127,11 @@ public class AuthenticationController {
      *     It is the message to the user whether the password is updated or not.
      */
     @PostMapping("/forgotPassword/verifyOtp")
-    public String resetPassword(@RequestBody OtpVerificationRequest
+    public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationRequest
                                             otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmail(), otpVerificationRequest.getOtp())) {
-            return authenticationService.updatePassword(otpVerificationRequest.getEmail(),otpVerificationRequest.getPassword());
+            return new ResponseEntity<>(authenticationService.updatePassword(otpVerificationRequest.getEmail(),otpVerificationRequest.getPassword()),HttpStatus.OK);
         }
-        return "Enter The Correct OTP";
+        return new ResponseEntity<>("Enter The Correct OTP",HttpStatus.BAD_REQUEST);
     }
 }

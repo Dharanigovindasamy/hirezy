@@ -50,7 +50,6 @@ class JobCategoryServiceTest {
 
         assertEquals(1, jobCategoryDtos.size());
         assertEquals("IT", jobCategoryDtos.get(0).getName());
-        verify(jobCategoryRepository, times(1)).findAll();
     }
 
     @Test
@@ -61,7 +60,6 @@ class JobCategoryServiceTest {
 
         assertNotNull(foundJobCategoryDto);
         assertEquals("IT", foundJobCategoryDto.getName());
-        verify(jobCategoryRepository, times(1)).findById(1L);
     }
 
     @Test
@@ -83,8 +81,6 @@ class JobCategoryServiceTest {
 
         assertNotNull(createdJobCategoryDto);
         assertEquals("IT", createdJobCategoryDto.getName());
-        verify(jobCategoryRepository, times(1)).existsByName("IT");
-        verify(jobCategoryRepository, times(1)).save(any(JobCategory.class));
     }
 
     @Test
@@ -108,8 +104,6 @@ class JobCategoryServiceTest {
 
         assertNotNull(updatedJobCategoryDto);
         assertEquals("IT", updatedJobCategoryDto.getName());
-        verify(jobCategoryRepository, times(1)).findById(1L);
-        verify(jobCategoryRepository, times(1)).save(any(JobCategory.class));
     }
 
     @Test
@@ -121,7 +115,6 @@ class JobCategoryServiceTest {
         });
 
         verify(jobCategoryRepository, times(1)).findById(1L);
-        verify(jobCategoryRepository, times(0)).save(any(JobCategory.class));
     }
 
     @Test

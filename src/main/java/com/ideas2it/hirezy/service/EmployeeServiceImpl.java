@@ -47,10 +47,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> retrieveEmployees() {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
-        List<Employee> employees =  employeeRepository.findAll();
+        List<Employee> employees =  employeeRepository.findAllAndIsDeletedFalse();
 
         if (employees.isEmpty()) {
             logger.warn("Empty employee details");
+            throw new ResourceNotFoundException("Currently there is no Employee");
         } else {
             for(Employee employee : employees) {
                 EmployeeDto employeeDto = mapEntityToDto(employee);
@@ -62,14 +63,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto retrieveEmployeeById(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
 
         if(null == employee) {
             logger.warn("No employee under this employee id {}", employeeId);
-            return null;
+            throw new ResourceNotFoundException("Employee not found" + employeeId);
         }
-            return mapEntityToDto(employee);
+        return mapEntityToDto(employee);
     }
 
     @Override
@@ -86,22 +86,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
         if (null == employee) {
             logger.warn("No employee found in employee id {}", employeeId);
+            throw new ResourceNotFoundException("Employee not found" + employeeId);
         }
-        if (employee != null) {
-            employee.setDeleted(true);
-            employeeRepository.save(employee);
-            logger.info("Employee id deleted successfully {} ", employeeId);
-        }
+        employee.setDeleted(true);
+        employeeRepository.save(employee);
+        logger.info("Employee id deleted successfully {} ", employeeId);
     }
 
     @Override
     public Employee retrieveEmployeeForJobPost(long employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found" + employeeId));
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
+        if(employee == null) {
+            throw new ResourceNotFoundException("Employee Id - " + employeeId + " not found");
+        }
+        return employee;
     }
 
     @Override

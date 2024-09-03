@@ -4,6 +4,8 @@ import com.ideas2it.hirezy.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  *     This interface extends from Jpa repository which can perform CRUD operations
@@ -15,6 +17,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+    /**
+     * This method is to retrieve all the employees from the database.
+     */
+    List<Employee> findAllAndIsDeletedFalse();
 
     /**
      * Retrieve employee which is soft delete

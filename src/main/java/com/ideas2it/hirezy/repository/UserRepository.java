@@ -1,12 +1,10 @@
 package com.ideas2it.hirezy.repository;
 
-import java.util.Optional;
-
+import com.ideas2it.hirezy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ideas2it.hirezy.model.User;
-
+import java.util.Optional;
 /**
  * This class is the repository for the User.
  */

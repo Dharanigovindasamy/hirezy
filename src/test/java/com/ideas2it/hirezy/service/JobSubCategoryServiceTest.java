@@ -35,7 +35,7 @@ public class JobSubCategoryServiceTest {
     JobCategory jobCategory;
     JobCategoryDto jobCategoryDto;
     JobSubCategory jobSubCategory;
-    JobSubCategoryDto jobSubCategoryDto;;
+    JobSubCategoryDto jobSubCategoryDto;
 
     @BeforeEach
     void setUp() {

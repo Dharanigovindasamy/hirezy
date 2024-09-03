@@ -21,6 +21,17 @@ import org.springframework.stereotype.Repository;
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
 
     /**
+     * This method is to retrieve all the job application.
+     */
+    List<JobApplication> findAllAndIsDeletedFalse();
+
+    /**
+     * This method is to retrieve job application by Id.
+     * @param jobApplicationId
+     *     It is the Id of the job application to be retrieved.
+     */
+    JobApplication findByIdAndIsDeletedFalse(long jobApplicationId);
+    /**
      * List of job applications under the job post
      * @param jobPostId - od of the job post
      * @return List of job applications under job post
