@@ -5,7 +5,7 @@ import com.ideas2it.hirezy.dto.JobApplicationDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
 import com.ideas2it.hirezy.model.*;
-import com.ideas2it.hirezy.model.enums.GenderEnum;
+import com.ideas2it.hirezy.model.enums.Gender;
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import com.ideas2it.hirezy.service.JobApplicationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,10 +71,10 @@ public class JobApplicationControllerTest {
                                         .description("it software skills development")
                                         .companyType("")
                                         .industryType("")
-                                        .gender(GenderEnum.F)
+                                        .gender(Gender.F)
                                         .build())
                                 .build())
-                        .gender(GenderEnum.F).build())
+                        .gender(Gender.F).build())
                 .jobPost(JobPost.builder()
                         .id(1L)
                         .title("Front end")
@@ -100,7 +100,7 @@ public class JobApplicationControllerTest {
                                 .description("freshers hiring")
                                 .companyType("service based")
                                 .industryType("IT mnc")
-                                .gender(GenderEnum.F).build())
+                                .gender(Gender.F).build())
                         .postedDate(LocalDate.of(2024, 8, 8))
                         .build())
                 .build();
@@ -121,7 +121,7 @@ public class JobApplicationControllerTest {
                         .designation("software developer")
                         .noticePeriod(3)
                         .keySkills(List.of("html", "css", "java"))
-                        .gender(GenderEnum.F).build())
+                        .gender(Gender.F).build())
                 .jobPostDto(JobPostDto.builder()
                         .id(1L)
                         .title("front end")
