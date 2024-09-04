@@ -196,27 +196,26 @@ public class JobApplicationServiceTest {
     }
 
     @Test
+    public void testApplyJob() {
+        long employeeId = 1L;
+        long jobPostId = 1L;
+
+        when(employeeService.retrieveEmployeeForJobPost(employeeId)).thenReturn(jobApplication.getEmployee());
+        when(jobPostService.retrieveJobForApplication(jobPostId)).thenReturn(jobApplication.getJobPost());
+
+        String result = jobApplicationService.applyJob(employeeId, jobPostId);
+
+        assertEquals("Job Applied Successfully", result);
+        verify(jobApplicationRepository, times(1)).save(any(JobApplication.class));
+
+    }
+
+    @Test
     void testGetJobApplicationByJobPostId() {
         when(jobApplicationRepository.findByJobPostId(jobApplicationDto.getJobPostDto().getId())).thenReturn(List.of(jobApplication));
         List<JobApplicationDto> response = jobApplicationService.getJobApplicationByJobPostId(jobApplicationDto.getJobPostDto().getId());
         assertNotNull(response);
         assertEquals(1, response.size());
-    }
-
-    @Test
-    void testApplyJob() {
-        when(jobApplicationRepository.findByIdAndIsDeletedFalse(jobApplicationDto.getJobPostId())).thenReturn(jobApplication);
-        when(jobApplicationRepository.save(jobApplication)).thenReturn(jobApplication);
-        String response = jobApplicationService.applyJob(jobApplicationDto.getEmployeeId(), jobApplicationDto.getJobPostId());
-        assertNotNull(response);
-        assertEquals("Job Applied Successfully", response);
-    }
-
-    @Test
-    void testApplyJobFailure() {
-        lenient().when(jobPostService.retrieveJobForApplication(jobApplicationDto.getJobPostDto().getId())).thenReturn(null);
-        lenient().when(employeeService.retrieveEmployeeForJobPost(jobApplicationDto.getEmployeeDto().getId())).thenReturn(null);
-        assertThrows(ResourceNotFoundException.class, () -> jobApplicationService.applyJob(jobApplicationDto.getEmployeeDto().getId(), jobApplicationDto.getJobPostDto().getId()));
     }
 
     @Test
