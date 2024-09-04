@@ -102,7 +102,7 @@ public class JobApplicationController {
      * @param jobPostId - id of the job post
      * @return List<JobApplicationDto> - list of job applications under the job post
      */
-    @GetMapping("/jobPost/{jobPostId}")
+    @GetMapping("/job-post/{jobPostId}")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByJobPostId(jobPostId);
@@ -123,7 +123,7 @@ public class JobApplicationController {
      * @return String
      *     It is the success message to be returned to the employee.
      */
-    @PutMapping("/jobPost/{jobPostId}/employee/{employeeId}")
+    @PutMapping("/job-post/{jobPostId}/employee/{employeeId}")
     @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
         logger.info("Job Application applied successfully by {}",employeeId );

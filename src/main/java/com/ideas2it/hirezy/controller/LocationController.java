@@ -31,7 +31,7 @@ import com.ideas2it.hirezy.service.LocationService;
  * @version 1
  */
 @Controller
-@RequestMapping("admin/location")
+@RequestMapping("admin/locations")
 public class LocationController {
 
     @Autowired

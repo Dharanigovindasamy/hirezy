@@ -85,11 +85,11 @@ public class AuthenticationService {
     public String authenticate(AuthenticationRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
+                        request.getEmailId(),
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByEmailId(request.getEmail())
+        var user = userRepository.findByEmailId(request.getEmailId())
                 .orElseThrow();
         return jwtService.generateToken(user);
     }

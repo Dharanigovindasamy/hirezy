@@ -50,7 +50,7 @@ public class EmployerController {
      * </p>
      */
     @GetMapping
-    public ResponseEntity<List<EmployerDto>>  DisplayAllEmployer() {
+    public ResponseEntity<List<EmployerDto>>  displayAllEmployer() {
         logger.info("Request received to get all employers");
         List<EmployerDto> employers  = employerService.getAllEmployers();
         logger.info("Returning {} employers", employers.size());
@@ -109,7 +109,7 @@ public class EmployerController {
      * @param jobPostDto - job post details
      * </p>
      */
-    @PostMapping("/{employerId}/jobPosts")
+    @PostMapping("/{employerId}/job-posts")
     public ResponseEntity<JobPostDto> createJobPost(@Valid
             @PathVariable Long employerId,
             @RequestBody JobPostDto jobPostDto) {
@@ -127,7 +127,7 @@ public class EmployerController {
      * @param jobPostDto - updated job post details
      * </p>
      */
-    @PutMapping("/{employerId}/jobPosts/{jobId}")
+    @PutMapping("/{employerId}/job-posts/{jobId}")
     public ResponseEntity<JobPostDto> updateJobPost(
             @PathVariable Long employerId,
             @PathVariable Long jobId,
@@ -145,7 +145,7 @@ public class EmployerController {
      * @param jobId - unique identifier of the job post
      * </p>
      */
-    @DeleteMapping("/{employerId}/jobPosts/{jobId}")
+    @DeleteMapping("/{employerId}/job-posts/{jobId}")
     public ResponseEntity<Void> deleteJobPost(@PathVariable Long employerId, @PathVariable Long jobId) {
         logger.info("Request received to delete job post with ID: {} for employer ID: {}", jobId, employerId);
         employerService.deleteJobPost(jobId);
@@ -159,7 +159,7 @@ public class EmployerController {
      * @param employerId - unique identifier of the employer
      * </p>
      */
-    @GetMapping("/{employerId}/jobPosts")
+    @GetMapping("/{employerId}/job-posts")
     public ResponseEntity<List<JobPostDto>> getAllJobPostsByEmployer(@PathVariable Long employerId) {
         logger.info("Request received to get all job posts for employer ID: {}", employerId);
         List<JobPostDto> jobPosts = employerService.getAllJobPostsByEmployer(employerId);

@@ -25,7 +25,7 @@ import com.ideas2it.hirezy.service.JobPostService;
  * @author kishorekumar.n
  */
 @Controller
-@RequestMapping("/jobposts")
+@RequestMapping("/job-posts")
 public class JobPostController {
     @Autowired
     private JobPostService jobPostService;

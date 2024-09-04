@@ -42,9 +42,9 @@ public class AuthenticationController {
     @PostMapping("/register/{role}")
     public ResponseEntity<String> registerUser(@Valid
             @PathVariable String role,
-            @RequestBody RegisteredRequest request
+            @RequestBody User request
     ) throws MessagingException {
-        String otp = otpService.generateOTP(request.getEmail());
+        String otp = otpService.generateOTP(request.getEmailId());
         if (otp != null) {
             return new ResponseEntity<>(authenticationService.registerUser(
                     request, role),HttpStatus.CREATED);
@@ -64,9 +64,9 @@ public class AuthenticationController {
      *     It is the message  to the user whether the Otp is correct or not.
      */
     @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOTP(@RequestBody OtpVerificationRequest
+    public ResponseEntity<String> verifyOTP(@RequestBody OtpVerificationDto
                                                     otpVerificationRequest) {
-        if (otpService.verifyOTP(otpVerificationRequest.getEmail(),
+        if (otpService.verifyOTP(otpVerificationRequest.getEmailId(),
                 otpVerificationRequest.getOtp())) {
             logger.info("account has been verified successfully");
             return new ResponseEntity<>(
@@ -106,7 +106,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user.
      */
-    @PostMapping("/forgotPassword")
+    @PostMapping("/forgot-password")
     public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequestDto authenticationRequest) throws MessagingException {
         String email = authenticationRequest.getEmailId();
         if(authenticationService.findByEmail(email)) {
@@ -127,7 +127,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user whether the password is updated or not.
      */
-    @PostMapping("/updatePassword/verify-otp")
+    @PostMapping("/update-password/verify-otp")
     public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationDto
                                             otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmailId(), otpVerificationRequest.getOtp())) {
