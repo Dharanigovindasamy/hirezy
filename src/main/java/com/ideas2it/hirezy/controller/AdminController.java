@@ -2,7 +2,6 @@ package com.ideas2it.hirezy.controller;
 
 
 import com.ideas2it.hirezy.dto.FeedbackDto;
-import com.ideas2it.hirezy.model.Feedback;
 import com.ideas2it.hirezy.service.EmployeeService;
 import com.ideas2it.hirezy.service.EmployerService;
 import com.ideas2it.hirezy.service.FeedbackService;
@@ -67,6 +66,10 @@ public class AdminController {
         return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
     }
 
+    /**
+     * Retrieve all feedback  of employee & employer from the table
+     * @return List of feedback.
+     */
     @GetMapping("/feedbacks")
     public ResponseEntity<List<FeedbackDto>>getAllFeedbacks() {
         List<FeedbackDto> feedbacks = feedbackService.getAllFeedbacks();

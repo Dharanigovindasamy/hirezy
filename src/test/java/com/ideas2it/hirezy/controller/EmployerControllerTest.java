@@ -60,7 +60,7 @@ class EmployerControllerTest {
     @Test
     void testDisplayAllEmployers() {
         when(employerService.getAllEmployers()).thenReturn(employerList);
-        ResponseEntity<List<EmployerDto>> response = employerController.DisplayAllEmployer();
+        ResponseEntity<List<EmployerDto>> response = employerController.displayAllEmployer();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(employerList, response.getBody());
         verify(employerService, times(1)).getAllEmployers();
