@@ -1,7 +1,6 @@
 package com.ideas2it.hirezy.service;
 
 import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -83,7 +82,7 @@ public class AuthenticationService {
      * @return AuthenticationResponse
      *     It contains the Token generated for that user.
      */
-    public String authenticate(@Valid User request) {
+    public String authenticate(AuthenticationRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmailId(),
