@@ -22,8 +22,7 @@ import com.ideas2it.hirezy.repository.JobSubCategoryRepository;
  * <p>
  *     This class used for subCategories object details that can add, retrieve, update and delete performs
  * </p>
- * @author dharani.govindhasamy
- * @version 1
+ * @author kishore
  */
 @Service
 public class JobSubCategoryServiceImpl implements JobSubCategoryService {

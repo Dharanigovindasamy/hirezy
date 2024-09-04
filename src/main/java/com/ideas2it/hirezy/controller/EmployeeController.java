@@ -2,6 +2,9 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.enums.FeedbackType;
+import com.ideas2it.hirezy.service.FeedbackService;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +32,9 @@ public class EmployeeController {
 
     @Autowired
     private final EmployeeService employeeService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -101,5 +107,31 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /**
+     * Create a new feedback/query.
+     * @param feedbackDto {link @FeedbackDto} receive from user as json format
+     * @return The created feedback DTO with HTTP status 201 Created.
+     */
+    @PostMapping("/feedback")
+    public ResponseEntity<FeedbackDto> createFeedback(@RequestBody FeedbackDto feedbackDto) {
+        feedbackDto.setFeedBackType(FeedbackType.EMPLOYEE);
+        FeedbackDto createdFeedback = feedbackService.createFeedback(feedbackDto);
+        return new ResponseEntity<>(createdFeedback, HttpStatus.CREATED);
+    }
+
+    /**
+     * Retrieves a specific feedback by its id and user id.
+     * @param feedbackId Id of feedback
+     * @param userId Id of employee
+     * @return The feedback DTO with HTTP status 200 OK.
+     */
+    @GetMapping("/{userId}/feedback/{feedbackId}")
+    public ResponseEntity<FeedbackDto> getFeedback(
+            @PathVariable Long feedbackId,
+            @PathVariable Long userId) {
+        FeedbackDto feedback = feedbackService.getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYEE);
+        return new ResponseEntity<>(feedback, HttpStatus.OK);
     }
 }

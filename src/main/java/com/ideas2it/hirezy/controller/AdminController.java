@@ -1,15 +1,23 @@
 package com.ideas2it.hirezy.controller;
 
 
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.Feedback;
 import com.ideas2it.hirezy.service.EmployeeService;
 import com.ideas2it.hirezy.service.EmployerService;
+import com.ideas2it.hirezy.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,10 +27,12 @@ public class AdminController {
     private EmployeeService employeeService;
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private FeedbackService feedbackService;
 
     /**
-     * Get employee and employer active and deleted counts
-     * @return <String,Map<String,Long>> - active and deleted status of employee and employer
+     *  Display the user counts
+     * @return count of active & deleted employee & employer.
      */
     @GetMapping("/dashboard")
     public ResponseEntity<Map<String,Map<String,Long>>>getCounts() {
@@ -41,5 +51,25 @@ public class AdminController {
         counts.put("employer",employerCounts);
         counts.put("employee",employeeCounts);
         return ResponseEntity.ok(counts);
+    }
+
+    /**
+     * Adds a reply to an existing feedback.
+     * @param feedbackId Id of feedback
+     * @param replyContent the content of body.
+     * @return The updated FeedbackDto with the reply and HTTp status code ok.
+     */
+    @PostMapping("/{feedbackId}/reply")
+    public ResponseEntity<FeedbackDto> replyToFeedback(
+            @PathVariable Long feedbackId,
+            @RequestBody String replyContent) {
+        FeedbackDto updatedFeedback = feedbackService.replyToFeedback(feedbackId, replyContent);
+        return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
+    }
+
+    @GetMapping("/feedbacks")
+    public ResponseEntity<List<FeedbackDto>>getAllFeedbacks() {
+        List<FeedbackDto> feedbacks = feedbackService.getAllFeedbacks();
+        return new ResponseEntity<>(feedbacks,HttpStatus.OK);
     }
 }

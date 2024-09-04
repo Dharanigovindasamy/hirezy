@@ -2,6 +2,9 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.enums.FeedbackType;
+import com.ideas2it.hirezy.service.FeedbackService;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +33,9 @@ public class EmployerController {
 
     @Autowired
     private JobPostService jobPostService;
+
+    @Autowired
+    private FeedbackService feedbackService;
 
     /**
      * <p>
@@ -165,5 +171,31 @@ public class EmployerController {
         List<JobPostDto> jobPosts = employerService.getAllJobPostsByEmployer(employerId);
         logger.info("Returning {} job posts for employer ID: {}", jobPosts.size(), employerId);
         return new ResponseEntity<>(jobPosts, HttpStatus.OK);
+    }
+
+    /**
+     * Create a feedback/query.
+     * @param feedbackDto {link @FeedbackDto} receive from user as json format
+     * @return The created feedback DTO with HTTP status 201 Created.
+     */
+    @PostMapping("/feedback")
+    public ResponseEntity<FeedbackDto> createFeedback(@RequestBody FeedbackDto feedbackDto) {
+        feedbackDto.setFeedBackType(FeedbackType.EMPLOYER);
+        FeedbackDto createdFeedback = feedbackService.createFeedback(feedbackDto);
+        return new ResponseEntity<>(createdFeedback, HttpStatus.CREATED);
+    }
+
+    /**
+     * Display feedback form by feedbackid and employer id.
+     * @param feedbackId Id of feedback
+     * @param userId Id of employer
+     * @return The feedback DTO with HTTP status 200 OK.
+     */
+    @GetMapping("/{userId}/feedback/{feedbackId}")
+    public ResponseEntity<FeedbackDto> getFeedback(
+            @PathVariable Long feedbackId,
+            @PathVariable Long userId) {
+        FeedbackDto feedback = feedbackService.getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYER);
+        return new ResponseEntity<>(feedback, HttpStatus.OK);
     }
 }
