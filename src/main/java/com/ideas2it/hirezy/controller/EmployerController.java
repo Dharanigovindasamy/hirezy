@@ -2,6 +2,9 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.enums.FeedbackType;
+import com.ideas2it.hirezy.service.FeedbackService;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
