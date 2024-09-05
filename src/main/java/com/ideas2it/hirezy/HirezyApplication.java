@@ -1,7 +1,6 @@
 package com.ideas2it.hirezy;
 
 import com.ideas2it.hirezy.service.AuthenticationService;
-import com.ideas2it.hirezy.controller.JobCategoryController;
 import com.ideas2it.hirezy.service.RoleService;
 import jakarta.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
