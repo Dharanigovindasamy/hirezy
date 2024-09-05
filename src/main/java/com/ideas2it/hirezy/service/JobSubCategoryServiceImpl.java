@@ -59,19 +59,19 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
         if (jobCategoryDto == null) {
             throw new ResourceNotFoundException("JobCategory not found");
         }
-
         JobSubCategory jobSubCategory = JobSubCategoryMapper.maptoJobSubCategory(jobSubcategoryDto);
         jobSubCategory.setJobCategory(JobCategoryMapper.mapToJobCategory(jobCategoryDto));
         return JobSubCategoryMapper.maptoJobSubCategoryDto(jobSubCategoryRepository.save(jobSubCategory));
     }
 
     @Override
-    public JobSubCategoryDto updateJobSubcategory(Long id, JobSubCategoryDto jobSubCategoryDto) {
-        JobSubCategory jobSubCategory = jobSubCategoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("JobSubcategory not found"));
+    public JobSubCategoryDto updateJobSubcategory(JobSubCategoryDto jobSubCategoryDto) {
+        if(! jobSubCategoryRepository.existsById(jobSubCategoryDto.getId())) {
+            throw new ResourceNotFoundException("JobSubcategory not found");
+        }
+        JobSubCategory jobSubCategory = JobSubCategoryMapper.maptoJobSubCategory(jobSubCategoryDto);
         JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(jobSubCategoryDto.getJobCategoryId());
         JobCategory jobCategory = JobCategoryMapper.mapToJobCategory(jobCategoryDto);
-        jobSubCategory.setName(jobSubCategoryDto.getName());
         jobSubCategory.setJobCategory(jobCategory);
         jobSubCategory = jobSubCategoryRepository.save(jobSubCategory);
         return JobSubCategoryMapper.maptoJobSubCategoryDto(jobSubCategory);

@@ -118,13 +118,7 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public JobPostDto createJobPost(long employerId, JobPostDto jobPostDto) {
         logger.info("Creating job post for employer ID: {}", employerId);
-        EmployerDto employerDto = employerService.getEmployerById(employerId);
-        if (employerDto == null) {
-            logger.error("Employer not found with ID: {}", employerId);
-            throw new ResourceNotFoundException("Employer not found with id " + employerId);
-        }
-        Employer employer = convertDtoToEntity(employerDto);
-        employer.setId(employerId);
+        Employer employer = employerService.retrieveEmployerForJobPost(employerId);
         JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(jobPostDto.getJobCategoryId());
         if (jobCategoryDto == null) {
             logger.error("Job category not found with ID: {}", jobPostDto.getJobCategoryId());
@@ -135,10 +129,11 @@ public class JobPostServiceImpl implements JobPostService {
         JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
         JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
         Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
-        JobPost jobPost = mapToJobPost(jobPostDto, employer);
+        JobPost jobPost = mapToJobPost(jobPostDto);
         jobPost.setJobCategory(jobCategory);
         jobPost.setJobSubCategory(jobSubCategory);
         jobPost.setLocation(location);
+        jobPost.setEmployer(employer);
         if (jobPost.getPostedDate() == null) {
             jobPost.setPostedDate(LocalDate.now());
         }
@@ -150,32 +145,27 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public JobPostDto updateJobPost(Long jobId, JobPostDto jobPostDto) {
         logger.info("Updating job post with ID: {}", jobId);
-        Optional<JobPost> jobPostOptional = jobPostRepository.findById(jobId);
-        if (jobPostOptional.isPresent()) {
-            JobPost jobPost = jobPostOptional.get();
-            jobPost.setTitle(jobPostDto.getTitle());
-            jobPost.setJobDescription(jobPostDto.getJobDescription());
-            JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(jobPostDto.getJobCategoryId());
-            if (jobCategoryDto == null) {
-                logger.error("Job category not found with ID : {}", jobPostDto.getJobCategoryId());
-                throw new ResourceNotFoundException("Job Category not found");
-            }
-            JobCategory jobCategory = mapToJobCategory(jobCategoryDto);
-            jobPost.setJobCategory(jobCategory);
-
-            JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
-            JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
-            jobPost.setJobSubCategory(jobSubCategory);
-
-            Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
-            jobPost.setLocation(location);
-            jobPost = jobPostRepository.save(jobPost);
-            logger.info("Job post updated successfully with ID: {}", jobId);
-            return mapToJobPostDto(jobPost);
-        } else {
+        if(!jobPostRepository.existsById(jobId)) {
             logger.error(" Job post not found with ID: {}", jobId);
             throw new ResourceNotFoundException("JobPost not found with id " + jobId);
         }
+
+        JobPost jobPost = mapToJobPost(jobPostDto);
+        JobCategoryDto jobCategoryDto = jobCategoryService.getJobCategoryById(jobPostDto.getJobCategoryId());
+        JobCategory jobCategory = mapToJobCategory(jobCategoryDto);
+        jobPost.setJobCategory(jobCategory);
+
+        JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
+        JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
+        jobPost.setJobSubCategory(jobSubCategory);
+
+        Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
+        jobPost.setLocation(location);
+        Employer employer = employerService.retrieveEmployerForJobPost(jobPostDto.getEmployerId());
+        jobPost.setEmployer(employer);
+        jobPost = jobPostRepository.save(jobPost);
+        logger.info("Job post updated successfully with ID: {}", jobId);
+        return mapToJobPostDto(jobPost);
     }
 
     @Override

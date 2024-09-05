@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.service;
 
 import java.util.List;
 
+import com.ideas2it.hirezy.model.Employer;
 import org.springframework.stereotype.Service;
 
 import com.ideas2it.hirezy.dto.EmployerDto;
@@ -56,7 +57,16 @@ public interface EmployerService {
       * @param id - id of the employer
       * @return EmployerDto - EmployerDto received to user
       */
-     EmployerDto getEmployerById(long id);
+     EmployerDto retrieveEmployerById(long id);
+
+     /**
+      * This method is to retrieve the employer for job post.
+      * @param employerId
+      *     It is the id of the employee to be retrieved.
+      * @return Employer
+      *     It contains all the employer details.
+      */
+     Employer retrieveEmployerForJobPost(long employerId);
 
      /**
       * <p>

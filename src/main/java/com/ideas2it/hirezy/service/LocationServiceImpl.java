@@ -28,7 +28,7 @@ import static com.ideas2it.hirezy.mapper.LocationMapper.mapToLocationDto;
 public class LocationServiceImpl implements LocationService {
 
     @Autowired
-    private LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -82,9 +82,11 @@ public class LocationServiceImpl implements LocationService {
         if (null == location) {
             logger.warn("No location found {}", id);
         }
-        location.setDeleted(true);
-        locationRepository.save(location);
-        logger.info("Employee id deleted successfully {} ", id);
+        if (location != null) {
+            location.setDeleted(true);
+            locationRepository.save(location);
+        }
+        logger.info("Location id deleted successfully {} ", id);
     }
 
     @Override

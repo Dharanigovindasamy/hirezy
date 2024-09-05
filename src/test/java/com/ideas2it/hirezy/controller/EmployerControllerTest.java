@@ -68,20 +68,20 @@ class EmployerControllerTest {
 
     @Test
     void testDisplayEmployer_Found() {
-        when(employerService.getEmployerById(1L)).thenReturn(employerDto);
+        when(employerService.retrieveEmployerById(1L)).thenReturn(employerDto);
         ResponseEntity<EmployerDto> response = employerController.displayEmployer(1L);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(employerDto, response.getBody());
-        verify(employerService, times(1)).getEmployerById(1L);
+        verify(employerService, times(1)).retrieveEmployerById(1L);
     }
 
     @Test
     void testDisplayEmployer_NotFound() {
-        when(employerService.getEmployerById(1L)).thenReturn(null);
+        when(employerService.retrieveEmployerById(1L)).thenReturn(null);
         ResponseEntity<EmployerDto> response = employerController.displayEmployer(1L);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
-        verify(employerService, times(1)).getEmployerById(1L);
+        verify(employerService, times(1)).retrieveEmployerById(1L);
     }
 
     @Test

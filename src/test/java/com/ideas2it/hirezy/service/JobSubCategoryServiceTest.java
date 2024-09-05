@@ -103,15 +103,15 @@ public class JobSubCategoryServiceTest {
         when(jobSubCategoryRepository.findById(jobSubCategoryDto.getId())).thenReturn(Optional.ofNullable(jobSubCategory));
         when(jobCategoryService.getJobCategoryById(jobSubCategoryDto.getJobCategoryId())).thenReturn(jobCategoryDto);
         when(jobSubCategoryRepository.save(jobSubCategory)).thenReturn(jobSubCategory);
-        JobSubCategoryDto response = jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto.getId(), jobSubCategoryDto);
+        JobSubCategoryDto response = jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto);
         assertNotNull(response);
         assertEquals(jobSubCategoryDto.getName(), response.getName());
     }
 
     @Test
     void testUpdateJobSubCategoryFailure() {
-        when(jobSubCategoryRepository.findById(jobSubCategoryDto.getId())).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto.getId(), jobSubCategoryDto));
+        when(jobSubCategoryRepository.existsById(jobSubCategoryDto.getId())).thenReturn(false);
+        assertThrows(ResourceNotFoundException.class, () -> jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto));
     }
 
 

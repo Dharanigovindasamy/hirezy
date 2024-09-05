@@ -46,7 +46,7 @@ public interface JobSubCategoryService {
      * @param jobSubCategoryDto {@link JobSubCategoryDto} the employee entity with updated information
      * @return the updated employee entity
      */
-    public JobSubCategoryDto updateJobSubcategory(Long id, JobSubCategoryDto jobSubCategoryDto);
+    public JobSubCategoryDto updateJobSubcategory(JobSubCategoryDto jobSubCategoryDto);
 
     /**
      * Deletes a JobSubCategory.

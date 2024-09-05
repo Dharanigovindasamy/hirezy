@@ -88,7 +88,7 @@ public class JobSubCategoryControllerTest {
 
     @Test
     void testUpdateJobSubCategory() {
-        when(jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto.getId(), jobSubCategoryDto)).thenReturn(jobSubCategoryDto);
+        when(jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto)).thenReturn(jobSubCategoryDto);
         ResponseEntity<JobSubCategoryDto> response = jobSubCategoryController.updateJobSubCategory(jobSubCategoryDto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jobSubCategoryDto.getName(), response.getBody().getName());

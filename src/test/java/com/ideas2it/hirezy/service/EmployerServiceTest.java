@@ -91,11 +91,8 @@ public class EmployerServiceTest {
 
     @Test
     public void testUpdateEmployer() {
-        when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(employer);
+        when(employerRepository.existsById(anyLong())).thenReturn(true);
         when(employerRepository.save(any(Employer.class))).thenReturn(employer);
-//        when(EmployerMapper.convertEntityToDto(any(Employer.class))).thenReturn(employerDto);
-//        when(EmployerMapper.convertDtoToEntity(any(EmployerDto.class))).thenReturn(employer);
-
         EmployerDto updatedEmployer = employerService.updateEmployer(employerDto);
         assertNotNull(updatedEmployer);
         assertEquals(employerDto.getId(), updatedEmployer.getId());
@@ -103,26 +100,26 @@ public class EmployerServiceTest {
 
     @Test
     public void testUpdateEmployerNotFound() {
-        when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(null);
+        when(employerRepository.existsById(anyLong())).thenReturn(false);
 
         assertThrows(ResourceNotFoundException.class, () -> employerService.updateEmployer(employerDto));
     }
 
     @Test
-    public void testGetEmployerById() {
+    public void testRetrieveEmployerById() {
         when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(employer);
 //        when(EmployerMapper.convertEntityToDto(any(Employer.class))).thenReturn(employerDto);
 
-        EmployerDto retrievedEmployer = employerService.getEmployerById(1L);
+        EmployerDto retrievedEmployer = employerService.retrieveEmployerById(1L);
         assertNotNull(retrievedEmployer);
         assertEquals(employerDto.getId(), retrievedEmployer.getId());
     }
 
     @Test
-    public void testGetEmployerByIdNotFound() {
+    public void testRetrieveEmployerByIdNotFound() {
         when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(null);
 
-        assertThrows(ResourceNotFoundException.class, () -> employerService.getEmployerById(1L));
+        assertThrows(ResourceNotFoundException.class, () -> employerService.retrieveEmployerById(1L));
     }
 
     @Test

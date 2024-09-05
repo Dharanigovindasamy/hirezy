@@ -1,10 +1,13 @@
 package com.ideas2it.hirezy.repository;
 
 import com.ideas2it.hirezy.model.Employee;
+import jakarta.persistence.Id;
+import org.eclipse.angus.mail.imap.protocol.ID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -36,6 +39,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
      * @return the number of employees with the specified  deletion status.
      */
     Long countByIsDeleted(boolean isDeleted);
-
 
 }

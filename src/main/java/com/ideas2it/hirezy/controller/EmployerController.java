@@ -2,9 +2,6 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
-import com.ideas2it.hirezy.dto.FeedbackDto;
-import com.ideas2it.hirezy.model.enums.FeedbackType;
-import com.ideas2it.hirezy.service.FeedbackService;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -73,7 +70,7 @@ public class EmployerController {
     @GetMapping("/{id}")
     public ResponseEntity<EmployerDto> displayEmployer(@PathVariable("id") long employerId) {
         logger.info("Request received to get employer with ID: {}", employerId);
-        EmployerDto showEmployerDto = employerService.getEmployerById(employerId);
+        EmployerDto showEmployerDto = employerService.retrieveEmployerById(employerId);
         if (showEmployerDto != null) {
             logger.info("Employer found with ID: {}", employerId);
             return new ResponseEntity<>(showEmployerDto, HttpStatus.OK);
@@ -129,18 +126,18 @@ public class EmployerController {
      * <p>
      * This method is used to update a job post for a specific employer.
      * @param employerId - unique identifier of the employer
-     * @param jobId - unique identifier of the job post
+     * @param jobPostId - unique identifier of the job post
      * @param jobPostDto - updated job post details
      * </p>
      */
-    @PutMapping("/{employerId}/job-posts/{jobId}")
+    @PutMapping("/{employerId}/job-posts/{jobPostId}")
     public ResponseEntity<JobPostDto> updateJobPost(
             @PathVariable Long employerId,
-            @PathVariable Long jobId,
+            @PathVariable Long jobPostId,
             @RequestBody JobPostDto jobPostDto) {
-        logger.info("Request received to update job post with ID: {} for employer ID: {}", jobId, employerId);
-        JobPostDto updatedJobPost = employerService.updateJobPost(employerId, jobId, jobPostDto);
-        logger.info("Job post with ID {} has been updated", jobId);
+        logger.info("Request received to update job post with ID: {} for employer ID: {}", jobPostId, employerId);
+        JobPostDto updatedJobPost = employerService.updateJobPost(employerId, jobPostId, jobPostDto);
+        logger.info("Job post with ID {} has been updated", jobPostId);
         return new ResponseEntity<>(updatedJobPost, HttpStatus.OK);
     }
 

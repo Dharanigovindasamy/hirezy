@@ -81,7 +81,7 @@ public class JobSubCategoryController {
     @PutMapping
     public ResponseEntity<JobSubCategoryDto> updateJobSubCategory( @RequestBody JobSubCategoryDto jobSubCategoryDto) {
         logger.info("Updating jobSubCategory with ID: {}", jobSubCategoryDto.getId());
-        JobSubCategoryDto updatedjobSubCategoryDto = jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto.getId(), jobSubCategoryDto);
+        JobSubCategoryDto updatedjobSubCategoryDto = jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto);
         logger.info("Updated jobSubCategory with ID: {}", jobSubCategoryDto.getId());
         return new ResponseEntity<>(updatedjobSubCategoryDto, HttpStatus.OK);
     }

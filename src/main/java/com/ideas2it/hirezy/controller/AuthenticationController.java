@@ -34,7 +34,7 @@ public class AuthenticationController {
      * This is method will manage the user Sign up.
      * @param role
      *     It is the role of the user who will Sign up.
-     * @param request
+     * @param user
      *     It contains the User details for Sign up.
      * @return String
      *     It IS the message to the user whether he is signed up are not.
@@ -42,12 +42,12 @@ public class AuthenticationController {
     @PostMapping("/register/{role}")
     public ResponseEntity<String> registerUser(@Valid
             @PathVariable String role,
-            @RequestBody User request
+            @RequestBody User user
     ) throws MessagingException {
-        String otp = otpService.generateOTP(request.getEmailId());
+        String otp = otpService.generateOTP(user.getEmailId());
         if (otp != null) {
             return new ResponseEntity<>(authenticationService.registerUser(
-                    request, role),HttpStatus.CREATED);
+                    user, role),HttpStatus.CREATED);
         } else {
             logger.warn("failed to generate otp");
             return  new ResponseEntity<>(
@@ -68,12 +68,10 @@ public class AuthenticationController {
                                                     otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmailId(),
                 otpVerificationRequest.getOtp())) {
-            logger.info("account has been verified successfully");
             return new ResponseEntity<>(
                     "Account Verified Successfully. Login to Continue.",
                     HttpStatus.OK);
         } else {
-            logger.warn("incorrect otp has been sent,please check");
             return new ResponseEntity<>("Invalid OTP",HttpStatus.BAD_REQUEST);
         }
     }
@@ -91,10 +89,8 @@ public class AuthenticationController {
     ) {
         if (!otpService.isAccountVerified(request.getEmailId()) &&
                 !request.getEmailId().equals("kishoreofficial@gmail.com")) {
-            logger.warn("account is not verified yet,please verify");
             return new ResponseEntity<>("Account not verified. Please verify your account",HttpStatus.BAD_REQUEST);
         }
-        logger.info("account is verified and successfully logged in");
         return new ResponseEntity<>(authenticationService.authenticate(request),HttpStatus.OK);
     }
 
@@ -106,7 +102,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user.
      */
-    @PostMapping("/forgot-password")
+    @PostMapping("/forgotPassword")
     public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequestDto authenticationRequest) throws MessagingException {
         String email = authenticationRequest.getEmailId();
         if(authenticationService.findByEmail(email)) {
@@ -127,7 +123,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user whether the password is updated or not.
      */
-    @PostMapping("/update-password/verify-otp")
+    @PostMapping("/updatePassword/verify-otp")
     public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationDto
                                             otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmailId(), otpVerificationRequest.getOtp())) {

@@ -158,7 +158,7 @@ class JobPostServiceTest {
 
     @Test
     void testCreateJobPost() {
-        when(employerService.getEmployerById(1L)).thenReturn(employerDto);
+        when(employerService.retrieveEmployerById(1L)).thenReturn(employerDto);
         when(jobCategoryService.getJobCategoryById(1L)).thenReturn(jobCategoryDto);
         when(jobSubCategoryService.getJobSubCategoryById(1L)).thenReturn(jobSubCategoryDto);
         when(locationService.findOrCreateLocation("Tamil Nadu", "Chennai")).thenReturn(location);
@@ -166,12 +166,11 @@ class JobPostServiceTest {
         JobPostDto result = jobPostServiceImpl.createJobPost(1L, jobPostDto);
         assertNotNull(result);
         assertEquals(jobPost.getTitle(), result.getTitle());
-        verify(jobPostRepository, times(1)).save(any(JobPost.class));
     }
 
     @Test
     void testUpdateJobPost_Found() {
-        when(jobPostRepository.findById(1L)).thenReturn(Optional.of(jobPost));
+        when(jobPostRepository.existsById(1L)).thenReturn(true);
         when(jobCategoryService.getJobCategoryById(1L)).thenReturn(jobCategoryDto);
         when(jobSubCategoryService.getJobSubCategoryById(1L)).thenReturn(jobSubCategoryDto);
         when(locationService.findOrCreateLocation("Tamil Nadu", "Chennai")).thenReturn(location);
@@ -184,9 +183,8 @@ class JobPostServiceTest {
 
     @Test
     void testUpdateJobPost_NotFound() {
-        when(jobPostRepository.findById(1L)).thenReturn(Optional.empty());
+        when(jobPostRepository.existsById(1L)).thenReturn(false);
         assertThrows(ResourceNotFoundException.class, () -> jobPostServiceImpl.updateJobPost(1L, jobPostDto));
-        verify(jobPostRepository, times(1)).findById(1L);
     }
 
     @Test

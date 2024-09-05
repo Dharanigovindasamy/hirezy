@@ -1,9 +1,7 @@
 package com.ideas2it.hirezy.mapper;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
-import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.model.Employee;
-import com.ideas2it.hirezy.model.User;
 
 /**
  * <p>
@@ -13,7 +11,6 @@ import com.ideas2it.hirezy.model.User;
  * @author dharani.govindhasamy
  * @version 1
  */
-
 public class EmployeeMapper {
 
     /**
@@ -25,6 +22,7 @@ public class EmployeeMapper {
      */
     public static Employee mapDtoToEntity (EmployeeDto employeeDto) {
         Employee employee = new Employee();
+        employee.setId(employeeDto.getId());
         employee.setName(employeeDto.getName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
         employee.setResume(employeeDto.getResume());
@@ -62,31 +60,6 @@ public class EmployeeMapper {
         employeeDto.setGender(employee.getGender());
         employeeDto.setKeySkills(employee.getKeySkills());
         return employeeDto;
-    }
-
-    /**
-     * <p>
-     *     This method used for convert employee Dto to entity
-     * </p>
-     * @param employeeDto -{@link EmployeeDto} employeeDto send from user
-     * @param user - user object enter from user
-     * @return Employee - employee detail to the user
-     */
-    public static Employee mapDtoToEntity (EmployeeDto employeeDto, User user) {
-        Employee employee = new Employee();
-        employee.setName(employeeDto.getName());
-        employee.setDateOfBirth(employeeDto.getDateOfBirth());
-        employee.setResume(employeeDto.getResume());
-        employee.setCity(employeeDto.getCity());
-        employee.setQualification(employeeDto.getQualification());
-        employee.setYearOfExperience(employeeDto.getYearOfExperience());
-        employee.setCurrentCompany(employeeDto.getCurrentCompany());
-        employee.setDesignation(employeeDto.getDesignation());
-        employee.setNoticePeriod(employeeDto.getNoticePeriod());
-        employee.setUser(user);
-        employee.setGender(employeeDto.getGender());
-        employee.setKeySkills(employeeDto.getKeySkills());
-        return employee;
     }
 }
 

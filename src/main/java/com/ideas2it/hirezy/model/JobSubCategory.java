@@ -42,7 +42,7 @@ public class JobSubCategory {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobcategory_id")
     private JobCategory jobCategory;
 }

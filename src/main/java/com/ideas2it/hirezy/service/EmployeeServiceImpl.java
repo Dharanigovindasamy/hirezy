@@ -39,9 +39,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
         User user = userService.retrieveUserById(employeeDto.getUserId());
-        Employee employee = mapDtoToEntity(employeeDto,user);
-        employeeDto = mapEntityToDto(employeeRepository.save(employee));
-        return employeeDto;
+        Employee employee = mapDtoToEntity(employeeDto);
+        employee.setUser(user);
+        return mapEntityToDto(employeeRepository.save(employee));
     }
 
     @Override
@@ -74,14 +74,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
-        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId());
-        if(null != employee) {
-            employeeDto = mapEntityToDto(employeeRepository.save(EmployeeMapper.mapDtoToEntity(employeeDto)));
-            logger.info("Employee details updated successfully {}", employeeDto.getId());
-            return employeeDto;
+        if (! employeeRepository.existsById(employeeDto.getId())) {
+            logger.warn("No employee under in employee id {}", employeeDto.getId());
+            throw new ResourceNotFoundException("Employee not found" + employeeDto.getId());
         }
-        logger.warn("No employee under in employee id {}", employeeDto.getId());
-        throw new ResourceNotFoundException("Employee not found" + employeeDto.getId());
+        User user = userService.retrieveUserById(employeeDto.getUserId());
+        Employee employee = mapDtoToEntity(employeeDto);
+        employee.setUser(user);
+        employeeDto = mapEntityToDto(employeeRepository.save(employee));
+        logger.info("Employee details updated successfully {}", employeeDto.getId());
+        return employeeDto;
+
     }
 
     @Override

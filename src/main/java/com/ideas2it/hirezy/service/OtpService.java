@@ -52,7 +52,7 @@ public class OtpService {
             return "Rate limit exceeded. Please try again later.";
         }
 
-        String otpCode = generateRandomOTP(6);
+        String otpCode = generateRandomOTP();
         String otpKey = OTP_PREFIX + email;
         redisTemplate.opsForValue().set(otpKey, otpCode, Duration.ofMinutes(5));
 
@@ -117,13 +117,12 @@ public class OtpService {
      * Generating OTP with random numbers of 6 digit length
      * </p>
      *
-     * @param length - size of the OTP
      * @return String - OTP generated
      */
-    private String generateRandomOTP(int length) {
+    private String generateRandomOTP() {
         Random random = new Random();
         StringBuilder otp = new StringBuilder();
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < 6; i++) {
             otp.append(random.nextInt(10));
         }
         return otp.toString();
@@ -139,10 +138,6 @@ public class OtpService {
      */
     public boolean isAccountVerified(String email) {
         String verifiedKey = "verified:" + email;
-//        Set<String> redisKeys = redisTemplate.keys("verified*");
-//        assert redisKeys != null;
-//        List<String> keysList = new ArrayList<>(redisKeys);
-//        System.out.println(keysList);
         return Boolean.TRUE.equals(redisTemplate.hasKey(verifiedKey));
     }
 }

@@ -42,9 +42,9 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     @Override
     public EmployerDto createEmployer(EmployerDto employerDto) {
         User user = userService.retrieveUserById(employerDto.getUserId());
-        Employer employer = convertDtoToEntity(employerDto, user);
+        Employer employer = convertDtoToEntity(employerDto);
         logger.info("Creating a new employer with name: {}", employer.getName());
-        logger.info("Company has been successfully created");
+        employer.setUser(user);
         Employer savedEmployer = employerRepository.save(employer);
         logger.info("Employer created successfully with ID: {}", savedEmployer.getId());
         return convertEntityToDto(employerRepository.save(employer));
@@ -82,18 +82,19 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
 
     @Override
     public EmployerDto updateEmployer(EmployerDto employerDto) {
-        Employer existingEmployer = employerRepository.findByIsDeletedFalseAndId(employerDto.getId());
-        if (existingEmployer == null) {
+        if(!employerRepository.existsById(employerDto.getId())) {
             logger.error("Employer not found with ID : {}", employerDto.getId());
             throw new ResourceNotFoundException("Employer not found with ID: " + employerDto.getId());
         }
         Employer employer = convertDtoToEntity(employerDto);
+        User user = userService.retrieveUserById(employerDto.getUserId());
+        employer.setUser(user);
         logger.info("Employer with ID: {} has been updated", employerDto.getId());
         return convertEntityToDto(employerRepository.save(employer));
     }
 
     @Override
-    public EmployerDto getEmployerById(long employerId) {
+    public EmployerDto retrieveEmployerById(long employerId) {
         logger.info("Fetching employer with ID: {}", employerId);
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
@@ -101,6 +102,16 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
             throw new ResourceNotFoundException("Employer not found with ID: " + employerId);
         }
         return convertEntityToDto(employer);
+    }
+
+    @Override
+    public Employer retrieveEmployerForJobPost(long employerId) {
+        Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
+        if (employer == null) {
+            logger.error(" Employer Id {} not found", employerId);
+            throw new ResourceNotFoundException("Employer not found : " + employerId);
+        }
+        return employer;
     }
 
     @Override
