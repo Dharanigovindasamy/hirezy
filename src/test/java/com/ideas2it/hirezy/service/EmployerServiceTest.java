@@ -167,4 +167,19 @@ public class EmployerServiceTest {
         Long count = employerService.countDeletedEmployers();
         assertEquals(2L, count);
     }
+
+    @Test
+    public void testRetrieveEmployerForJobPost_Found() {
+        when(employerRepository.findByIsDeletedFalseAndId(1L)).thenReturn(employer);
+        Employer result = employerService.retrieveEmployerForJobPost(1L);
+        assertEquals(employer, result);
+        verify(employerRepository).findByIsDeletedFalseAndId(1L);
+    }
+
+    @Test
+    public void testRetrieveEmployerForJobPost_NotFound() {
+        when(employerRepository.findByIsDeletedFalseAndId(1L)).thenReturn(null);
+        assertThrows(ResourceNotFoundException.class, () -> employerService.retrieveEmployerForJobPost(1L));
+        verify(employerRepository).findByIsDeletedFalseAndId(1L);
+    }
 }

@@ -74,9 +74,10 @@ public class LocationServiceTest {
         when(locationRepository.findById(3L)).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> locationService.displayLocationById(3L));
     }
+
     @Test
     void testUpdateLocation() {
-        when(locationRepository.findById(locationDto.getId())).thenReturn(Optional.of(location));
+        when(locationRepository.existsById(anyLong())).thenReturn(true);
         when(locationRepository.save(any(Location.class))).thenReturn(location);
         LocationDto response = locationService.updateLocation(locationDto);
         assertNotNull(response);
@@ -85,10 +86,9 @@ public class LocationServiceTest {
 
     @Test
     void testUpdateLocationFailures() {
-        when(locationRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(locationRepository.existsById(anyLong())).thenReturn(false);
         assertThrows(ResourceNotFoundException.class, () -> locationService.updateLocation(locationDto));
     }
-
 
     @Test
     void testDeleteLocation() {
@@ -112,6 +112,4 @@ public class LocationServiceTest {
         assertNotNull(response);
         assertEquals(locationDto.getCity(), response.getCity());
     }
-
-
 }

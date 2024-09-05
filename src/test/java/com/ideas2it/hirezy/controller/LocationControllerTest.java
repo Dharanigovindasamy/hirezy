@@ -11,10 +11,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static com.ideas2it.hirezy.service.EmployerServiceImpl.logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.model.Location;
@@ -77,5 +79,14 @@ public class LocationControllerTest {
         doNothing().when(locationService).deleteLocation(locationDto.getId());
         ResponseEntity<Void> response = locationController.deleteLocation(locationDto.getId());
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
+
+    @Test
+    public void testDisplayLocationById() {
+        when(locationService.displayLocationById(anyLong())).thenReturn(locationDto);
+        ResponseEntity<LocationDto> response = locationController.displayLocationById(anyLong());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(locationDto, response.getBody());
+        verify(locationService).displayLocationById(anyLong());
     }
 }

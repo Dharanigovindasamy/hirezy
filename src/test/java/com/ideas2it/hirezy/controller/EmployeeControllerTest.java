@@ -1,7 +1,10 @@
 package com.ideas2it.hirezy.controller;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.EmployeeService;
+import com.ideas2it.hirezy.service.FeedbackService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,9 +26,15 @@ class EmployeeControllerTest {
     @Mock
     private EmployeeService employeeService;
 
+    @Mock
+    private FeedbackService feedbackService;
+
     @InjectMocks
     private EmployeeController employeeController;
 
+    @Mock
+    private FeedbackDto feedbackDto;
+    @Mock
     private EmployeeDto employeeDto;
 
     @BeforeEach
@@ -84,5 +93,25 @@ class EmployeeControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(employeeService, times(1)).deleteEmployee(1L);
+    }
+
+    @Test
+    public void testCreateFeedback() {
+        when(feedbackService.createFeedback(feedbackDto)).thenReturn(feedbackDto);
+        ResponseEntity<FeedbackDto> response = employeeController.createFeedback(feedbackDto);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(feedbackDto, response.getBody());
+        verify(feedbackService).createFeedback(feedbackDto);
+    }
+
+    @Test
+    public void testGetFeedback() {
+        Long feedbackId = 1L;
+        Long userId = 1L;
+        when(feedbackService.getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYEE)).thenReturn(feedbackDto);
+        ResponseEntity<FeedbackDto> response = employeeController.getFeedback(feedbackId, userId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(feedbackDto, response.getBody());
+        verify(feedbackService).getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYEE);
     }
 }

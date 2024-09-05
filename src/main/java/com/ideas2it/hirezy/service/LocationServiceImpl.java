@@ -63,13 +63,11 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDto updateLocation(LocationDto locationDto) {
-        Location location = locationRepository.findById(locationDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("location not found" + locationDto.getId()));
-        location = mapToLocation(locationDto);
-        if (null == location) {
+        if(!locationRepository.existsById(locationDto.getId())) {
             logger.warn("location not found with id {}", locationDto.getId());
-            return null;
+            throw new ResourceNotFoundException("location not found" + locationDto.getId());
         }
+        Location location = mapToLocation(locationDto);
         Location updatedLocation = locationRepository.save(location);
         logger.info("Location updated successfully {}", locationDto.getId());
         return mapToLocationDto(updatedLocation);

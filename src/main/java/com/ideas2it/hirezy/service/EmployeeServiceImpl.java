@@ -34,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private UserService userService;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(EmployeeServiceImpl.class);
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
