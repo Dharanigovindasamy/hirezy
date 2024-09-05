@@ -2,7 +2,7 @@ package com.ideas2it.hirezy.controller;
 
 import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import com.ideas2it.hirezy.dto.OtpVerificationDto;
-import com.ideas2it.hirezy.model.*;
+import com.ideas2it.hirezy.model.User;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 

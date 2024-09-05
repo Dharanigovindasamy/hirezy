@@ -3,7 +3,11 @@ package com.ideas2it.hirezy.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
@@ -55,9 +59,6 @@ public class EmployerServiceTest {
     public void testCreateEmployer() {
         when(userService.retrieveUserById(anyLong())).thenReturn(user);
         when(employerRepository.save(any(Employer.class))).thenReturn(employer);
-//        when(EmployerMapper.convertDtoToEntity(any(EmployerDto.class), any(User.class))).thenReturn(employer);
-//        when(EmployerMapper.convertEntityToDto(any(Employer.class))).thenReturn(employerDto);
-
         EmployerDto savedEmployerDto = employerService.createEmployer(employerDto);
         assertNotNull(savedEmployerDto);
         assertEquals(employerDto.getId(), savedEmployerDto.getId());
@@ -67,8 +68,6 @@ public class EmployerServiceTest {
         List<Employer> employers = new ArrayList<>();
         employers.add(employer);
         when(employerRepository.findByIsDeletedFalse()).thenReturn(employers);
-//        when(EmployerMapper.convertEntityToDto(any(Employer.class))).thenReturn(employerDto);
-
         List<EmployerDto> employerDtos = employerService.getAllEmployers();
         assertNotNull(employerDtos);
         assertEquals(1, employerDtos.size());
@@ -91,7 +90,7 @@ public class EmployerServiceTest {
 
     @Test
     public void testUpdateEmployer() {
-        when(employerRepository.existsById(anyLong())).thenReturn(true);
+        when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(employer);
         when(employerRepository.save(any(Employer.class))).thenReturn(employer);
         EmployerDto updatedEmployer = employerService.updateEmployer(employerDto);
         assertNotNull(updatedEmployer);
@@ -100,17 +99,15 @@ public class EmployerServiceTest {
 
     @Test
     public void testUpdateEmployerNotFound() {
-        when(employerRepository.existsById(anyLong())).thenReturn(false);
+        when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(null);
 
         assertThrows(ResourceNotFoundException.class, () -> employerService.updateEmployer(employerDto));
     }
 
     @Test
-    public void testRetrieveEmployerById() {
+    public void testGetEmployerById() {
         when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(employer);
-//        when(EmployerMapper.convertEntityToDto(any(Employer.class))).thenReturn(employerDto);
-
-        EmployerDto retrievedEmployer = employerService.retrieveEmployerById(1L);
+        EmployerDto retrievedEmployer = employerService.getEmployerById(1L);
         assertNotNull(retrievedEmployer);
         assertEquals(employerDto.getId(), retrievedEmployer.getId());
     }
