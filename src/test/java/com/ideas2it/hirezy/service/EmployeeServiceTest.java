@@ -117,7 +117,7 @@ public class EmployeeServiceTest {
 
     @Test
     void testRetrieveEmployeeByIdThrowsException() {
-        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(null);
+        when(employeeRepository.existsById(employee.getId())).thenReturn(true);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeById(employee.getId()));
     }
 
