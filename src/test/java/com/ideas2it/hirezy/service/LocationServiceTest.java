@@ -33,15 +33,16 @@ public class LocationServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         location = Location.builder()
                 .id(1)
                 .state("tamilNadu")
-                .city("chennai").build();
+                .city("chennai")
+                .build();
         locationDto = LocationDto.builder()
                 .id(1)
                 .state("tamilNadu")
-                .city("chennai").build();
+                .city("chennai")
+                .build();
     }
 
     @Test

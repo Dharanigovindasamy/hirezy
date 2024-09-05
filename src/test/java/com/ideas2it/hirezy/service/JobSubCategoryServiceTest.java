@@ -100,9 +100,9 @@ public class JobSubCategoryServiceTest {
 
     @Test
     void testUpdateJobSubcategory() {
-        when(jobSubCategoryRepository.findById(jobSubCategoryDto.getId())).thenReturn(Optional.ofNullable(jobSubCategory));
+        when(jobSubCategoryRepository.existsById(anyLong())).thenReturn(true);
         when(jobCategoryService.getJobCategoryById(jobSubCategoryDto.getJobCategoryId())).thenReturn(jobCategoryDto);
-        when(jobSubCategoryRepository.save(jobSubCategory)).thenReturn(jobSubCategory);
+        when(jobSubCategoryRepository.save(any(JobSubCategory.class))).thenReturn(jobSubCategory);
         JobSubCategoryDto response = jobSubCategoryService.updateJobSubcategory(jobSubCategoryDto);
         assertNotNull(response);
         assertEquals(jobSubCategoryDto.getName(), response.getName());

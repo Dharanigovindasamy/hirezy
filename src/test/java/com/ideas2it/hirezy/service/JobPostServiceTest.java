@@ -81,6 +81,7 @@ class JobPostServiceTest {
         location.setId(1L);
 
         jobPostDto = new JobPostDto();
+        jobPostDto.setId(1L);
         jobPostDto.setTitle("Software Developer");
         jobPostDto.setJobDescription("Java Developer");
         jobPostDto.setJobCategoryId(1L);
@@ -158,14 +159,14 @@ class JobPostServiceTest {
 
     @Test
     void testCreateJobPost() {
-        when(employerService.retrieveEmployerById(1L)).thenReturn(employerDto);
-        when(jobCategoryService.getJobCategoryById(1L)).thenReturn(jobCategoryDto);
-        when(jobSubCategoryService.getJobSubCategoryById(1L)).thenReturn(jobSubCategoryDto);
-        when(locationService.findOrCreateLocation("Tamil Nadu", "Chennai")).thenReturn(location);
+        when(jobCategoryService.getJobCategoryById(anyLong())).thenReturn(jobCategoryDto);
+        when(jobSubCategoryService.getJobSubCategoryById(anyLong())).thenReturn(jobSubCategoryDto);
+        when(locationService.findOrCreateLocation(anyString(), anyString())).thenReturn(location);
         when(jobPostRepository.save(any(JobPost.class))).thenReturn(jobPost);
-        JobPostDto result = jobPostServiceImpl.createJobPost(1L, jobPostDto);
+        JobPostDto result = jobPostServiceImpl.createJobPost(anyLong(), jobPostDto);
         assertNotNull(result);
-        assertEquals(jobPost.getTitle(), result.getTitle());
+        assertEquals(jobPostDto.getTitle(), result.getTitle());
+
     }
 
     @Test

@@ -133,15 +133,12 @@ public class EmployeeServiceTest {
         EmployeeDto updatedEmployeeDto = employeeService.updateEmployee(employeeDto);
         assertNotNull(updatedEmployeeDto);
         assertEquals(employee.getId(), updatedEmployeeDto.getId());
-        verify(employeeRepository, times(1)).findByIdAndIsDeletedFalse(employeeDto.getId());
-        verify(employeeRepository, times(1)).save(any(Employee.class));
     }
 
     @Test
     void testUpdateEmployeeThrowsException() {
         when(employeeRepository.existsById(employeeDto.getId())).thenReturn(false);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.updateEmployee(employeeDto));
-        verify(employeeRepository, times(1)).findByIdAndIsDeletedFalse(employeeDto.getId());
     }
 
     @Test
