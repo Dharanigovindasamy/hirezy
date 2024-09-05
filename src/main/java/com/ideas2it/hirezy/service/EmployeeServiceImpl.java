@@ -66,6 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if(null == employee) {
             logger.warn("Employee does not exist for this ID {}", employeeId);
+            throw new ResourceNotFoundException("Employee not found" +employeeId);
         }
         return mapEntityToDto(employee);
     }
@@ -104,7 +105,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             logger.warn("employee not found for employee id ..{}",employeeId);
             throw new ResourceNotFoundException("Employee Id - " + employeeId + " not found");
         }
-        return employee;
+        return (employee);
     }
 
     @Override

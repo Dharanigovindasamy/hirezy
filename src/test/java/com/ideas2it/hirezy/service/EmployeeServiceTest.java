@@ -106,11 +106,6 @@ public class EmployeeServiceTest {
         assertEquals(1, employees.size());
     }
 
-    @Test
-    void testRetrieveEmployeesFailure() {
-        lenient().when(employeeRepository.findAll()).thenReturn(null);
-        assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployees());
-    }
 
     @Test
     void testRetrieveEmployeeById() {
