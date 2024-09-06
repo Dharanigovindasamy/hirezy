@@ -198,10 +198,8 @@ public class JobPostServiceImpl implements JobPostService {
         EmployeeDto employeeDto = employeeService.retrieveEmployeeById(employeeId);
         Employee employee = mapDtoToEntity(employeeDto);
         List<String> employeeSkills = employee.getKeySkills();
-        String employeeCity = employee.getCity();
-        int employeeExperience = employee.getYearOfExperience();
         List<JobPost> matchingJobs = jobPostRepository.findAll().stream()
-                .filter(jobPost -> matchesEmployeeProfile(jobPost, employeeSkills, employeeCity, employeeExperience))
+                .filter(jobPost -> matchesEmployeeProfile(jobPost, employeeSkills, employee.getCity(), employee.getYearOfExperience()))
                 .toList();
 
         return matchingJobs.stream()
