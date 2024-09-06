@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 
+import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobSubCategoryDto;
+import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobSubCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +28,8 @@ import com.ideas2it.hirezy.model.JobPost;
 import com.ideas2it.hirezy.model.Location;
 import com.ideas2it.hirezy.repository.JobPostRepository;
 import com.ideas2it.hirezy.util.JobPostSpecifications;
+
+import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapDtoToEntity;
 import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapToJobCategory;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPost;
@@ -56,6 +60,9 @@ public class JobPostServiceImpl implements JobPostService {
 
     @Autowired
     private JobSubCategoryService jobSubCategoryService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     private static final Logger logger = LogManager.getLogger(JobPostServiceImpl.class);
 
@@ -184,5 +191,29 @@ public class JobPostServiceImpl implements JobPostService {
                 .collect(Collectors.toList());
         logger.info("Total job posts found for employer ID {}: {}", employerId, jobPostDtos.size());
         return jobPostDtos;
+    }
+
+    @Override
+    public List<JobPostDto> autoMatchJobPostsWithEmployee(Long employeeId) {
+        EmployeeDto employeeDto = employeeService.retrieveEmployeeById(employeeId);
+        Employee employee = mapDtoToEntity(employeeDto);
+        List<String> employeeSkills = employee.getKeySkills();
+        String employeeCity = employee.getCity();
+        int employeeExperience = employee.getYearOfExperience();
+        List<JobPost> matchingJobs = jobPostRepository.findAll().stream()
+                .filter(jobPost -> matchesEmployeeProfile(jobPost, employeeSkills, employeeCity, employeeExperience))
+                .toList();
+
+        return matchingJobs.stream()
+                .map(JobPostMapper::mapToJobPostDto)
+                .collect(Collectors.toList());
+    }
+
+    public boolean matchesEmployeeProfile(JobPost jobPost, List<String> employeeSkills, String employeeCity, int employeeExperience) {
+        boolean skillMatch = jobPost.getKeySkills().stream()
+                .anyMatch(employeeSkills::contains);
+        boolean locationMatch = jobPost.getLocation().getCity().equalsIgnoreCase(employeeCity);
+        boolean experienceMatch = jobPost.getExperience() <= employeeExperience;
+        return skillMatch || locationMatch || experienceMatch;
     }
 }

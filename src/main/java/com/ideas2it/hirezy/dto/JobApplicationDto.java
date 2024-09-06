@@ -32,7 +32,9 @@ public class JobApplicationDto {
     private JobApplicationStatus status;
     @NotNull
     private LocalDateTime appliedDate;
+    @NotNull
     private long employeeId;
+    @NotNull
     private long jobPostId;
     private EmployeeDto employeeDto;
     private JobPostDto jobPostDto;

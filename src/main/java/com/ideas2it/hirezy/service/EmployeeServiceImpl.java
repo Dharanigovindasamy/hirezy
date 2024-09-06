@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ideas2it.hirezy.mapper.EmployeeMapper;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.model.Employee;
@@ -110,13 +109,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Long countActiveEmployees() {
-
         return employeeRepository.countByIsDeleted(false);
     }
 
     @Override
     public Long countDeletedEmployees() {
-
         return employeeRepository.countByIsDeleted(true);
     }
 }

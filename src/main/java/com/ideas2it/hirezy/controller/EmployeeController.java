@@ -3,8 +3,10 @@ package com.ideas2it.hirezy.controller;
 import java.util.List;
 
 import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.FeedbackService;
+import com.ideas2it.hirezy.service.JobPostService;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +37,9 @@ public class EmployeeController {
 
     @Autowired
     private FeedbackService feedbackService;
+
+    @Autowired
+    private JobPostService jobPostService;
 
     private static final Logger logger = LogManager.getLogger(EmployerController.class);
 
@@ -121,7 +126,7 @@ public class EmployeeController {
      * Retrieves a specific feedback by its id and user id.
      * @param feedbackId Id of feedback
      * @param userId Id of employee
-     * @return The feedback DTO with HTTP status 200 OK.
+     * @return The feedbackDTO with HTTP status 200 OK.
      */
     @GetMapping("/{userId}/feedback/{feedbackId}")
     public ResponseEntity<FeedbackDto> getFeedback(
@@ -129,5 +134,16 @@ public class EmployeeController {
             @PathVariable Long userId) {
         FeedbackDto feedback = feedbackService.getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYEE);
         return new ResponseEntity<>(feedback, HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves jobpost with an employee's profile based on key-skills, city and experience.
+     * @param employeeId employee whose profile will be matched with jobposts.
+     * @return A list of JobPostDto that match with employee's profile with HTTP status 200 OK.
+     */
+    @GetMapping("/{employeeId}/auto-match-jobposts")
+    public ResponseEntity<List<JobPostDto>> autoMatchJobs(@PathVariable Long employeeId) {
+        List<JobPostDto> matchedJobs = jobPostService.autoMatchJobPostsWithEmployee(employeeId);
+        return ResponseEntity.ok(matchedJobs);
     }
 }
