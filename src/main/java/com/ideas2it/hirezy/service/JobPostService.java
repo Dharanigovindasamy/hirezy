@@ -95,13 +95,4 @@ public interface JobPostService {
      */
     List<JobPostDto> autoMatchJobPostsWithEmployee(Long employeeId);
 
-    /**
-     *  Helper method if the jobpost match with an employee profile.
-     * @param jobPost The jobpost compare with employee profile.
-     * @param employeeSkills The list of Key Skill  that the employee possesses.
-     * @param employeeCity The city where the employee is located.
-     * @param employeeExperience The year of experience employee has.
-     * @return true if the job post matches the employee profile any of the criteria : otherwise false
-     */
-    boolean matchesEmployeeProfile(JobPost jobPost, List<String> employeeSkills, String employeeCity, int employeeExperience);
 }

@@ -207,7 +207,15 @@ public class JobPostServiceImpl implements JobPostService {
                 .collect(Collectors.toList());
     }
 
-    public boolean matchesEmployeeProfile(JobPost jobPost, List<String> employeeSkills, String employeeCity, int employeeExperience) {
+    /**
+     *  Helper method if the jobpost match with an employee profile.
+     * @param jobPost The jobpost compare with employee profile.
+     * @param employeeSkills The list of Key Skill  that the employee possesses.
+     * @param employeeCity The city where the employee is located.
+     * @param employeeExperience The year of experience employee has.
+     * @return true if the job post matches the employee profile any of the criteria : otherwise false
+     */
+    private boolean matchesEmployeeProfile(JobPost jobPost, List<String> employeeSkills, String employeeCity, int employeeExperience) {
         boolean skillMatch = jobPost.getKeySkills().stream()
                 .anyMatch(employeeSkills::contains);
         boolean locationMatch = jobPost.getLocation().getCity().equalsIgnoreCase(employeeCity);
