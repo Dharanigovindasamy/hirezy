@@ -93,6 +93,4 @@ public class GlobalExceptionHandler {
         errorDetails.put("url", req.getRequestURL());
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
-    
-
 }

@@ -20,10 +20,6 @@ public class JobPostMapper {
      * @return JobPostDto - {@link JobPostDto} given to the user
      */
     public static JobPostDto mapToJobPostDto(JobPost jobPost) {
-        if (jobPost == null) {
-            return null;
-        }
-
         JobPostDto.JobPostDtoBuilder jobPostDtoBuilder = JobPostDto.builder()
                 .id(jobPost.getId())
                 .title(jobPost.getTitle())
@@ -58,10 +54,6 @@ public class JobPostMapper {
      * @return JobPost - JobPost given to the user
      */
     public static JobPost mapToJobPost(JobPostDto jobPostDto, Employer employer) {
-        if (jobPostDto == null) {
-            return null;
-        }
-
         JobPost.JobPostBuilder jobPostBuilder = JobPost.builder()
                 .id(jobPostDto.getId())
                 .title(jobPostDto.getTitle())
@@ -104,9 +96,6 @@ public class JobPostMapper {
      * @return JobPost - JobPost given to the user
      */
     public static JobPost mapToJobPost(JobPostDto jobPostDto) {
-        if (jobPostDto == null) {
-            return null;
-        }
         return JobPost.builder()
                 .title(jobPostDto.getTitle())
                 .jobDescription(jobPostDto.getJobDescription())

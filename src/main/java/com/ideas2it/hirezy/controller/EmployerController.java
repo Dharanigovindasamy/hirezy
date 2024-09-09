@@ -126,9 +126,9 @@ public class EmployerController {
      */
     @Operation(summary = "Create a job post for a specific employer")
     @PostMapping("/{employerId}/job-posts")
-    public ResponseEntity<JobPostDto> createJobPost(@Valid
+    public ResponseEntity<JobPostDto> createJobPost(
             @PathVariable Long employerId,
-            @RequestBody JobPostDto jobPostDto) {
+            @Valid @RequestBody JobPostDto jobPostDto) {
         logger.info("Request received to create a job post for employer ID: {}", employerId);
         JobPostDto createdJobPost = jobPostService.createJobPost(employerId, jobPostDto);
         logger.info("Job post created with ID: {}", createdJobPost.getId());
