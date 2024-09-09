@@ -21,7 +21,7 @@ public class UserDto {
     private long id;
 
     @NotBlank(message = "Email ID is Required")
-    @Email(regexp = "\\\\b[A-za-z0-9._%-]\"\n\"+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,4}\\\\b")
+    @Email(message = "Enter Valid mailId like example@gmail.com")
     private String emailId;
 
     @NotBlank(message = "Password must be required")
@@ -35,6 +35,6 @@ public class UserDto {
     private String password;
 
     @NotNull(message = "Phone number is required")
-    @Pattern(regexp = "^\\+[1-9]\\d{1,4}\\d{10}$\n",message = "Invalid phone number. Please enter a number in the format +<country code><10-digit number>")
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "Invalid phone number. Please enter a number in the format <10-digit number>")
     private String phoneNumber;
 }

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequestDto {
         @NotBlank(message = "Email ID is Required")
-        @Pattern(regexp = "\\\\b[A-za-z0-9._%-]\"\n\"+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,4}\\\\b", message = "Enter Valid mailId like example@gmail.com")
+        @Email(message = "Enter Valid mailId like example@gmail.com")
         private String emailId;
         @NotBlank(message = "password is a mandatory field")
         private String password;

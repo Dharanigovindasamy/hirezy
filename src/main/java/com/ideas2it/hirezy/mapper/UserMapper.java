@@ -23,6 +23,7 @@ public class UserMapper {
     public static User mapToUser(UserDto userDto) {
         return User.builder()
                 .emailId(userDto.getEmailId())
+                .password(userDto.getPassword())
                 .phoneNumber(userDto.getPhoneNumber())
                 .build();
 

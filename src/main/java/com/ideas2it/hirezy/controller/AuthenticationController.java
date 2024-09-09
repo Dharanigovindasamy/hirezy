@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.controller;
 
+import com.ideas2it.hirezy.dto.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -16,6 +17,9 @@ import com.ideas2it.hirezy.service.OtpService;
 import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import com.ideas2it.hirezy.dto.OtpVerificationDto;
 import com.ideas2it.hirezy.model.User;
+
+import static com.ideas2it.hirezy.mapper.UserMapper.mapToUser;
+
 /**
  * This class is the controller class for signup and login management.
  * It will manage the user verification and Otp generation for the user.
@@ -33,17 +37,18 @@ public class AuthenticationController {
      * This is method will manage the user Sign up.
      * @param role
      *     It is the role of the user who will Sign up.
-     * @param user
+     * @param userDto
      *     It contains the User details for Sign up.
      * @return String
      *     It IS the message to the user whether he is signed up are not.
      */
     @Operation(summary = "manage the user Sign up")
     @PostMapping("/register/{role}")
-    public ResponseEntity<String> registerUser(@Valid
+    public ResponseEntity<String> registerUser(
             @PathVariable String role,
-            @RequestBody User user
+            @Valid @RequestBody UserDto userDto
     ) throws MessagingException {
+        User user = mapToUser(userDto);
         String otp = otpService.generateOTP(user.getEmailId());
         if (otp != null) {
             return new ResponseEntity<>(authenticationService.registerUser(
