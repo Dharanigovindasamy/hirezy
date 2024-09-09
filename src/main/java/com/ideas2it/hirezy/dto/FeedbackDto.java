@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class FeedbackDto {
-    private Long id;
+    private long id;
 
     private FeedbackType feedBackType;
     @NonNull
-    private Long userId;
+    private long userId;
     @NotBlank
     private String content;
 

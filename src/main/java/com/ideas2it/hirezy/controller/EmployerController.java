@@ -2,12 +2,8 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
-import com.ideas2it.hirezy.dto.FeedbackDto;
-import com.ideas2it.hirezy.model.enums.FeedbackType;
-import com.ideas2it.hirezy.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.model.enums.FeedbackType;
+import com.ideas2it.hirezy.service.FeedbackService;
 import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.service.EmployerService;
@@ -41,6 +40,8 @@ public class EmployerController {
     /**
      * <p>
      *This method is used to create a employer into the repository
+     * @param employerDto - {@link EmployerDto}from the user
+     * @return EmployerDto - employer details of the employee added
      * </p>
      */
     @Operation(summary = "Create a employer")
@@ -90,6 +91,8 @@ public class EmployerController {
     /**
      * <p>
      *This method is used to update a employer into the repository
+     * @param employerDto - {@link EmployerDto}from the user
+     * @return EmployerDto - employer details of the employee updated
      * </p>
      */
     @Operation(summary = "Update a employer")
@@ -103,7 +106,7 @@ public class EmployerController {
     /**
      * <p>
      *This method is used to delete a employer from the repository
-     * @param employerId
+     * @param employerId - id of the employer
      * </p>
      */
     @Operation(summary = "Delete a employer")
@@ -118,7 +121,7 @@ public class EmployerController {
      * <p>
      * This method is used to create a job post for a specific employer.
      * @param employerId - unique identifier of the employer
-     * @param jobPostDto - job post details
+     * @param jobPostDto - {@link JobPostDto}job post details
      * </p>
      */
     @Operation(summary = "Create a job post for a specific employer")
@@ -137,7 +140,7 @@ public class EmployerController {
      * This method is used to update a job post for a specific employer.
      * @param employerId - unique identifier of the employer
      * @param jobPostId - unique identifier of the job post
-     * @param jobPostDto - updated job post details
+     * @param jobPostDto - {@link JobPostDto} updated job post details
      * </p>
      */
     @Operation(summary = "Update a job post for a specific employer")
@@ -185,7 +188,7 @@ public class EmployerController {
 
     /**
      * Create a feedback/query.
-     * @param feedbackDto {link @FeedbackDto} receive from user as json format
+     * @param feedbackDto {@link FeedbackDto} receive from user as json format
      * @return The created feedback DTO with HTTP status 201 Created.
      */
     @Operation(summary = "Create a feedback/query for a specific employer")
@@ -197,12 +200,12 @@ public class EmployerController {
     }
 
     /**
-     * Display feedback form by feedbackid and employer id.
+     * Display feedback form by feedback id and employer id.
      * @param feedbackId Id of feedback
      * @param userId Id of employer
-     * @return The feedback DTO with HTTP status 200 OK.
+     * @return FeedbackDto - {@link FeedbackDto}The feedback DTO with HTTP status 200 OK.
      */
-    @Operation(summary = "Display feedback form by feedbackid and employer id")
+    @Operation(summary = "Display feedback form by feedback id and employer id")
     @GetMapping("/{userId}/feedback/{feedbackId}")
     public ResponseEntity<FeedbackDto> getFeedback(
             @PathVariable Long feedbackId,

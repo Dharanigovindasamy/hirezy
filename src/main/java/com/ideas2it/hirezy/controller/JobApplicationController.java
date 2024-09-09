@@ -59,7 +59,7 @@ public class JobApplicationController {
      * </p>
      *
      */
-    @Operation(summary = "Get JobApllication By ID")
+    @Operation(summary = "Get Job Application By ID")
     @GetMapping("/{id}")
     public ResponseEntity<JobApplicationDto> getJobApplicationById(@PathVariable Long id) {
         JobApplicationDto jobApplicationDto = jobApplicationService.getJobApplicationById(id);

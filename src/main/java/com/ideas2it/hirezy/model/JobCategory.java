@@ -42,6 +42,6 @@ public class JobCategory {
     private String name;
 
     @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<JobSubCategory> subcategories;
+    private Set<JobSubCategory> subCategories;
 
 }

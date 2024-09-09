@@ -15,13 +15,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import com.ideas2it.hirezy.model.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.ideas2it.hirezy.model.enums.Gender;
+
 
 /**
  * <p>
@@ -66,7 +67,7 @@ public class Employer {
     private Gender gender;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<JobPost> jobPost;
+    private List<JobPost> jobPosts;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",  referencedColumnName = "id" )

@@ -1,12 +1,8 @@
 package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
-import com.ideas2it.hirezy.dto.OtpVerificationDto;
-import com.ideas2it.hirezy.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ideas2it.hirezy.service.AuthenticationService;
 import com.ideas2it.hirezy.service.OtpService;
-
+import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
+import com.ideas2it.hirezy.dto.OtpVerificationDto;
+import com.ideas2it.hirezy.model.User;
 /**
  * This class is the controller class for signup and login management.
  * It will manage the user verification and Otp generation for the user.

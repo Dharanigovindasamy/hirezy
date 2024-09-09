@@ -3,7 +3,6 @@ package com.ideas2it.hirezy.controller;
 import java.util.List;
 
 import jakarta.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.service.LocationService;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>

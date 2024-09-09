@@ -26,12 +26,12 @@ import java.time.LocalDateTime;
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     private FeedbackType feedBackType;
 
-    private Long userId;
+    private long userId;
 
     private String content;
 
