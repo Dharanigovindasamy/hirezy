@@ -94,7 +94,7 @@ public class EmployerController {
      */
     @Operation(summary = "Update a employer")
     @PutMapping
-    public ResponseEntity<EmployerDto> updateEmployer(@Valid @RequestBody EmployerDto employerDto) {
+    public ResponseEntity<EmployerDto> updateEmployer(@RequestBody EmployerDto employerDto) {
         logger.info("Request received to update employer with ID: {}",employerDto.getId());
         EmployerDto updateEmployerDto =  employerService.updateEmployer(employerDto);
         return new ResponseEntity<>((updateEmployerDto),HttpStatus.OK);

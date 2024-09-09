@@ -18,10 +18,8 @@ import lombok.Setter;
 
 /**
  * Entity representing a Job Subcategory.
- *
  * This entity is used to further classify jobs under a specific job category.
  * Each JobSubcategory belongs to a JobCategory and provides a more specific classification.
- *
  * Example:
  * - A JobSubcategory with the name "Software Developer" might belong to the JobCategory "IT Jobs".
  * @author kishorekumar.n
@@ -43,6 +41,6 @@ public class JobSubCategory {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "jobcategory_id")
+    @JoinColumn(name = "jobCategory_id")
     private JobCategory jobCategory;
 }

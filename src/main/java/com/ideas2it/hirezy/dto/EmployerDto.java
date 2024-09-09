@@ -30,7 +30,7 @@ import lombok.Setter;
 public class EmployerDto {
 
     @NotNull(message = "Employer ID cannot be null")
-    private Long Id;
+    private Long id;
 
     @NotBlank(message = "Name cannot be blank")
     @Size(max = 20, message = "Name cannot exceed 100 characters")
