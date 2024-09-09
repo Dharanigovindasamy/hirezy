@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -117,7 +116,7 @@ public class EmployeeServiceTest {
 
     @Test
     void testRetrieveEmployeeByIdThrowsException() {
-        when(employeeRepository.existsById(employee.getId())).thenReturn(true);
+        when(employeeRepository.findByIdAndIsDeletedFalse(employee.getId())).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> employeeService.retrieveEmployeeById(employee.getId()));
     }
 

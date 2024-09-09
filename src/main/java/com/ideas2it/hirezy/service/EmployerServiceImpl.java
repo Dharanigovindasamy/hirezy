@@ -135,11 +135,13 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
 
     @Override
     public Long countActiveEmployers() {
+
         return employerRepository.countByIsDeleted(false);
     }
 
     @Override
     public Long countDeletedEmployers() {
+
         return employerRepository.countByIsDeleted(true);
     }
 }
