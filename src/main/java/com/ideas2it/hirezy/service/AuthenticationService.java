@@ -1,12 +1,12 @@
 package com.ideas2it.hirezy.service;
 
-import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
