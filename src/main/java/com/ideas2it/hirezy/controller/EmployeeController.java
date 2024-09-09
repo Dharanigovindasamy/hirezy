@@ -42,7 +42,7 @@ public class EmployeeController {
     @Autowired
     private JobPostService jobPostService;
 
-    private static final Logger logger = LogManager.getLogger(EmployerController.class);
+    private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
     /**
      * <p>

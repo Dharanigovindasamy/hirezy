@@ -45,7 +45,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     @Autowired
     private EmailService emailService;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(JobApplicationServiceImpl.class);
 
     @Override
     public List<JobApplicationDto> getAllJobApplications() {

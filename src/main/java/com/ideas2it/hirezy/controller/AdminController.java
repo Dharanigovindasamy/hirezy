@@ -60,7 +60,7 @@ public class AdminController {
      * @param replyContent the content of body.
      * @return The updated FeedbackDto with the reply and HTTp status code ok.
      */
-    @Operation(summary = "Repy to an feedback/query")
+    @Operation(summary = "Reply to an feedback/query")
     @PostMapping("/{feedbackId}/reply")
     public ResponseEntity<FeedbackDto> replyToFeedback(
             @PathVariable Long feedbackId,

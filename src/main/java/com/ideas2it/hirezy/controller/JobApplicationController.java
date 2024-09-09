@@ -36,7 +36,7 @@ public class JobApplicationController {
     @Autowired
     private JobApplicationService jobApplicationService;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(JobApplicationController.class);
     /**
      * <p>
      *     Retrieve all job application profile details from the table

@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ideas2it.hirezy.controller.EmployerController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
  */
 @Service
  public class EmployerServiceImpl implements EmployerService {
-    public static final Logger logger = LogManager.getLogger();
+    public static final Logger logger = LogManager.getLogger(EmployerController.class);
     @Autowired
     private EmployerRepository employerRepository;
     @Autowired

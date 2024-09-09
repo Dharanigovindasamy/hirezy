@@ -30,7 +30,7 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private final LocationRepository locationRepository;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(LocationServiceImpl.class);
 
     public LocationServiceImpl(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;

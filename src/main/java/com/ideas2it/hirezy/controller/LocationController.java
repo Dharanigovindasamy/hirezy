@@ -37,7 +37,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(LocationController.class);
 
     /**
      * <p>

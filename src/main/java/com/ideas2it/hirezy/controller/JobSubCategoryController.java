@@ -30,7 +30,7 @@ public class JobSubCategoryController {
     @Autowired
     private JobSubCategoryService jobSubCategoryService;
 
-    private static final Logger logger = LogManager.getLogger(JobCategoryController.class);
+    private static final Logger logger = LogManager.getLogger(JobSubCategoryController.class);
 
     /**
      * Creates a new JobSubCategory.
