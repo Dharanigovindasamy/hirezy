@@ -71,7 +71,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Removing employer with ID: {}", employerId);
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
-            logger.error("Employer not found with ID: {}", employerId);
+            logger.warn("Employer not found with ID: {}", employerId);
             throw new ResourceNotFoundException("Employer not found with ID: " + employerId);
         }
         employer.setDeleted(true);
@@ -83,7 +83,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     @Override
     public EmployerDto updateEmployer(EmployerDto employerDto) {
         if(!employerRepository.existsById(employerDto.getId())) {
-            logger.error("Employer not found with ID : {}", employerDto.getId());
+            logger.warn("Employer not found with ID : {}", employerDto.getId());
             throw new ResourceNotFoundException("Employer not found with ID: " + employerDto.getId());
         }
         Employer employer = convertDtoToEntity(employerDto);
@@ -98,7 +98,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
         logger.info("Fetching employer with ID: {}", employerId);
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
-            logger.error(" Employer not found with ID : {}", employerId);
+            logger.warn(" Employer not found with ID : {}", employerId);
             throw new ResourceNotFoundException("Employer not found with ID: " + employerId);
         }
         return convertEntityToDto(employer);
@@ -108,7 +108,7 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     public Employer retrieveEmployerForJobPost(long employerId) {
         Employer employer = employerRepository.findByIsDeletedFalseAndId(employerId);
         if (employer == null) {
-            logger.error(" Employer Id {} not found", employerId);
+            logger.warn(" Employer Id {} not found", employerId);
             throw new ResourceNotFoundException("Employer not found : " + employerId);
         }
         return employer;

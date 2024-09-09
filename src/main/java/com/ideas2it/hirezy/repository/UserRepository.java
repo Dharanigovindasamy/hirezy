@@ -17,4 +17,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
      * @return User - user object of the mail holder
      */
     Optional<User> findByEmailId(String email);
+
+    boolean existsByEmailId(String email);
+
 }

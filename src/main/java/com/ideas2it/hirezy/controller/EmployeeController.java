@@ -97,7 +97,7 @@ public class EmployeeController {
      */
     @Operation(summary = "Update employee ")
     @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         employeeDto = employeeService.updateEmployee(employeeDto);
         return new ResponseEntity<>(employeeDto, HttpStatus.OK);
     }

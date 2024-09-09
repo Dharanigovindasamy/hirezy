@@ -31,7 +31,7 @@ public class AuthenticationService {
      * By this the admin does not need to register.
      */
     public void registerAdmin(){
-        if(userRepository.findById(1L).isEmpty()){
+        if(! userRepository.existsByEmailId("kishoreofficial@gmail.com")){
             userRepository.save(User.builder()
                     .id(1L)
                     .emailId(System.getenv("ADMIN_EMAIL"))
@@ -42,7 +42,6 @@ public class AuthenticationService {
                             .roleName("ADMIN")
                             .build())
                     .build());
-
         }
     }
 

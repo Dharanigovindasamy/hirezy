@@ -75,7 +75,6 @@ public class EmployerServiceTest {
     @Test
     public void testRemoveEmployer() {
         when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(employer);
-
         employerService.removeEmployer(1L);
         assertTrue(employer.isDeleted());
         verify(employerRepository, times(1)).save(employer);
@@ -84,7 +83,6 @@ public class EmployerServiceTest {
     @Test
     public void testRemoveEmployerNotFound() {
         when(employerRepository.findByIsDeletedFalseAndId(anyLong())).thenReturn(null);
-
         assertThrows(ResourceNotFoundException.class, () -> employerService.removeEmployer(1L));
     }
 

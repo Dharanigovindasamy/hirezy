@@ -26,6 +26,7 @@ import com.ideas2it.hirezy.service.JobSubCategoryService;
 @RestController
 @RequestMapping("admin/job-subcategories")
 public class JobSubCategoryController {
+
     @Autowired
     private JobSubCategoryService jobSubCategoryService;
 

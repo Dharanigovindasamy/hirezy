@@ -142,7 +142,7 @@ public class EmployerController {
      */
     @Operation(summary = "Update a job post for a specific employer")
     @PutMapping("/{employerId}/job-posts/{jobPostId}")
-    public ResponseEntity<JobPostDto> updateJobPost(
+    public ResponseEntity<JobPostDto> updateJobPost( @Valid
             @PathVariable Long employerId,
             @PathVariable Long jobPostId,
             @RequestBody JobPostDto jobPostDto) {
