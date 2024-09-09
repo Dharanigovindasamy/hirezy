@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -163,4 +164,5 @@ class EmployerControllerTest {
         assertEquals(feedbackDto, response.getBody());
         verify(feedbackService).getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYER);
     }
+
 }

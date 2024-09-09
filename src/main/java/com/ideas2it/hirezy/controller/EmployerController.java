@@ -5,6 +5,10 @@ import java.util.List;
 import com.ideas2it.hirezy.dto.FeedbackDto;
 import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.FeedbackService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +27,7 @@ import com.ideas2it.hirezy.service.JobPostService;
  * REST controller for managing Employer entities.
  * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobPosts.
  */
+@Tag(name = "Employer Management", description = "APIs for managing employers and their job posts")
 @RestController
 @RequestMapping("/employers")
 public class EmployerController {

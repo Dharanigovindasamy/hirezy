@@ -94,5 +94,4 @@ public interface JobPostService {
      * @return A list of JobPostDto that match with employee's profile.
      */
     List<JobPostDto> autoMatchJobPostsWithEmployee(Long employeeId);
-
 }

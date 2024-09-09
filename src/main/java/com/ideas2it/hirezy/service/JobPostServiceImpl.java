@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.dto.JobCategoryDto;
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.exception.ResourceNotFoundException;
@@ -37,11 +36,8 @@ import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPostDto;
 import static com.ideas2it.hirezy.mapper.JobSubCategoryMapper.maptoJobSubCategory;
 
 /**
- * <p>
- *     This class used for job post functionalities lke adding , retrieving, updating nd deleting
- * </p>
- * @author dharani.govindhasamy
- * @version 1
+ * This class used for job post functionalities lke adding , retrieving, updating nd deleting
+ * @author kishore
  */
 @Service
 public class JobPostServiceImpl implements JobPostService {

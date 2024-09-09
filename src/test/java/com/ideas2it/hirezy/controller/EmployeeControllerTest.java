@@ -2,9 +2,11 @@ package com.ideas2it.hirezy.controller;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.FeedbackDto;
+import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.EmployeeService;
 import com.ideas2it.hirezy.service.FeedbackService;
+import com.ideas2it.hirezy.service.JobPostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -31,6 +34,9 @@ class EmployeeControllerTest {
 
     @InjectMocks
     private EmployeeController employeeController;
+
+    @Mock
+    private JobPostService jobPostService;
 
     @Mock
     private FeedbackDto feedbackDto;
@@ -113,5 +119,16 @@ class EmployeeControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(feedbackDto, response.getBody());
         verify(feedbackService).getFeedbackByIdUserIdAndType(feedbackId, userId, FeedbackType.EMPLOYEE);
+    }
+
+    @Test
+    public void testAutoMatchJobs() {
+        Long employeeId = 1L;
+        List<JobPostDto> jobPosts = Arrays.asList(new JobPostDto(), new JobPostDto());
+        when(jobPostService.autoMatchJobPostsWithEmployee(employeeId)).thenReturn(jobPosts);
+        ResponseEntity<List<JobPostDto>> response = employeeController.autoMatchJobs(employeeId);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertThat(response.getBody()).isEqualTo(jobPosts);
+        verify(jobPostService, times(1)).autoMatchJobPostsWithEmployee(employeeId);
     }
 }

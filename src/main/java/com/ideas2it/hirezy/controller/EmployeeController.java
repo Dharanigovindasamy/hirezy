@@ -144,6 +144,6 @@ public class EmployeeController {
     @GetMapping("/{employeeId}/auto-match-jobposts")
     public ResponseEntity<List<JobPostDto>> autoMatchJobs(@PathVariable Long employeeId) {
         List<JobPostDto> matchedJobs = jobPostService.autoMatchJobPostsWithEmployee(employeeId);
-        return ResponseEntity.ok(matchedJobs);
+        return new ResponseEntity<>(matchedJobs,HttpStatus.OK);
     }
 }
