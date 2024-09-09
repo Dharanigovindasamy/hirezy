@@ -113,7 +113,7 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public JobPost retrieveJobForApplication(long jobPostId) {
         JobPost jobPost = jobPostRepository.findById(jobPostId)
-                .orElseThrow(() -> new ResourceNotFoundException("job application not found" + jobPostId));
+                .orElseThrow(() -> new ResourceNotFoundException("job application not found {}" + jobPostId));
          return jobPost;
 
     }
@@ -204,8 +204,8 @@ public class JobPostServiceImpl implements JobPostService {
     }
 
     /**
-     *  Helper method if the jobpost match with an employee profile.
-     * @param jobPost The jobpost compare with employee profile.
+     *  Helper method if the job post match with an employee profile.
+     * @param jobPost The job post compare with employee profile.
      * @param employeeSkills The list of Key Skill  that the employee possesses.
      * @param employeeCity The city where the employee is located.
      * @param employeeExperience The year of experience employee has.
