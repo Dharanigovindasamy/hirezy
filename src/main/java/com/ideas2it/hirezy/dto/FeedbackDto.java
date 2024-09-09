@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,13 +26,16 @@ public class FeedbackDto {
     private long id;
 
     private FeedbackType feedBackType;
-    @NonNull
+
+    @NotNull
     private long userId;
+
     @NotBlank
     private String content;
 
     private String adminReply;
 
+    @NotNull
     private LocalDateTime createdDate;
 
     private LocalDateTime updatedDate;

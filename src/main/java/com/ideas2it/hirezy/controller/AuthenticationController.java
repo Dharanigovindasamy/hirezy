@@ -86,7 +86,7 @@ public class AuthenticationController {
      */
     @Operation(summary = "Verify the login information of the user.")
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(
+    public ResponseEntity<String> loginUser(@Valid
             @RequestBody AuthenticationRequestDto request
     ) {
         if (!otpService.isAccountVerified(request.getEmailId()) &&

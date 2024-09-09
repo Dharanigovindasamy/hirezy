@@ -36,7 +36,7 @@ public class EmployeeDto {
     private String name;
 
     @NotNull
-    @Past
+    @Past(message = "Dob will not be in the future")
     private LocalDate dateOfBirth;
 
     @NotBlank

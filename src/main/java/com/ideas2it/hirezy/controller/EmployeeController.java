@@ -153,7 +153,7 @@ public class EmployeeController {
      * @return A list of JobPostDto that match with employee's profile with HTTP status 200 OK.
      */
     @Operation(summary = "Retrieves jobpost with an employee's profile based on key-skills, city and experience.")
-    @GetMapping("/{employeeId}/auto-match-jobposts")
+    @GetMapping("/{employeeId}/related-jobposts")
     public ResponseEntity<List<JobPostDto>> autoMatchJobs(@PathVariable Long employeeId) {
         List<JobPostDto> matchedJobs = jobPostService.autoMatchJobPostsWithEmployee(employeeId);
         logger.info("Retrieves job post with an employee's profile successfully");

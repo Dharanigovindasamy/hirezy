@@ -90,7 +90,7 @@ public class LocationController {
      * @return LocationDto - updated locationDto sent to user
      */
     @PutMapping
-    public ResponseEntity<LocationDto> updateLocation(@RequestBody LocationDto locationDto) {
+    public ResponseEntity<LocationDto> updateLocation(@Valid @RequestBody LocationDto locationDto) {
         locationDto = locationService.updateLocation(locationDto);
         logger.info("Location can be updated by id {}", locationDto.getId());
         return  new ResponseEntity<>(locationDto, HttpStatus.OK);

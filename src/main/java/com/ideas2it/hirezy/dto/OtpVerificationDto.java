@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +22,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OtpVerificationDto {
         @NotBlank(message = "Email ID is Required")
-        @Email(regexp = "\\\\b[A-za-z0-9._%-]\"\n\"+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,4}\\\\b")
+        @Pattern(regexp = "\\\\b[A-za-z0-9._%-]\"\n\"+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,4}\\\\b")
         private String emailId;
+        @NotBlank
         private String otp;
         private String password;
 }
