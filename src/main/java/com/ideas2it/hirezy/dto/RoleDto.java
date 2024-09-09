@@ -14,8 +14,7 @@ import lombok.Getter;
 public class RoleDto {
 
     private long id;
-
-    @NotBlank(message = "Enter role name")
+    @NotBlank(message = "Role name is required")
     private String roleName;
 
 }

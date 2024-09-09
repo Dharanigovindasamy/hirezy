@@ -44,11 +44,11 @@ public class EmployeeDto {
     private String resume;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid city")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "City is required")
     private String city;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid qualification")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Qualification is required")
     private String qualification;
 
     @NotNull
@@ -56,11 +56,11 @@ public class EmployeeDto {
     private int yearOfExperience;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter current company")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Current company is required")
     private String currentCompany;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter designation")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Designation is required")
     private String designation;
 
     @NotNull
@@ -72,6 +72,6 @@ public class EmployeeDto {
     @NotBlank(message = "Gender has to set")
     private Gender gender;
 
-    @NotNull(message = "enter skills")
+    @NotNull(message = "Key skills is required")
     private List<String> keySkills;
 }

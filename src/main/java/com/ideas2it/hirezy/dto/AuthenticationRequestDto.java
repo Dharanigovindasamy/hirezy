@@ -21,6 +21,6 @@ public class AuthenticationRequestDto {
         @NotBlank(message = "Email ID is Required")
         @Email(message = "Enter Valid mailId like example@gmail.com")
         private String emailId;
-        @NotBlank(message = "password is a mandatory field")
+        @NotBlank(message = "Password is a mandatory field")
         private String password;
 }

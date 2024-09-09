@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,35 +26,34 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JobPostDto {
-
     private long id;
 
-    @NotBlank(message = "Enter job post title")
+    @NotBlank(message = "Job post title is required")
     private String title;
 
-    @NotBlank(message = "Enter job description")
-    @NotNull
+    @NotBlank(message = "Job description is required")
     private String jobDescription;
 
-    @NotNull(message = "enter experience")
+    @NotNull(message = "Experience is mandatory")
+    @Size(min = 0, max = 30, message= "Experience should be 0 to 30 years")
     private int experience;
 
-    @NotEmpty
+    @NotNull(message = "KeySkills is required")
     private List<String> keySkills;
 
-    @NotBlank(message = "Enter state")
+    @NotBlank(message = "State field is mandatory")
     private String state;
 
-    @NotBlank(message = "Enter city")
+    @NotBlank(message = "City field is mandatory")
     private String city;
 
-    @NotNull(message = "Enter job category Id")
+    @NotNull(message = "Job category Id is mandatory")
     private Long jobCategoryId;
 
-    @NotNull(message = "Enter job subcategory Id")
+    @NotNull(message = "Job subcategory Id is mandatory")
     private Long jobSubCategoryId;
 
-    @NotNull(message = "Enter job employer Id")
+    @NotNull(message = "Employer Id id required")
     private long employerId;
 
     private LocalDate postedDate;

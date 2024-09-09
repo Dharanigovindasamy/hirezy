@@ -3,6 +3,8 @@ package com.ideas2it.hirezy.mapper;
 import com.ideas2it.hirezy.dto.JobSubCategoryDto;
 import com.ideas2it.hirezy.model.JobSubCategory;
 
+import java.util.Objects;
+
 /**
  * Mapper for converting between JobSubcategory entity and JobSubcategoryDTO using builder pattern.
  */
@@ -34,11 +36,6 @@ public class JobSubCategoryMapper {
      * @return JobSubCategory - JobSubCategory given to the user
      */
     public static JobSubCategory maptoJobSubCategory(JobSubCategoryDto jobSubCategoryDto) {
-        if (jobSubCategoryDto.getId() == null) {
-            return JobSubCategory.builder()
-                    .name(jobSubCategoryDto.getName())
-                    .build();
-        }
         return JobSubCategory.builder()
                .id(jobSubCategoryDto.getId())
                 .name(jobSubCategoryDto.getName())

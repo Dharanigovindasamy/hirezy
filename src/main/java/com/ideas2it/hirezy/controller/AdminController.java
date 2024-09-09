@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ public class AdminController {
     @Autowired
     private FeedbackService feedbackService;
 
+    private static final Logger logger = LogManager.getLogger(AdminController.class);
     /**
      *  Display the user counts
      * @return count of active & deleted employee & employer.
@@ -57,6 +60,7 @@ public class AdminController {
         Map<String,Map<String,Long>> counts =new HashMap<>();
         counts.put("employer",employerCounts);
         counts.put("employee",employeeCounts);
+        logger.info("Display employee and employer counts successfully");
         return ResponseEntity.ok(counts);
     }
 
@@ -72,6 +76,7 @@ public class AdminController {
             @PathVariable Long feedbackId,
             @RequestBody String replyContent) {
         FeedbackDto updatedFeedback = feedbackService.replyToFeedback(feedbackId, replyContent);
+        logger.info("Admin replied to the feedback successfully");
         return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
     }
 
@@ -83,6 +88,7 @@ public class AdminController {
     @GetMapping("/feedbacks")
     public ResponseEntity<List<FeedbackDto>>getAllFeedbacks() {
         List<FeedbackDto> feedbacks = feedbackService.getAllFeedbacks();
+        logger.info("Retrieve all feedbacks from employers and employees");
         return new ResponseEntity<>(feedbacks,HttpStatus.OK);
     }
 }

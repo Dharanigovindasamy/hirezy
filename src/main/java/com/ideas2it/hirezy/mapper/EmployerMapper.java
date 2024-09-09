@@ -4,14 +4,30 @@ import com.ideas2it.hirezy.dto.EmployerDto;
 import com.ideas2it.hirezy.model.Employer;
 import com.ideas2it.hirezy.model.User;
 
-import static com.fasterxml.jackson.databind.util.ClassUtil.name;
-import static io.lettuce.core.KillArgs.Builder.id;
-
 /**
  * Mapper for converting between Employer entity and EmployerDTO.
  * @author kishore
  */
 public class EmployerMapper {
+
+    /**
+     * <p>
+     *     This method used for convert employer Dto to entity
+     * </p>
+     * @param employerDto -{@link EmployerDto} employerDto send from user
+     * @param user - user object enter from user
+     * @return Employer - employer detail to the user
+     */
+    public static Employer convertDtoToEntity(EmployerDto employerDto, User user) {
+        return Employer.builder()
+                .name(employerDto.getName())
+                .companyName(employerDto.getCompanyName())
+                .description(employerDto.getDescription()).companyType(employerDto.getCompanyType())
+                .industryType(employerDto.getIndustryType())
+                .user(user)
+                .gender(employerDto.getGender())
+                .build();
+    }
 
     /**
      * <p>
@@ -41,16 +57,6 @@ public class EmployerMapper {
      * @return Employer - employer detail to the user
      */
     public static Employer convertDtoToEntity(EmployerDto employerDto) {
-        if(employerDto.getId() == null) {
-            return Employer.builder()
-                    .name(employerDto.getName())
-                    .companyName(employerDto.getCompanyName())
-                    .description(employerDto.getDescription())
-                    .companyType(employerDto.getCompanyType())
-                    .industryType(employerDto.getIndustryType())
-                    .gender(employerDto.getGender())
-                    .build();
-        }
         return Employer.builder()
                 .id(employerDto.getId())
                 .name(employerDto.getName())
@@ -60,6 +66,5 @@ public class EmployerMapper {
                 .industryType(employerDto.getIndustryType())
                 .gender(employerDto.getGender())
                 .build();
-
     }
 }

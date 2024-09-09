@@ -20,7 +20,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import com.ideas2it.hirezy.model.enums.Gender;
 
 
@@ -67,7 +66,7 @@ public class Employer {
     private Gender gender;
 
     @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<JobPost> jobPosts;
+    private List<JobPost> jobPost;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id",  referencedColumnName = "id" )

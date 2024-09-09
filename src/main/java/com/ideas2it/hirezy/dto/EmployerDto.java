@@ -15,8 +15,6 @@ import lombok.Setter;
  * <p>
  * This class represents a Data Transfer Object (DTO) for the Employer entity.
  * It is used to transfer employer-related data between different layers of the application.
- * </p>
- * <p>
  * The EmployerDto class includes fields like ID, name, company name, description,
  * industry type, and company type, with validation constraints to ensure data integrity.
  * </p>
@@ -51,8 +49,8 @@ public class EmployerDto {
     private String companyType;
 
     @NotNull(message = "User ID cannot be null")
-    private Long userId;
+    private long userId;
 
-    @NotBlank
+    @NotBlank(message = "Gender field is mandatory")
     private Gender gender;
 }
