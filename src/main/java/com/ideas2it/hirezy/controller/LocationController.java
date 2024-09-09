@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ideas2it.hirezy.dto.LocationDto;
 import com.ideas2it.hirezy.service.LocationService;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -30,7 +30,7 @@ import com.ideas2it.hirezy.service.LocationService;
  * @author dharani.govindhasamy
  * @version 1
  */
-@Controller
+@RestController
 @RequestMapping("admin/locations")
 public class LocationController {
 

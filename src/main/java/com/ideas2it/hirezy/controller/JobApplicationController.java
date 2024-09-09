@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class JobApplicationController {
      * @return <List<JobApplicationDto>> - list of Job Application profile
      * </p>
      */
+    @Operation(summary = "Retrieve all job application")
     @GetMapping
     public ResponseEntity<List<JobApplicationDto>> getAllJobApplications() {
         logger.info("Displaying all Job Applications successfully");
@@ -57,6 +59,7 @@ public class JobApplicationController {
      * </p>
      *
      */
+    @Operation(summary = "Get JobApllication By ID")
     @GetMapping("/{id}")
     public ResponseEntity<JobApplicationDto> getJobApplicationById(@PathVariable Long id) {
         JobApplicationDto jobApplicationDto = jobApplicationService.getJobApplicationById(id);
@@ -66,11 +69,12 @@ public class JobApplicationController {
 
 
     /**
-     * <p>Delete job Application by giving job Application id
+     * <p>Withdraw job Application by giving job Application id
      *
      * @param id - job ApplicationId of the job Application
      * </p>
      */
+    @Operation(summary = "Withdraw Job Application by giving job application Id")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeEmployeeJobApplication(@PathVariable Long id) {
         logger.info("Job Application Withdraw successfully by {}", id);
@@ -86,6 +90,7 @@ public class JobApplicationController {
      * @param status - status to be updated in jon application
      * @return JobApplicationDto - {@link JobApplicationDto} job application details after updating the status
      */
+    @Operation(summary = "Update job application")
     @PutMapping("/{id}/status")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
@@ -101,6 +106,7 @@ public class JobApplicationController {
      * @param jobPostId - id of the job post
      * @return List<JobApplicationDto> - list of job applications under the job post
      */
+    @Operation(summary = "Retrieving job applications under the job post by giving job Post id")
     @GetMapping("/job-post/{jobPostId}")
     @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
@@ -122,6 +128,7 @@ public class JobApplicationController {
      * @return String
      *     It is the success message to be returned to the employee.
      */
+    @Operation(summary = "Apply job to the employee")
     @PutMapping("/job-post/{jobPostId}/employee/{employeeId}")
     @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
@@ -136,6 +143,7 @@ public class JobApplicationController {
      * @return List<JobApplicationDto>
      *     It contains the list of jobs applied by the employee.
      */
+    @Operation(summary = "Retrieve the jobs applied by the employee")
     @GetMapping("/employee/{employeeId}")
     @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {

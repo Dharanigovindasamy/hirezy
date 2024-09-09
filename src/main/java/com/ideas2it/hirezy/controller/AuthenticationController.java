@@ -3,6 +3,7 @@ package com.ideas2it.hirezy.controller;
 import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
 import com.ideas2it.hirezy.dto.OtpVerificationDto;
 import com.ideas2it.hirezy.model.User;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 
@@ -39,6 +40,7 @@ public class AuthenticationController {
      * @return String
      *     It IS the message to the user whether he is signed up are not.
      */
+    @Operation(summary = "manage the user Sign up")
     @PostMapping("/register/{role}")
     public ResponseEntity<String> registerUser(@Valid
             @PathVariable String role,
@@ -63,6 +65,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message  to the user whether the Otp is correct or not.
      */
+    @Operation(summary = "Verify the otp entered by the user")
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOTP(@RequestBody OtpVerificationDto
                                                     otpVerificationRequest) {
@@ -83,6 +86,7 @@ public class AuthenticationController {
      * @return AuthenticationResponse
      *     It contains the Token for the user if he is verified.
      */
+    @Operation(summary = "Verify the login information of the user.")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(
             @RequestBody AuthenticationRequestDto request
@@ -102,6 +106,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user.
      */
+    @Operation(summary = "Update the user password when he forgot his password")
     @PostMapping("/forgotPassword")
     public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequestDto authenticationRequest) throws MessagingException {
         String email = authenticationRequest.getEmailId();
@@ -123,6 +128,7 @@ public class AuthenticationController {
      * @return String
      *     It is the message to the user whether the password is updated or not.
      */
+    @Operation(summary = "Reset the password of the user after verify the OTP")
     @PostMapping("/updatePassword/verify-otp")
     public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationDto
                                             otpVerificationRequest) {

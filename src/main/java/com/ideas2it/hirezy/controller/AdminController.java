@@ -5,6 +5,7 @@ import com.ideas2it.hirezy.dto.FeedbackDto;
 import com.ideas2it.hirezy.service.EmployeeService;
 import com.ideas2it.hirezy.service.EmployerService;
 import com.ideas2it.hirezy.service.FeedbackService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ public class AdminController {
      *  Display the user counts
      * @return count of active & deleted employee & employer.
      */
+    @Operation(summary = "Display count of active & deleted employee & employer")
     @GetMapping("/dashboard")
     public ResponseEntity<Map<String,Map<String,Long>>>getCounts() {
         Long activeEmployerCount = employerService.countActiveEmployers();
@@ -58,6 +60,7 @@ public class AdminController {
      * @param replyContent the content of body.
      * @return The updated FeedbackDto with the reply and HTTp status code ok.
      */
+    @Operation(summary = "Repy to an feedback/query")
     @PostMapping("/{feedbackId}/reply")
     public ResponseEntity<FeedbackDto> replyToFeedback(
             @PathVariable Long feedbackId,
@@ -70,6 +73,7 @@ public class AdminController {
      * Retrieve all feedback  of employee & employer from the table
      * @return List of feedback.
      */
+    @Operation(summary = "retrieve all feedback of employee & employer")
     @GetMapping("/feedbacks")
     public ResponseEntity<List<FeedbackDto>>getAllFeedbacks() {
         List<FeedbackDto> feedbacks = feedbackService.getAllFeedbacks();

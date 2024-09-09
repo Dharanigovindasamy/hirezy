@@ -2,11 +2,11 @@ package com.ideas2it.hirezy.controller;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.service.JobPostService;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ import com.ideas2it.hirezy.service.JobPostService;
  * </p>
  * @author kishorekumar.n
  */
-@Controller
+@RestController
 @RequestMapping("/job-posts")
 public class JobPostController {
     @Autowired
@@ -38,6 +39,7 @@ public class JobPostController {
      *
      * @return ResponseEntity containing the list of all job posts.
      */
+    @Operation(summary = "Retrieves all job posts")
     @GetMapping
     public ResponseEntity<List<JobPostDto>> getAllJobs() {
         logger.info("Fetching all job posts");
@@ -54,6 +56,7 @@ public class JobPostController {
      * @param id - unique identifier of the job post.
      * @return ResponseEntity containing the job post if found, otherwise a 404 status.
      */
+    @Operation(summary = "Retrieve the jobs post by Id")
     @GetMapping("/{id}")
     public ResponseEntity<JobPostDto> getJobById(@PathVariable Long id) {
         logger.info("Fetching job post with ID: {}", id);
@@ -83,6 +86,8 @@ public class JobPostController {
      * @param experience - year of experience required (optional);
      * @return ResponseEntity containing the list of job posts that match the search criteria.
      */
+    @Operation(summary = "Searches for job posts based on various filters such as state, city, job category,\n" +
+            "      job subcategory, company name, company type, and industry type")
     @PostMapping("/search")
     public ResponseEntity<List<JobPostDto>> searchJobs(
             @RequestParam(required = false) String state,

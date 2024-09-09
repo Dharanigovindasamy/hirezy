@@ -6,9 +6,6 @@ import com.ideas2it.hirezy.dto.FeedbackDto;
 import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +24,6 @@ import com.ideas2it.hirezy.service.JobPostService;
  * REST controller for managing Employer entities.
  * Provides endpoints to create, retrieve, update, delete Employer,create,update,delete jobPosts.
  */
-@Tag(name = "Employer Management", description = "APIs for managing employers and their job posts")
 @RestController
 @RequestMapping("/employers")
 public class EmployerController {
@@ -47,6 +43,7 @@ public class EmployerController {
      *This method is used to create a employer into the repository
      * </p>
      */
+    @Operation(summary = "Create a employer")
     @PostMapping
     public ResponseEntity<EmployerDto> addEmployer(@Valid @RequestBody EmployerDto employerDto) {
         logger.info("Request received to add a new employer: {}", employerDto.getName());
@@ -60,6 +57,7 @@ public class EmployerController {
      *This method is used to show all the employer in the repository
      * </p>
      */
+    @Operation(summary = "Show all the employer")
     @GetMapping
     public ResponseEntity<List<EmployerDto>>  displayAllEmployer() {
         logger.info("Request received to get all employers");
@@ -75,6 +73,7 @@ public class EmployerController {
      * @param employerId - unique identifier of the employer
      * </p>
      */
+    @Operation(summary = "Show a specific employer")
     @GetMapping("/{id}")
     public ResponseEntity<EmployerDto> displayEmployer(@PathVariable("id") long employerId) {
         logger.info("Request received to get employer with ID: {}", employerId);
@@ -90,9 +89,10 @@ public class EmployerController {
 
     /**
      * <p>
-     *This method is used to create a employer into the repository
+     *This method is used to update a employer into the repository
      * </p>
      */
+    @Operation(summary = "Update a employer")
     @PutMapping
     public ResponseEntity<EmployerDto> updateEmployer(@Valid @RequestBody EmployerDto employerDto) {
         logger.info("Request received to update employer with ID: {}",employerDto.getId());
@@ -106,6 +106,7 @@ public class EmployerController {
      * @param employerId
      * </p>
      */
+    @Operation(summary = "Delete a employer")
     @DeleteMapping("{employerId}")
     public ResponseEntity<Void> deleteEmployer(@PathVariable int employerId) {
         logger.info("Request received to delete employer with ID: {}", employerId);
@@ -120,6 +121,7 @@ public class EmployerController {
      * @param jobPostDto - job post details
      * </p>
      */
+    @Operation(summary = "Create a job post for a specific employer")
     @PostMapping("/{employerId}/job-posts")
     public ResponseEntity<JobPostDto> createJobPost(@Valid
             @PathVariable Long employerId,
@@ -138,6 +140,7 @@ public class EmployerController {
      * @param jobPostDto - updated job post details
      * </p>
      */
+    @Operation(summary = "Update a job post for a specific employer")
     @PutMapping("/{employerId}/job-posts/{jobPostId}")
     public ResponseEntity<JobPostDto> updateJobPost(
             @PathVariable Long employerId,
@@ -156,6 +159,7 @@ public class EmployerController {
      * @param jobId - unique identifier of the job post
      * </p>
      */
+    @Operation(summary = "Delete a job post for a specific employer")
     @DeleteMapping("/{employerId}/job-posts/{jobId}")
     public ResponseEntity<Void> deleteJobPost(@PathVariable Long employerId, @PathVariable Long jobId) {
         logger.info("Request received to delete job post with ID: {} for employer ID: {}", jobId, employerId);
@@ -170,6 +174,7 @@ public class EmployerController {
      * @param employerId - unique identifier of the employer
      * </p>
      */
+    @Operation(summary = "Get all job post for a specific employer")
     @GetMapping("/{employerId}/job-posts")
     public ResponseEntity<List<JobPostDto>> getAllJobPostsByEmployer(@PathVariable Long employerId) {
         logger.info("Request received to get all job posts for employer ID: {}", employerId);
@@ -183,6 +188,7 @@ public class EmployerController {
      * @param feedbackDto {link @FeedbackDto} receive from user as json format
      * @return The created feedback DTO with HTTP status 201 Created.
      */
+    @Operation(summary = "Create a feedback/query for a specific employer")
     @PostMapping("/feedback")
     public ResponseEntity<FeedbackDto> createFeedback(@RequestBody FeedbackDto feedbackDto) {
         feedbackDto.setFeedBackType(FeedbackType.EMPLOYER);
@@ -196,6 +202,7 @@ public class EmployerController {
      * @param userId Id of employer
      * @return The feedback DTO with HTTP status 200 OK.
      */
+    @Operation(summary = "Display feedback form by feedbackid and employer id")
     @GetMapping("/{userId}/feedback/{feedbackId}")
     public ResponseEntity<FeedbackDto> getFeedback(
             @PathVariable Long feedbackId,

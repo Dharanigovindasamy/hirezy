@@ -7,6 +7,7 @@ import com.ideas2it.hirezy.dto.JobPostDto;
 import com.ideas2it.hirezy.model.enums.FeedbackType;
 import com.ideas2it.hirezy.service.FeedbackService;
 import com.ideas2it.hirezy.service.JobPostService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -51,6 +52,7 @@ public class EmployeeController {
      * @return employeeDto - employeeDto after adding into the table
      *
      */
+    @Operation(summary = "Create a employee Profile")
     @PostMapping
     public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto){
         logger.info(ResponseEntity.ok("Files uploaded successfully"));
@@ -64,6 +66,7 @@ public class EmployeeController {
      * @return <List<EmployeeDto>> - list of employee profile
      *
      */
+    @Operation(summary = "Retrieve all employee")
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> displayEmployees() {
         return new ResponseEntity<>(employeeService.retrieveEmployees(), HttpStatus.OK);
@@ -77,6 +80,7 @@ public class EmployeeController {
      * @return employeeDto - employeeDto of the respective employee Id
      *
      */
+    @Operation(summary = "Display employee details by employee Id")
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> displayEmployeeById(@PathVariable("id") Long employeeId) {
        EmployeeDto employeeDto = employeeService.retrieveEmployeeById(employeeId);
@@ -85,12 +89,13 @@ public class EmployeeController {
 
     /**
      * <p>
-     *     Update employee by checking with employee id
+     *     Update employee by checking with employee
      * </p>
      * @param employeeDto - {@link EmployeeDto}
      * @return EmployeeDto - employeeDto to the user
      *
      */
+    @Operation(summary = "Update employee ")
     @PutMapping
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         employeeDto = employeeService.updateEmployee(employeeDto);
@@ -104,6 +109,7 @@ public class EmployeeController {
      * @param employeeId - employeeId of the employee
      *
      */
+    @Operation(summary = "Delete employee")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
@@ -115,6 +121,7 @@ public class EmployeeController {
      * @param feedbackDto {link @FeedbackDto} receive from user as json format
      * @return The created feedback DTO with HTTP status 201 Created.
      */
+    @Operation(summary = "Create a new feedback/query")
     @PostMapping("/feedback")
     public ResponseEntity<FeedbackDto> createFeedback(@RequestBody FeedbackDto feedbackDto) {
         feedbackDto.setFeedBackType(FeedbackType.EMPLOYEE);
@@ -128,6 +135,7 @@ public class EmployeeController {
      * @param userId Id of employee
      * @return The feedbackDTO with HTTP status 200 OK.
      */
+    @Operation(summary = "Retrieves a specific feedback by its id employee Id")
     @GetMapping("/{userId}/feedback/{feedbackId}")
     public ResponseEntity<FeedbackDto> getFeedback(
             @PathVariable Long feedbackId,
@@ -141,6 +149,7 @@ public class EmployeeController {
      * @param employeeId employee whose profile will be matched with jobposts.
      * @return A list of JobPostDto that match with employee's profile with HTTP status 200 OK.
      */
+    @Operation(summary = "Retrieves jobpost with an employee's profile based on key-skills, city and experience.")
     @GetMapping("/{employeeId}/auto-match-jobposts")
     public ResponseEntity<List<JobPostDto>> autoMatchJobs(@PathVariable Long employeeId) {
         List<JobPostDto> matchedJobs = jobPostService.autoMatchJobPostsWithEmployee(employeeId);
