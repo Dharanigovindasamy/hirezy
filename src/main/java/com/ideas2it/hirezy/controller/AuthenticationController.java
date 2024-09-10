@@ -48,14 +48,14 @@ public class AuthenticationController {
             @PathVariable String role,
             @Valid @RequestBody UserDto userDto
     ) throws MessagingException {
-        User user = mapToUser(userDto);
+
         if(!( role.equals("employees" )|| role.equals("employers"))) {
             return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
+        User user = mapToUser(userDto);
         otpService.generateOTP(user.getEmailId());
-            return new ResponseEntity<>(authenticationService.registerUser(
+        return new ResponseEntity<>(authenticationService.registerUser(
                     user, role),HttpStatus.CREATED);
-
     }
 
     /**
@@ -75,7 +75,7 @@ public class AuthenticationController {
                     "Account Verified Successfully. Login to Continue.",
                     HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Invalid OTP",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid OTP",HttpStatus.UNAUTHORIZED);
         }
     }
 

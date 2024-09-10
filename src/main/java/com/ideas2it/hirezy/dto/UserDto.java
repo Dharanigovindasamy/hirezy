@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private long id;
 
     @NotBlank(message = "Email ID is Required")
     @Email(message = "Enter Valid mailId like example@gmail.com")
