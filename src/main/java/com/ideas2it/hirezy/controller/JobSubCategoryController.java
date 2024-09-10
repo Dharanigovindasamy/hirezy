@@ -25,7 +25,7 @@ import com.ideas2it.hirezy.service.JobSubCategoryService;
  * Provides endpoints to create, retrieve, update, delete JobCategory.
  */
 @RestController
-@RequestMapping("admin/job-subcategories")
+@RequestMapping("admins/job-subcategories")
 public class JobSubCategoryController {
 
     @Autowired

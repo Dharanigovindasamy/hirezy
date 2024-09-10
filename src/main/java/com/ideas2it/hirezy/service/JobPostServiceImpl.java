@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobSubCategoryDto;
+import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobSubCategory;
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +66,7 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public List<JobPostDto> getAllJobs() {
         logger.info("Fetching all job posts");
-        List<JobPost> jobPosts = jobPostRepository.findAll();
+        List<JobPost> jobPosts = jobPostRepository.findByIsDeletedFalse();
         List<JobPostDto> jobPostDtos = new ArrayList<>();
         for (JobPost jobPost : jobPosts) {
             jobPostDtos.add(mapToJobPostDto(jobPost));
@@ -128,7 +129,6 @@ public class JobPostServiceImpl implements JobPostService {
             throw new ResourceNotFoundException("Job Category not found");
         }
         JobCategory jobCategory = mapToJobCategory(jobCategoryDto);
-
         JobSubCategoryDto jobSubCategoryDto = jobSubCategoryService.getJobSubCategoryById(jobPostDto.getJobSubCategoryId());
         JobSubCategory jobSubCategory = maptoJobSubCategory(jobSubCategoryDto);
         Location location = locationService.findOrCreateLocation(jobPostDto.getState(), jobPostDto.getCity());
@@ -173,15 +173,24 @@ public class JobPostServiceImpl implements JobPostService {
 
     @Override
     public void deleteJobPost(Long jobId) {
-        logger.info("Deleting job post with ID: {}", jobId);
-        jobPostRepository.deleteById(jobId);
-        logger.info("Job post deleted successfully with ID: {}", jobId);
+        logger.info("Removing JobPost with ID: {}", jobId);
+        JobPost jobPost = jobPostRepository.findByIsDeletedFalseAndId(jobId);
+        if (jobPost == null) {
+            logger.warn("JobPost not found with ID: {}", jobId);
+            throw new ResourceNotFoundException("JobPost not found with ID: " + jobId);
+        }
+        jobPost.setDeleted(true);
+        jobPostRepository.save(jobPost);
+        logger.info("Employer with ID: {} has been marked as deleted", jobId);
+
     }
+
 
     @Override
     public List<JobPostDto> getAllJobPostsByEmployer(Long employerId) {
         logger.info("Fetching all job posts for employer ID: {}", employerId);
-        List<JobPost> jobPosts = jobPostRepository.findByEmployerId(employerId);
+        List<JobPost> jobPosts = jobPostRepository.findByEmployerIdAndIsDeletedFalse(employerId);
+
         List<JobPostDto> jobPostDtos = jobPosts.stream()
                 .map(JobPostMapper::mapToJobPostDto)
                 .collect(Collectors.toList());

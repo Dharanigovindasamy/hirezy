@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ideas2it.hirezy.exception.AccessDeniedException;
+import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.enums.JobApplicationStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -118,7 +119,11 @@ public class JobApplicationServiceImpl implements JobApplicationService{
     public String applyJob(long employeeId, long jobPostId) {
         Employee employee = employeeService.retrieveEmployeeForJobPost(employeeId);
         JobPost jobPost = jobPostService.retrieveJobForApplication(jobPostId);
-
+        for(JobApplication jobApplication : jobApplicationRepository.findByJobPostId(employeeId)){
+            if (jobPostId == jobApplication.getJobPost().getId()) {
+                throw new ResourceAlreadyExistsException("Job Already Applied");
+            }
+        }
         JobApplication jobApplication = JobApplication.builder()
                 .employee(employee)
                 .jobPost(jobPost)

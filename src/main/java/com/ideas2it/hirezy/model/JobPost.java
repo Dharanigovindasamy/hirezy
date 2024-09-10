@@ -72,4 +72,7 @@ public class JobPost {
 
     @Column(name = "posted_date")
     private LocalDate postedDate;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }

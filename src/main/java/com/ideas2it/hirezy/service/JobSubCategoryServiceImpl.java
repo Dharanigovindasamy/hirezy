@@ -39,7 +39,6 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
     public List<JobSubCategoryDto> getAllJobSubCategories() {
         List<JobSubCategory> jobSubCategories = StreamSupport.stream(jobSubCategoryRepository.findAll().spliterator(), false)
                 .toList();
-
         return jobSubCategories.stream()
                 .map(JobSubCategoryMapper::maptoJobSubCategoryDto)
                 .collect(Collectors.toList());
@@ -81,7 +80,8 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
     public void deleteJobSubcategory(Long id) {
         JobSubCategory jobSubCategory = jobSubCategoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("JobSubcategory not found"));
-        jobSubCategoryRepository.delete(jobSubCategory);
+        jobSubCategory.setDeleted(true);
+        jobSubCategoryRepository.save(jobSubCategory);
         logger.info("Job sub Category deleted successfully {}", id);
     }
 }

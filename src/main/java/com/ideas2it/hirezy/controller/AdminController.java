@@ -29,7 +29,7 @@ import com.ideas2it.hirezy.service.FeedbackService;
  *
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminController {
     @Autowired
     private EmployeeService employeeService;

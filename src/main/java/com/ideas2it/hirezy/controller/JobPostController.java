@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,7 @@ public class JobPostController {
      */
     @Operation(summary = "Retrieves all job posts")
     @GetMapping
+    //@PreAuthorize("hasRole('EMPLOYEES') and hasRole('ADMINS') and hasRole('EMPLOYERS')")
     public ResponseEntity<List<JobPostDto>> getAllJobs() {
         logger.info("Fetching all job posts");
         List<JobPostDto> jobs = jobPostService.getAllJobs();

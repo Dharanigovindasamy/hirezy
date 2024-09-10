@@ -35,7 +35,6 @@ public class JobPostDto {
     private String jobDescription;
 
     @NotNull(message = "Experience is mandatory")
-    @Size(min = 0, max = 30, message= "Experience should be 0 to 30 years")
     private int experience;
 
     @NotNull(message = "KeySkills is required")

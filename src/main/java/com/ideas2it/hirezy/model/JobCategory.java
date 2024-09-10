@@ -44,4 +44,7 @@ public class JobCategory {
     @OneToMany(mappedBy = "jobCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<JobSubCategory> subCategories;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
 }

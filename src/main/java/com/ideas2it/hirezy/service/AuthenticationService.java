@@ -1,5 +1,6 @@
 package com.ideas2it.hirezy.service;
 
+import com.ideas2it.hirezy.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,8 @@ import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.UserRepository;
+
+import static com.ideas2it.hirezy.mapper.UserMapper.mapToUserDto;
 
 /**
  * This class manage all the authentication process.
@@ -55,7 +58,7 @@ public class AuthenticationService {
      * @return String
      *     Ii is the reply message to the user.
      */
-    public String registerUser(User user, String role) {
+    public UserDto registerUser(User user, String role) {
         String email = user.getEmailId();
         for (User users : userRepository.findAll()){
             if(email.equals(users.getEmailId())){
@@ -69,8 +72,7 @@ public class AuthenticationService {
                 .phoneNumber(user.getPhoneNumber())
                 .role(roleService.retrieveRoleByName(role))
                 .build();
-        userRepository.save(users);
-        return "SignUp Success";
+        return mapToUserDto(userRepository.save(users));
     }
 
     /**

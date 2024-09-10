@@ -92,7 +92,7 @@ public class JobApplicationController {
      */
     @Operation(summary = "Update job application")
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
+    @PreAuthorize("hasRole('EMPLOYERS') and !hasRole('ADMINS') and !hasRole('EMPLOYEES')")
     public ResponseEntity<JobApplicationDto> updateApplicationStatus(@PathVariable Long id,@RequestParam String status) {
         logger.info("Job Applications updated successfully {}", id);
         JobApplicationDto updatedJobApplication = jobApplicationService.updateApplicationStatus(id, status);
@@ -108,7 +108,7 @@ public class JobApplicationController {
      */
     @Operation(summary = "Retrieving job applications under the job post by giving job Post id")
     @GetMapping("/job-post/{jobPostId}")
-    @PreAuthorize("hasRole('EMPLOYER') and !hasRole('ADMIN') and !hasRole('EMPLOYEE')")
+    @PreAuthorize("hasRole('EMPLOYERS') and !hasRole('ADMINS') and !hasRole('EMPLOYEES')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByJobPostId(@PathVariable Long jobPostId) {
         List<JobApplicationDto> jobApplications = jobApplicationService.getJobApplicationByJobPostId(jobPostId);
         if(jobApplications.isEmpty()) {
@@ -130,7 +130,7 @@ public class JobApplicationController {
      */
     @Operation(summary = "Apply job to the employee")
     @PutMapping("/job-post/{jobPostId}/employee/{employeeId}")
-    @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYEES') and !hasRole('ADMINS') and !hasRole('EMPLOYERS')")
     public ResponseEntity<String> applyForJob(@PathVariable long jobPostId,@PathVariable long employeeId) {
         logger.info("Job Application applied successfully by {}",employeeId );
         return  new ResponseEntity<>(jobApplicationService.applyJob(employeeId,jobPostId),HttpStatus.OK);
@@ -145,7 +145,7 @@ public class JobApplicationController {
      */
     @Operation(summary = "Retrieve the jobs applied by the employee")
     @GetMapping("/employee/{employeeId}")
-    @PreAuthorize("hasRole('EMPLOYEE') and !hasRole('ADMIN') and !hasRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYEES') and !hasRole('ADMINS') and !hasRole('EMPLOYERS')")
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationByEmployee(@PathVariable Long employeeId) {
         List<JobApplicationDto> jobApplicationDto = jobApplicationService.retrieveEmployeeAppliedJobs(employeeId);
         logger.info("Displaying all Job Applications successfully {}", employeeId );

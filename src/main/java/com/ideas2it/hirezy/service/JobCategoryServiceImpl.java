@@ -47,7 +47,7 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
     @Override
     public JobCategoryDto getJobCategoryById(Long id) {
         JobCategory department = jobCategoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Department not found with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("JobCategory not found with ID: " + id));
         return JobCategoryMapper.mapTojobCategoryDto(department);
     }
 
@@ -77,7 +77,8 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
     public void deleteJobCategory(Long id) {
         JobCategory existingJobCategory = jobCategoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("JobCategory not found with ID: " + id));
-        jobCategoryRepository.delete(existingJobCategory);
+        existingJobCategory.setDeleted(true);
+        jobCategoryRepository.save(existingJobCategory);
         logger.info("Department is Deleted {}",existingJobCategory.getName());
     }
 }

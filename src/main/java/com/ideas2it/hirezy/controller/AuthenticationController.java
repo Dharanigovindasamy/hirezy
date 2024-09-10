@@ -44,25 +44,18 @@ public class AuthenticationController {
      */
     @Operation(summary = "manage the user Sign up")
     @PostMapping("/register/{role}")
-    public ResponseEntity<String> registerUser(
+    public ResponseEntity<UserDto> registerUser(
             @PathVariable String role,
             @Valid @RequestBody UserDto userDto
     ) throws MessagingException {
         User user = mapToUser(userDto);
         if(!( role.equals("employees" )|| role.equals("employers"))) {
-            return new ResponseEntity<> ("Check your Role ", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
-
-        String otp = otpService.generateOTP(user.getEmailId());
-        if (otp != null) {
+        otpService.generateOTP(user.getEmailId());
             return new ResponseEntity<>(authenticationService.registerUser(
                     user, role),HttpStatus.CREATED);
-        } else {
-            logger.warn("failed to generate otp");
-            return  new ResponseEntity<>(
-                    "OTP generation Failed.Please Try Again Later",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
     /**

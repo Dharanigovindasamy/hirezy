@@ -48,7 +48,6 @@ public class EmployeeDto {
     private String qualification;
 
     @NotNull
-    @Size(min = 1, max = 30, message= "Experience should be 0 to 30 years")
     private int yearOfExperience;
 
     @NotBlank(message = "Company type cannot be blank")
@@ -65,7 +64,6 @@ public class EmployeeDto {
     @NotNull(message = "User ID cannot be null")
     private long userId;
 
-    @NotBlank(message = "Gender cannot be blank")
     private Gender gender;
 
     @NotNull(message = "Skills must be in a list separated by commas")

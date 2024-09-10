@@ -27,7 +27,6 @@ import lombok.Setter;
 @Setter
 public class EmployerDto {
 
-    @NotNull(message = "Employer ID cannot be null")
     private Long id;
 
     @NotBlank(message = "Name cannot be blank")
@@ -51,6 +50,5 @@ public class EmployerDto {
     @NotNull(message = "User ID cannot be null")
     private long userId;
 
-    @NotBlank(message = "Gender field is mandatory")
     private Gender gender;
 }

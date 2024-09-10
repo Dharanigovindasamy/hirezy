@@ -43,4 +43,7 @@ public class JobSubCategory {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobCategory_id")
     private JobCategory jobCategory;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }
