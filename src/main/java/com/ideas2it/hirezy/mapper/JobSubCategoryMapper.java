@@ -36,6 +36,11 @@ public class JobSubCategoryMapper {
      * @return JobSubCategory - JobSubCategory given to the user
      */
     public static JobSubCategory maptoJobSubCategory(JobSubCategoryDto jobSubCategoryDto) {
+        if (jobSubCategoryDto.getId() == null) {
+            return JobSubCategory.builder()
+                    .name(jobSubCategoryDto.getName())
+                    .build();
+        }
         return JobSubCategory.builder()
                .id(jobSubCategoryDto.getId())
                 .name(jobSubCategoryDto.getName())
