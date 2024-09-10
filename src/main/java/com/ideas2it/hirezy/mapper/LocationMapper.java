@@ -15,10 +15,6 @@ public class LocationMapper {
      * @return LocationDto -{@link LocationDto} given to the user
      */
     public static LocationDto mapToLocationDto(Location location) {
-        if (location == null) {
-            return null;
-        }
-
         return LocationDto.builder()
                 .id(location.getId())
                 .state(location.getState())
@@ -34,10 +30,6 @@ public class LocationMapper {
      * @return location - location entity of the user
      */
     public static Location mapToLocation(LocationDto locationDto) {
-        if (locationDto == null) {
-            return null;
-        }
-
         return Location.builder()
                 .id(locationDto.getId())
                 .state(locationDto.getState())
