@@ -45,7 +45,7 @@ public class EmployerDto {
     private String industryType;
 
     @NotBlank(message = "Company type cannot be blank")
-    @Size(max = 50, message = "Company type cannot exceed 50 characters")
+    @Size(max = 30, message = "Company type cannot exceed 50 characters")
     private String companyType;
 
     @NotNull(message = "User ID cannot be null")

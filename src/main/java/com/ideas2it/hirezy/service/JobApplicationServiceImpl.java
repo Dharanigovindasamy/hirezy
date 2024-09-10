@@ -53,7 +53,6 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         List<JobApplication> jobApplications = jobApplicationRepository.findByIsDeletedFalse();
         if (jobApplications.isEmpty()) {
             logger.warn("Empty job application details");
-            throw new ResourceNotFoundException("Currently there is no job application");
         }
         for(JobApplication jobApplication : jobApplications) {
             JobApplicationDto jobApplicationDto = mapToJobApplicationDto(jobApplication);
@@ -82,7 +81,7 @@ public class JobApplicationServiceImpl implements JobApplicationService{
         jobApplication.setStatus(JobApplicationStatus.WITHDRAW);
         jobApplicationRepository.save(jobApplication);
         logger.info("Employee Withdraw application successfully {} ", id);
-        return "Job application Withdraw application  Successfully";
+        return "Job application Withdraw Successfully";
     }
 
     @Override

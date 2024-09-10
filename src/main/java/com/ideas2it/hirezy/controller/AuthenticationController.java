@@ -49,6 +49,10 @@ public class AuthenticationController {
             @Valid @RequestBody UserDto userDto
     ) throws MessagingException {
         User user = mapToUser(userDto);
+        if(!( role.equals("employees" )|| role.equals("employers"))) {
+            return new ResponseEntity<> ("Check your Role ", HttpStatus.FORBIDDEN);
+        }
+
         String otp = otpService.generateOTP(user.getEmailId());
         if (otp != null) {
             return new ResponseEntity<>(authenticationService.registerUser(

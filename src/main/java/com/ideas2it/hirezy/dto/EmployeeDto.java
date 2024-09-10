@@ -36,31 +36,27 @@ public class EmployeeDto {
     private String name;
 
     @NotNull
-    @Past(message = "Dob will not be in the future")
+    @Past
     private LocalDate dateOfBirth;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$")
-    private String resume;
-
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "City is required")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "City must be a string")
     private String city;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Qualification is required")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Enter valid qualification")
     private String qualification;
 
     @NotNull
     @Size(min = 1, max = 30, message= "Experience should be 0 to 30 years")
     private int yearOfExperience;
 
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Current company is required")
+    @NotBlank(message = "Company type cannot be blank")
+    @Size(max = 30, message = "Company type cannot exceed 50 characters")
     private String currentCompany;
 
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Designation is required")
+    @NotBlank(message = "Designation cannot be blank")
+    @Size(max = 20, message = "Designation type cannot exceed 20 characters")
     private String designation;
 
     @NotNull
@@ -69,9 +65,9 @@ public class EmployeeDto {
     @NotNull(message = "User ID cannot be null")
     private long userId;
 
-    @NotBlank(message = "Gender has to set")
+    @NotBlank(message = "Gender cannot be blank")
     private Gender gender;
 
-    @NotNull(message = "Key skills is required")
+    @NotNull(message = "Skills must be in a list separated by commas")
     private List<String> keySkills;
 }

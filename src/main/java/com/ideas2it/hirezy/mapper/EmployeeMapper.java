@@ -25,7 +25,6 @@ public class EmployeeMapper {
         employee.setId(employeeDto.getId());
         employee.setName(employeeDto.getName());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
-        employee.setResume(employeeDto.getResume());
         employee.setCity(employeeDto.getCity());
         employee.setQualification(employeeDto.getQualification());
         employee.setYearOfExperience(employeeDto.getYearOfExperience());
@@ -50,7 +49,6 @@ public class EmployeeMapper {
         employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());
         employeeDto.setDateOfBirth(employee.getDateOfBirth());
-        employeeDto.setResume(employee.getResume());
         employeeDto.setCity(employee.getCity());
         employeeDto.setQualification(employee.getQualification());
         employeeDto.setYearOfExperience(employee.getYearOfExperience());

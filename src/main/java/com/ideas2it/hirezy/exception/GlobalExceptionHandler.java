@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
         }
         errorMap.put("url", String.valueOf(req.getRequestURL()));
         errorMap.put("TimeStamp", String.valueOf(LocalDateTime.now()));
-        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMap, HttpStatus.NOT_ACCEPTABLE);
     }
 
     /**

@@ -53,9 +53,6 @@ public class Employee {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(name = "resume", nullable = false)
-    private String resume;
-
     @Column(name = "city", nullable = false)
     private String city;
 
