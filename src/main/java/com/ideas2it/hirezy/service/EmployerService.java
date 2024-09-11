@@ -74,10 +74,11 @@ public interface EmployerService {
       *     job post details based on the provided employer ID, job ID, and `JobPostDto`.
       * </p>
       *
+      * @param jobId The unique identifier of the job post to be updated.
       * @param jobPostDto -{@link JobPostDto}The data transfer object containing the updated job post details.
       * @return The updated `JobPostDto` reflecting the changes made.
       */
-     JobPostDto updateJobPost(JobPostDto jobPostDto);
+     JobPostDto updateJobPost(long jobId, JobPostDto jobPostDto);
 
      /**
       * <p>

@@ -78,7 +78,7 @@ public interface JobPostService {
      */
     List<JobPostDto> searchJobsByFilters(String state, String city, String jobCategoryName,
                                          String jobSubcategoryName, String companyName,
-                                         String companyType, String industryType,Integer experience,List<String> keySkills);
+                                         String companyType, String industryType,Integer experience,List<String> keySkills, String title);
 
     /**
      * Retrieve the job post is there present or not, after the retrieving apply for the job

@@ -138,32 +138,31 @@ public class EmployerController {
     /**
      * <p>
      * This method is used to update a job post for a specific employer.
-     * @param employerId - unique identifier of the employer
      * @param jobPostId - unique identifier of the job post
      * @param jobPostDto - {@link JobPostDto} updated job post details
      * </p>
      */
     @Operation(summary = "Update a job post for a specific employer")
-    @PutMapping("/{employerId}/job-posts")
+    @PutMapping("/job-posts/{jobPostId}")
     public ResponseEntity<JobPostDto> updateJobPost( @Valid
+            @PathVariable Long jobPostId,
             @RequestBody JobPostDto jobPostDto) {
-        logger.info("Request received to update job post with ID: {}", jobPostDto.getId());
-        JobPostDto updatedJobPost = employerService.updateJobPost(jobPostDto);
-        logger.info("Job post with ID {} has been updated", jobPostDto.getId());
+        logger.info("Request received to update job post with ID: {}", jobPostId);
+        JobPostDto updatedJobPost = employerService.updateJobPost(jobPostId, jobPostDto);
+        logger.info("Job post with ID {} has been updated", jobPostId);
         return new ResponseEntity<>(updatedJobPost, HttpStatus.OK);
     }
 
     /**
      * <p>
      * This method is used to delete a job post for a specific employer.
-     * @param employerId - unique identifier of the employer
      * @param jobId - unique identifier of the job post
      * </p>
      */
     @Operation(summary = "Delete a job post for a specific employer")
-    @DeleteMapping("/{employerId}/job-posts/{jobId}")
-    public ResponseEntity<Void> deleteJobPost(@PathVariable Long employerId, @PathVariable Long jobId) {
-        logger.info("Request received to delete job post with ID: {} for employer ID: {}", jobId, employerId);
+    @DeleteMapping("/job-posts/{jobId}")
+    public ResponseEntity<Void> deleteJobPost(@PathVariable Long jobId) {
+        logger.info("Request received to delete job post with ID: {}", jobId);
         employerService.deleteJobPost(jobId);
         logger.info("Job post with ID {} has been deleted", jobId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

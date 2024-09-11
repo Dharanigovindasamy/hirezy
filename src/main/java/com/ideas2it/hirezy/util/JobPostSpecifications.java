@@ -66,4 +66,9 @@ public class JobPostSpecifications {
             return criteriaBuilder.or(predicates);
         };
     }
+
+    public static Specification<JobPost> hasTitle(String title) {
+        return (root, query, criteriaBuilder) ->
+                title == null ? null : criteriaBuilder.equal(root.get("title"), title);
+    }
 }

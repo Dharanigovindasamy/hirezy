@@ -89,7 +89,7 @@ public class JobPostController {
      */
     @Operation(summary = "Searches for job posts based on various filters such as state, city, job category,\n" +
             "      job subcategory, company name, company type, and industry type")
-    @PostMapping("/search")
+    @GetMapping("/search")
     public ResponseEntity<List<JobPostDto>> searchJobs(
             @RequestParam(required = false) String state,
             @RequestParam(required = false) String city,
@@ -99,11 +99,12 @@ public class JobPostController {
             @RequestParam(required = false) String companyType,
             @RequestParam(required = false) String industryType,
             @RequestParam(required = false) Integer experience,
-            @RequestParam(required = false) List<String> keySkills) {
+            @RequestParam(required = false) List<String> keySkills,
+            @RequestParam(required = false)String title) {
 
         List<JobPostDto> jobs = jobPostService.searchJobsByFilters(state, city, jobCategoryName,
                 jobSubcategoryName, companyName,
-                companyType, industryType, experience, keySkills);
+                companyType, industryType, experience, keySkills, title);
         logger.info("Total job posts found: {}", jobs.size());
         return ResponseEntity.ok(jobs);
     }

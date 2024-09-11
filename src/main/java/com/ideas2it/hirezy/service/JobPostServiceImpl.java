@@ -89,7 +89,7 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public List<JobPostDto> searchJobsByFilters(String state, String city, String jobCategoryName,
                                                 String jobSubcategoryName, String companyName,
-                                                String companyType, String industryType,Integer experience,List<String> keySkills) {
+                                                String companyType, String industryType,Integer experience,List<String> keySkills, String title) {
         Specification<JobPost> specification = Specification.where(JobPostSpecifications.hasState(state))
                 .and(JobPostSpecifications.hasCity(city))
                 .and(JobPostSpecifications.hasJobCategoryName(jobCategoryName))
@@ -98,7 +98,8 @@ public class JobPostServiceImpl implements JobPostService {
                 .and(JobPostSpecifications.hasCompanyType(companyType))
                 .and(JobPostSpecifications.hasIndustryType(industryType))
                 .and(JobPostSpecifications.hasExperience(experience))
-                .and(JobPostSpecifications.hasKeySkills(keySkills));
+                .and(JobPostSpecifications.hasKeySkills(keySkills))
+                .and(JobPostSpecifications.hasTitle(title));
 
         List<JobPost> jobs = jobPostRepository.findAll(specification);
         List<JobPostDto> jobPostDtos = jobs.stream()
