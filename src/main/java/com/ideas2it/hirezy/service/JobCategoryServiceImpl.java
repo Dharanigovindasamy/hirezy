@@ -31,15 +31,15 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
 
     @Override
     public List<JobCategoryDto> getAllJobCategories() {
-        List<JobCategory> jobCategorys = new ArrayList<>();
-        Iterable<JobCategory> allJobCategorys = jobCategoryRepository.findAll();
-        for (JobCategory jobCategory : allJobCategorys) {
+        List<JobCategory> jobCategories = new ArrayList<>();
+        Iterable<JobCategory> allJobCategories = jobCategoryRepository.findAll();
+        for (JobCategory jobCategory : allJobCategories) {
             if (!jobCategory.isDeleted()) {
-                jobCategorys.add(jobCategory);
+                jobCategories.add(jobCategory);
             }
         }
         List<JobCategoryDto> jobCategoryDtos = new ArrayList<>();
-        for (JobCategory jobCategory : jobCategorys) {
+        for (JobCategory jobCategory : jobCategories) {
             jobCategoryDtos.add(JobCategoryMapper.mapTojobCategoryDto(jobCategory));
         }
         logger.info("Retrieving list of all jobCategory's");

@@ -2,6 +2,7 @@ package com.ideas2it.hirezy.repository;
 
 import com.ideas2it.hirezy.model.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,6 +37,5 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
      * @return the number of employers with the specified  deletion status.
      */
     Long countByIsDeleted(boolean isDeleted);
-
 
 }

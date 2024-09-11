@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.controller;
 
-import com.ideas2it.hirezy.dto.UserDto;
+import com.ideas2it.hirezy.dto.*;
+import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ideas2it.hirezy.service.AuthenticationService;
 import com.ideas2it.hirezy.service.OtpService;
-import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
-import com.ideas2it.hirezy.dto.OtpVerificationDto;
 import com.ideas2it.hirezy.model.User;
 
 import static com.ideas2it.hirezy.mapper.UserMapper.mapToUser;
@@ -52,6 +51,9 @@ public class AuthenticationController {
         if(!( role.equals("employees" )|| role.equals("employers"))) {
             return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
+        if (otpService.isAccountVerified(userDto.getEmailId())) {
+            throw new ResourceAlreadyExistsException("You are already a User.Please login");
+        }
         User user = mapToUser(userDto);
         otpService.generateOTP(user.getEmailId());
             return new ResponseEntity<>(authenticationService.registerUser(
@@ -68,7 +70,7 @@ public class AuthenticationController {
      */
     @Operation(summary = "Verify the otp entered by the user")
     @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOTP(@RequestBody OtpVerificationDto
+    public ResponseEntity<String> verifyOTP(@Valid @RequestBody OtpVerificationDto
                                                     otpVerificationRequest) {
         if (otpService.verifyOTP(otpVerificationRequest.getEmailId(),
                 otpVerificationRequest.getOtp())) {
@@ -82,7 +84,7 @@ public class AuthenticationController {
 
     /**
      * This method is to verify the login information of the user.
-     * @param request
+     * @param authenticationRequestDto
      *     It contains the email and the password of the user.
      * @return AuthenticationResponse
      *     It contains the Token for the user if he is verified.
@@ -90,52 +92,50 @@ public class AuthenticationController {
     @Operation(summary = "Verify the login information of the user.")
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@Valid
-            @RequestBody AuthenticationRequestDto request
+            @RequestBody AuthenticationRequestDto authenticationRequestDto
     ) {
-        if (!otpService.isAccountVerified(request.getEmailId()) &&
-                !request.getEmailId().equals("kishoreofficial@gmail.com")) {
+        if (!otpService.isAccountVerified(authenticationRequestDto.getEmailId()) &&
+                !authenticationRequestDto.getEmailId().equals("kishoreofficial@gmail.com")) {
             return new ResponseEntity<>("Account not verified. Please verify your account",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(authenticationService.authenticate(request),HttpStatus.OK);
+        return new ResponseEntity<>(authenticationService.authenticate(authenticationRequestDto),HttpStatus.OK);
     }
 
     /**
      * This method is to update the user password when he forgot his password.
      *
-     * @param authenticationRequest
-     *     It contains the email of the user who forgot his password.
+     * @param emailRequestDto It contains the email of the user who forgot his password.
      * @return String
-     *     It is the message to the user.
+     * It is the message to the user.
      */
     @Operation(summary = "Update the user password when he forgot his password")
     @PostMapping("/forgotPassword")
-    public ResponseEntity<String> updatePassword( @RequestBody AuthenticationRequestDto authenticationRequest) throws MessagingException {
-        String email = authenticationRequest.getEmailId();
+    public ResponseEntity<String> updatePassword(@Valid @RequestBody EmailRequestDto emailRequestDto) throws MessagingException {
+        String email = emailRequestDto.getEmailId();
         if(authenticationService.findByEmail(email)) {
-            String otp = otpService.generateOTP(authenticationRequest.getEmailId());
+            String otp = otpService.generateOTP(emailRequestDto.getEmailId());
             if(otp != null) {
                 return new ResponseEntity<>("Enter OTP to reset Password",HttpStatus.OK);
             }
-            return  new ResponseEntity<>("Error in generating otp.Please TryAgain later",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("Check your Email Id",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Check your Email Id",HttpStatus.UNAUTHORIZED);
     }
 
     /**
      * This method is to reset the password of the user.
-     * @param otpVerificationRequest
-     *     It contains the email,updated password and also otp for verification.
      *
+     * @param updatePasswordDto
+     *     It contains the email,updated password and also otp for verification.
      * @return String
-     *     It is the message to the user whether the password is updated or not.
+     * It is the message to the user whether the password is updated or not.
      */
     @Operation(summary = "Reset the password of the user after verify the OTP")
-    @PostMapping("/updatePassword/verify-otp")
-    public ResponseEntity<String> resetPassword(@RequestBody OtpVerificationDto
-                                            otpVerificationRequest) {
-        if (otpService.verifyOTP(otpVerificationRequest.getEmailId(), otpVerificationRequest.getOtp())) {
-            return new ResponseEntity<>(authenticationService.updatePassword(otpVerificationRequest.getEmailId(),otpVerificationRequest.getPassword()),HttpStatus.OK);
+    @PutMapping("/updatePassword/verify-otp")
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody UpdatePasswordDto
+                                                        updatePasswordDto){
+        if (otpService.verifyOTP(updatePasswordDto.getEmailId(), updatePasswordDto.getOtp())) {
+            return new ResponseEntity<>(authenticationService.updatePassword(updatePasswordDto.getEmailId(), updatePasswordDto.getPassword()),HttpStatus.OK);
         }
-        return new ResponseEntity<>("Enter The Correct OTP",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Enter The Correct OTP",HttpStatus.UNAUTHORIZED);
     }
 }

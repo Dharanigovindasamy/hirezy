@@ -87,7 +87,7 @@ public class JobApplicationControllerTest {
                         .jobCategory(JobCategory.builder()
                                 .id(1L)
                                 .name("it engineering")
-                                .subCategories(Set.of(JobSubCategory.builder()
+                                .subCategories(Set.of(JobSubCategory.builder() // Create a Set
                                         .id(1L)
                                         .name("front end")
                                         .build()))

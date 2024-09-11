@@ -83,14 +83,14 @@ public class AuthenticationService {
      * @return AuthenticationResponse
      *     It contains the Token generated for that user.
      */
-    public String authenticate(AuthenticationRequestDto request) {
+    public String authenticate(AuthenticationRequestDto authenticationRequestDto) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmailId(),
-                        request.getPassword()
+                        authenticationRequestDto.getEmailId(),
+                        authenticationRequestDto.getPassword()
                 )
         );
-        var user = userRepository.findByEmailId(request.getEmailId())
+        var user = userRepository.findByEmailId(authenticationRequestDto.getEmailId())
                 .orElseThrow();
         return jwtService.generateToken(user);
     }

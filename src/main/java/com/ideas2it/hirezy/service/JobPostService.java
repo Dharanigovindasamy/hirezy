@@ -43,11 +43,10 @@ public interface JobPostService {
     /**
      * Updates an existing job post by its ID.
      *
-     * @param jobId The ID of the job post to update.
      * @param jobPostDto - {@link JobPostDto}A JobPostDto object containing the updated details of the job post.
      * @return A JobPostDto object representing the updated job post.
      */
-    JobPostDto updateJobPost(Long jobId, JobPostDto jobPostDto);
+    JobPostDto updateJobPost(JobPostDto jobPostDto);
 
     /**
      * Deletes a job post by its ID.

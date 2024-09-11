@@ -1,7 +1,6 @@
 package com.ideas2it.hirezy.service;
 
 import com.ideas2it.hirezy.dto.AuthenticationRequestDto;
-import com.ideas2it.hirezy.dto.OtpVerificationDto;
 import com.ideas2it.hirezy.model.Role;
 import com.ideas2it.hirezy.model.User;
 import com.ideas2it.hirezy.repository.UserRepository;
@@ -12,11 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,7 +77,7 @@ public class AuthenticationServiceTest {
     public void testUpdatePassword() {
         when(userRepository.findByEmailId(request.getEmailId())).thenReturn(Optional.ofNullable(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
-        authenticationService.updatePassword(anyString(),anyString());
+        authenticationService.updatePassword(request.getEmailId(),request.getPassword());
         verify(userRepository,times(1));
     }
     }

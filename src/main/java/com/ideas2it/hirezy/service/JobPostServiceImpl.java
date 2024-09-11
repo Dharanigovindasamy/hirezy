@@ -29,7 +29,6 @@ import com.ideas2it.hirezy.repository.JobPostRepository;
 import com.ideas2it.hirezy.util.JobPostSpecifications;
 
 import static com.ideas2it.hirezy.mapper.EmployeeMapper.mapDtoToEntity;
-import static com.ideas2it.hirezy.mapper.EmployerMapper.convertDtoToEntity;
 import static com.ideas2it.hirezy.mapper.JobCategoryMapper.mapToJobCategory;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPost;
 import static com.ideas2it.hirezy.mapper.JobPostMapper.mapToJobPostDto;
@@ -146,11 +145,11 @@ public class JobPostServiceImpl implements JobPostService {
     }
 
     @Override
-    public JobPostDto updateJobPost(Long jobId, JobPostDto jobPostDto) {
-        logger.info("Updating job post with ID: {}", jobId);
-        if(!jobPostRepository.existsById(jobId)) {
-            logger.error(" Job post not found with ID: {}", jobId);
-            throw new ResourceNotFoundException("JobPost not found with id " + jobId);
+    public JobPostDto updateJobPost(JobPostDto jobPostDto) {
+        logger.info("Updating job post with ID: {}", jobPostDto.getId());
+        if(!jobPostRepository.existsById(jobPostDto.getId())) {
+            logger.error(" Job post not found with ID: {}", jobPostDto.getId());
+            throw new ResourceNotFoundException("JobPost not found with id " + jobPostDto.getId());
         }
 
         JobPost jobPost = mapToJobPost(jobPostDto);
@@ -167,7 +166,7 @@ public class JobPostServiceImpl implements JobPostService {
         Employer employer = employerService.retrieveEmployerForJobPost(jobPostDto.getEmployerId());
         jobPost.setEmployer(employer);
         jobPost = jobPostRepository.save(jobPost);
-        logger.info("Job post updated successfully with ID: {}", jobId);
+        logger.info("Job post updated successfully with ID: {}", jobPostDto.getId());
         return mapToJobPostDto(jobPost);
     }
 

@@ -116,9 +116,9 @@ import static com.ideas2it.hirezy.mapper.EmployerMapper.convertEntityToDto;
     }
 
     @Override
-    public JobPostDto updateJobPost(long employerId, long jobId, JobPostDto jobPostDto) {
-        logger.info("Updating job post with id: {} for employer with id: {}", jobId, employerId);
-        return jobPostService.updateJobPost(jobId, jobPostDto);
+    public JobPostDto updateJobPost(JobPostDto jobPostDto) {
+        logger.info("Updating job post with id: {} ", jobPostDto.getId());
+        return jobPostService.updateJobPost(jobPostDto);
     }
 
     @Override
