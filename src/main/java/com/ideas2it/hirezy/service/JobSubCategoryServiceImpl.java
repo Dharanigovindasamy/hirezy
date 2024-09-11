@@ -38,6 +38,7 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
     @Override
     public List<JobSubCategoryDto> getAllJobSubCategories() {
         List<JobSubCategory> jobSubCategories = StreamSupport.stream(jobSubCategoryRepository.findAll().spliterator(), false)
+                .filter(jobSubCategory -> !jobSubCategory.isDeleted())
                 .toList();
         return jobSubCategories.stream()
                 .map(JobSubCategoryMapper::maptoJobSubCategoryDto)
@@ -46,7 +47,7 @@ public class JobSubCategoryServiceImpl implements JobSubCategoryService {
 
     @Override
     public JobSubCategoryDto getJobSubCategoryById(Long id) {
-        JobSubCategory jobSubcategory = jobSubCategoryRepository.findById(id)
+        JobSubCategory jobSubcategory = jobSubCategoryRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException("JobSubcategory not found"));
         return JobSubCategoryMapper.maptoJobSubCategoryDto(jobSubcategory);
     }

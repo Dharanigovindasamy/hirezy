@@ -81,7 +81,7 @@ public class AuthenticationServiceTest {
     public void testUpdatePassword() {
         when(userRepository.findByEmailId(request.getEmailId())).thenReturn(Optional.ofNullable(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
-        authenticationService.updatePassword();
+        authenticationService.updatePassword(anyString(),anyString());
         verify(userRepository,times(1));
     }
     }

@@ -24,7 +24,7 @@ public interface JobSubCategoryService {
     List<JobSubCategoryDto> getAllJobSubCategories();
 
     /**
-     * Retrieves an job subCategory by their ID.
+     * Retrieves a job subCategory by their ID.
      *
      * @param id the ID of the JobCategory to be retrieved
      * @return the job subcategory entity with the specified ID

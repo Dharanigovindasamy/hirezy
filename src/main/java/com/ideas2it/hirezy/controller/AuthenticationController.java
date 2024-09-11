@@ -54,8 +54,9 @@ public class AuthenticationController {
         }
         User user = mapToUser(userDto);
         otpService.generateOTP(user.getEmailId());
-        return new ResponseEntity<>(authenticationService.registerUser(
+            return new ResponseEntity<>(authenticationService.registerUser(
                     user, role),HttpStatus.CREATED);
+
     }
 
     /**
@@ -75,7 +76,7 @@ public class AuthenticationController {
                     "Account Verified Successfully. Login to Continue.",
                     HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Invalid OTP",HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid OTP",HttpStatus.BAD_REQUEST);
         }
     }
 

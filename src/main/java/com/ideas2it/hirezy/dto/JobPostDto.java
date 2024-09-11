@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class JobPostDto {
     @NotNull(message = "Experience is mandatory")
     private int experience;
 
-    @NotNull(message = "KeySkills is required")
+    @NotEmpty(message = "KeySkills is required")
     private List<String> keySkills;
 
     @NotBlank(message = "State field is mandatory")

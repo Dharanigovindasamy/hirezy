@@ -34,7 +34,7 @@ public class FeedbackDto {
     private String content;
 
     private String adminReply;
-    
+
     private LocalDateTime createdDate;
 
     private LocalDateTime updatedDate;

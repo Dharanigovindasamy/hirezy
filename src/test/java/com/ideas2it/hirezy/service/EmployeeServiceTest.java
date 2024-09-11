@@ -46,7 +46,6 @@ public class EmployeeServiceTest {
                 .id(1L)
                 .name("John")
                 .dateOfBirth(LocalDate.of(2000, 10, 10))
-                .resume("resume")
                 .city("chennai")
                 .qualification("BE")
                 .yearOfExperience(3)

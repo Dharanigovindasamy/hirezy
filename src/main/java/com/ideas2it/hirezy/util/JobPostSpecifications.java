@@ -8,8 +8,8 @@ import org.springframework.data.jpa.domain.Specification;
 import com.ideas2it.hirezy.model.JobPost;
 
 /**
- * This class provides specifications for querying job posts based on their state.
- * The `hasState` method returns a specification that filters job posts by the specified state.
+ * This class provides specifications for querying job posts based on their state,etc.
+ * (e.g) The `hasState` method returns a specification that filters job posts by the specified state.
  * If the `state` parameter is null, no filtering is applied.
  * @author kishore
  */

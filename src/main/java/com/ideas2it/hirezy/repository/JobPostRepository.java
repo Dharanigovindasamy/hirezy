@@ -1,6 +1,7 @@
 package com.ideas2it.hirezy.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.ideas2it.hirezy.model.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.ideas2it.hirezy.model.JobPost;
 
 /*
- *<p>This class is the interface to JPA repository and acts as the dao for CRUD
+ *<p> This class is the interface to JPA repository and acts as the dao for CRUD
  * operations in the dao
  * </p>
 * @Author Audhithiyah
@@ -40,4 +41,11 @@ public interface JobPostRepository extends JpaRepository<JobPost, Long>, JpaSpec
      *     It contains all the job post.
      */
     List<JobPost> findByIsDeletedFalse();
+
+    /**
+     * This method is to retrieve By id of JobPost.
+     * @return List<JobPost>
+     *     It contains all the job post.
+     */
+    Optional<JobPost> findByIdAndIsDeletedFalse(Long id);
 }

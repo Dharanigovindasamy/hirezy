@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ideas2it.hirezy.model.JobCategory;
 
+import java.util.Optional;
+
 /**
  * Repository interface for managing JobCategory entities.
  * Provides CRUD operations for JobCategory entities.
@@ -21,4 +23,12 @@ public interface JobCategoryRepository extends CrudRepository<JobCategory, Long>
      * @return true if searching category is present or else false
      */
     boolean existsByName(String name);
+
+    /**
+     *  Retrieve by jobCategory id
+     * @param id Jobcategory id
+     * @return Active jobcategory.
+     */
+    Optional<JobCategory> findByIdAndIsDeletedFalse(Long id);
 }
+

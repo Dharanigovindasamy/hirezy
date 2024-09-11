@@ -54,7 +54,6 @@ public class JobApplicationServiceTest {
                         .id(1L)
                         .name("John")
                         .dateOfBirth(LocalDate.of(2000, 10, 10))
-                        .resume("resume")
                         .city("chennai")
                         .qualification("BE")
                         .yearOfExperience(3)
@@ -95,7 +94,7 @@ public class JobApplicationServiceTest {
                         .jobCategory(JobCategory.builder()
                                 .id(1L)
                                 .name("it engineering")
-                                .subcategories(Set.of(JobSubCategory.builder() // Create a Set
+                                .subCategories(Set.of(JobSubCategory.builder() // Create a Set
                                         .id(1L)
                                         .name("front end")
                                         .build()))
@@ -120,7 +119,6 @@ public class JobApplicationServiceTest {
                         .id(1L)
                         .name("John")
                         .dateOfBirth(LocalDate.of(2000, 10, 10))
-                        .resume("resume")
                         .city("chennai")
                         .qualification("BE")
                         .yearOfExperience(3)

@@ -198,9 +198,9 @@ class JobPostServiceTest {
     @Test
     void testGetAllJobPostsByEmployer() {
         List<JobPost> jobPosts = List.of(jobPost);
-        when(jobPostRepository.findByEmployerId(1L)).thenReturn(jobPosts);
+        when(jobPostRepository.findByEmployerIdAndIsDeletedFalse(1L)).thenReturn(jobPosts);
         List<JobPostDto> jobPostDtos = jobPostServiceImpl.getAllJobPostsByEmployer(1L);
         assertEquals(1, jobPostDtos.size());
-        verify(jobPostRepository, times(1)).findByEmployerId(1L);
+        verify(jobPostRepository, times(1)).findByEmployerIdAndIsDeletedFalse(1L);
     }
 }

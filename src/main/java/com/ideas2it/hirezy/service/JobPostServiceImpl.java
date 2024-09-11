@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 import com.ideas2it.hirezy.dto.EmployeeDto;
 import com.ideas2it.hirezy.dto.JobSubCategoryDto;
-import com.ideas2it.hirezy.exception.ResourceAlreadyExistsException;
 import com.ideas2it.hirezy.model.Employee;
 import com.ideas2it.hirezy.model.JobSubCategory;
 import org.apache.logging.log4j.LogManager;
@@ -78,7 +77,7 @@ public class JobPostServiceImpl implements JobPostService {
     @Override
     public JobPostDto getJobById(Long id) {
         logger.info("Fetching job post by ID: {}", id);
-        Optional<JobPost> jobPostOptional = jobPostRepository.findById(id);
+        Optional<JobPost> jobPostOptional = jobPostRepository.findByIdAndIsDeletedFalse(id);
         if (jobPostOptional.isPresent()) {
             logger.info("Job post found with ID: {}", id);
             return mapToJobPostDto(jobPostOptional.get());
@@ -104,6 +103,7 @@ public class JobPostServiceImpl implements JobPostService {
 
         List<JobPost> jobs = jobPostRepository.findAll(specification);
         List<JobPostDto> jobPostDtos = jobs.stream()
+                .filter(job -> !job.isDeleted())
                 .map(JobPostMapper::mapToJobPostDto)
                 .collect(Collectors.toList());
 
@@ -208,6 +208,7 @@ public class JobPostServiceImpl implements JobPostService {
                 .toList();
 
         return matchingJobs.stream()
+                .filter(job -> !job.isDeleted())
                 .map(JobPostMapper::mapToJobPostDto)
                 .collect(Collectors.toList());
     }

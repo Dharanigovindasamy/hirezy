@@ -34,7 +34,9 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
         List<JobCategory> jobCategorys = new ArrayList<>();
         Iterable<JobCategory> allJobCategorys = jobCategoryRepository.findAll();
         for (JobCategory jobCategory : allJobCategorys) {
+            if (!jobCategory.isDeleted()) {
                 jobCategorys.add(jobCategory);
+            }
         }
         List<JobCategoryDto> jobCategoryDtos = new ArrayList<>();
         for (JobCategory jobCategory : jobCategorys) {
@@ -46,9 +48,9 @@ public class JobCategoryServiceImpl  implements JobCategoryService {
 
     @Override
     public JobCategoryDto getJobCategoryById(Long id) {
-        JobCategory department = jobCategoryRepository.findById(id)
+        JobCategory jobCategory = jobCategoryRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException("JobCategory not found with ID: " + id));
-        return JobCategoryMapper.mapTojobCategoryDto(department);
+        return JobCategoryMapper.mapTojobCategoryDto(jobCategory);
     }
 
     @Override

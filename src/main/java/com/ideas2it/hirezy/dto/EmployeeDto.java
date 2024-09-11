@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ideas2it.hirezy.model.enums.Gender;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
@@ -66,6 +67,6 @@ public class EmployeeDto {
 
     private Gender gender;
 
-    @NotNull(message = "Skills must be in a list separated by commas")
+    @NotEmpty(message = "Skills must be in a list separated by commas")
     private List<String> keySkills;
 }
