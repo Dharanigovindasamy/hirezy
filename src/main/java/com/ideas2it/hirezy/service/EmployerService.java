@@ -78,7 +78,7 @@ public interface EmployerService {
       * @param jobPostDto -{@link JobPostDto}The data transfer object containing the updated job post details.
       * @return The updated `JobPostDto` reflecting the changes made.
       */
-     JobPostDto updateJobPost(long jobId, JobPostDto jobPostDto);
+     JobPostDto updateJobPost(JobPostDto jobPostDto);
 
      /**
       * <p>
@@ -88,7 +88,7 @@ public interface EmployerService {
       *
       * @param jobId The unique identifier of the job post to be deleted.
       */
-     void deleteJobPost(Long jobId);
+     void deleteJobPost(long jobId);
 
      /**
       * <p>

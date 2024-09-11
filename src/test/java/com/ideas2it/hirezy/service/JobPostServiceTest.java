@@ -132,17 +132,17 @@ class JobPostServiceTest {
         List<JobPost> jobPosts = List.of(jobPost);
         when(jobPostRepository.findAll(any(Specification.class))).thenReturn(jobPosts);
         Object[][] testCases = {
-                {"Tamil Nadu", "Chennai", "IT", "Software Development", null, "Private", "IT", 2, List.of("Java")},
-                {null, "Chennai", null, null, null, null, null, 2, null},
-                {null, null, null, null, null, null, null, 2, null},
-                {null, null, null, null, null, null, null, null, null},
-                {"Tamil Nadu", "Chennai", null, null, null, null, null, null, List.of("Java", "Spring")}
+                {"Tamil Nadu", "Chennai", "IT", "Software Development", null, "Private", "IT", 2, List.of("Java"), null},
+                {null, "Chennai", null, null, null, null, null, 2, null, null},
+                {null, null, null, null, null, null, null, 2, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {"Tamil Nadu", "Chennai", null, null, null, null, null, null, List.of("Java", "Spring"), null}
         };
         for (Object[] testCase : testCases) {
             List<JobPostDto> jobPostDtos = jobPostServiceImpl.searchJobsByFilters(
                     (String) testCase[0], (String) testCase[1], (String) testCase[2],
                     (String) testCase[3], (String) testCase[4], (String) testCase[5],
-                    (String) testCase[6], (Integer) testCase[7], (List<String>) testCase[8]);
+                    (String) testCase[6], (Integer) testCase[7], (List<String>) testCase[8],(String) testCase[9]);
             assertEquals(1, jobPostDtos.size());
         }
         verify(jobPostRepository, times(testCases.length)).findAll(any(Specification.class));
@@ -176,7 +176,7 @@ class JobPostServiceTest {
         when(jobSubCategoryService.getJobSubCategoryById(1L)).thenReturn(jobSubCategoryDto);
         when(locationService.findOrCreateLocation("Tamil Nadu", "Chennai")).thenReturn(location);
         when(jobPostRepository.save(any(JobPost.class))).thenReturn(jobPost);
-        JobPostDto result = jobPostServiceImpl.updateJobPost(1L, jobPostDto);
+        JobPostDto result = jobPostServiceImpl.updateJobPost(jobPostDto);
         assertNotNull(result);
         assertEquals(jobPost.getTitle(), result.getTitle());
         verify(jobPostRepository, times(1)).save(any(JobPost.class));
@@ -185,7 +185,7 @@ class JobPostServiceTest {
     @Test
     void testUpdateJobPost_NotFound() {
         when(jobPostRepository.existsById(1L)).thenReturn(false);
-        assertThrows(ResourceNotFoundException.class, () -> jobPostServiceImpl.updateJobPost(1L, jobPostDto));
+        assertThrows(ResourceNotFoundException.class, () -> jobPostServiceImpl.updateJobPost(jobPostDto));
     }
 
     @Test

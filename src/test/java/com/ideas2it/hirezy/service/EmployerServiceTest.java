@@ -122,9 +122,9 @@ public class EmployerServiceTest {
         JobPostDto jobPostDto = new JobPostDto();
         jobPostDto.setId(1L);
 
-        when(jobPostService.updateJobPost(anyLong(), any(JobPostDto.class))).thenReturn(jobPostDto);
+        when(jobPostService.updateJobPost( any(JobPostDto.class))).thenReturn(jobPostDto);
 
-        JobPostDto updatedJobPost = employerService.updateJobPost(1L, 1L, jobPostDto);
+        JobPostDto updatedJobPost = employerService.updateJobPost(jobPostDto);
         assertNotNull(updatedJobPost);
         assertEquals(jobPostDto.getId(), updatedJobPost.getId());
     }

@@ -121,16 +121,16 @@ class EmployerControllerTest {
 
     @Test
     void testUpdateJobPost() {
-        when(employerService.updateJobPost(anyLong(), anyLong(), any(JobPostDto.class))).thenReturn(jobPostDto);
-        ResponseEntity<JobPostDto> response = employerController.updateJobPost(1L, 101L, jobPostDto);
+        when(employerService.updateJobPost(any(JobPostDto.class))).thenReturn(jobPostDto);
+        ResponseEntity<JobPostDto> response = employerController.updateJobPost(jobPostDto);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jobPostDto, response.getBody());
-        verify(employerService, times(1)).updateJobPost(anyLong(), anyLong(), any(JobPostDto.class));
+        verify(employerService, times(1)).updateJobPost(any(JobPostDto.class));
     }
 
     @Test
     void testDeleteJobPost() {
-        ResponseEntity<Void> response = employerController.deleteJobPost(1L, 101L);
+        ResponseEntity<Void> response = employerController.deleteJobPost( 101L);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         verify(employerService, times(1)).deleteJobPost(101L);
     }

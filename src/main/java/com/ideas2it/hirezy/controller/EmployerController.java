@@ -145,11 +145,10 @@ public class EmployerController {
     @Operation(summary = "Update a job post for a specific employer")
     @PutMapping("/job-posts/{jobPostId}")
     public ResponseEntity<JobPostDto> updateJobPost( @Valid
-            @PathVariable Long jobPostId,
             @RequestBody JobPostDto jobPostDto) {
-        logger.info("Request received to update job post with ID: {}", jobPostId);
-        JobPostDto updatedJobPost = employerService.updateJobPost(jobPostId, jobPostDto);
-        logger.info("Job post with ID {} has been updated", jobPostId);
+        logger.info("Request received to update job post with ID: {}", jobPostDto.getId());
+        JobPostDto updatedJobPost = employerService.updateJobPost(jobPostDto);
+        logger.info("Job post with ID {} has been updated", jobPostDto.getId());
         return new ResponseEntity<>(updatedJobPost, HttpStatus.OK);
     }
 
